@@ -6,7 +6,7 @@ namespace App\Entity;
 
 class Project
 {
-    private ?int $id = null;
+    private ?string $id = null;
 
     private ?string $name = null;
 
@@ -39,5 +39,15 @@ class Project
         $this->description = $description;
 
         return $this;
+    }
+
+    public static function createFromJson(string $id, array $data): static
+    {
+        $project = new self();
+        $project->id = $id;
+        $project->name = $data['name'];
+        $project->description = $data['description'];
+
+        return $project;
     }
 }

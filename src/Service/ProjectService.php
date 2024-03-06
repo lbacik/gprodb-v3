@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Repository\ProjectCollection;
+use App\Repository\ProjectRepository;
+use JsonHub\SDK\FilterCriteria;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class ProjectService
@@ -11,13 +14,18 @@ class ProjectService
     public function __construct(
         #[Autowire(env: 'PROJECT_INFO_DEFINITION' )]
         private readonly string $projectInfoDefinitionId,
+        private readonly ProjectRepository $projectRepository,
     ) {
     }
 
-    public function getProjects(): array
+    public function getProjects(int $page = 1, int $limit = 10): ProjectCollection
     {
-        dump($this->projectInfoDefinitionId);
-
-        return [];
+        return $this->projectRepository->find(
+            new FilterCriteria(
+                page: $page,
+                limit: $limit,
+                definitionUuid: $this->projectInfoDefinitionId,
+            )
+        );
     }
 }
