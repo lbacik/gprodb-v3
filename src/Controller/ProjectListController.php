@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Service\ProjectService;
-use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Adapter\FixedAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,11 +24,10 @@ class ProjectListController extends AbstractController
         #[MapQueryParameter()] int $page = 1,
         #[MapQueryParameter()] int $limit = 10
     ): Response {
-
         $projects = $this->projectService->getProjects($page, $limit);
+
         $adapter = new FixedAdapter($projects->getTotal(), (array) $projects);
         $pagerfanta = new Pagerfanta($adapter);
-
         $pagerfanta->setMaxPerPage($limit);
         $pagerfanta->setCurrentPage($page);
 
