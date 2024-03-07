@@ -15,7 +15,7 @@
                     <tr>
                         <td>{{ project.name }}</td>
                         <td>{{ project.description[0]|default('')|u.truncate(100, '...') }}</td>
-                        <td><a href="#{# path('', {'id': project.id}) #}">Show</a></td
+                        <td><a href="{{ path('app_project_details', {'id': project.id}) }}">Show</a></td>
                     </tr>
                 {% endfor %}
         </table>
