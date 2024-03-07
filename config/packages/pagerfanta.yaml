@@ -1,3 +1,7 @@
 babdev_pagerfanta:
     # The default Pagerfanta view to use in your application
     default_view: twig
+    default_twig_template: '@BabDevPagerfanta/tailwind.html.twig'
+    exceptions_strategy:
+        out_of_range_page: to_http_not_found
+        not_valid_current_page: to_http_not_found
