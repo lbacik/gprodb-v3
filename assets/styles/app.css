@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: skyblue;
+/*body {*/
+/*    background-color: skyblue;*/
+/*}*/
+
+h3 {
+    @apply text-3xl font-bold mt-5 mb-5;
 }
