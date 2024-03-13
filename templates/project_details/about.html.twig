@@ -1,0 +1,7 @@
+{% extends 'index.html.twig' %}
+
+{% block content %}
+    {% for paragraph in project.description %}
+        <p class="mb-5">{{ paragraph }}</p>
+    {% endfor %}
+{% endblock %}
