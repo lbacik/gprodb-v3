@@ -10,7 +10,9 @@ class Project
 
     private ?string $name = null;
 
-    private ?array $description = null;
+    private array $description = [];
+
+    private array $links = [];
 
     public function getId(): ?string
     {
@@ -29,14 +31,26 @@ class Project
         return $this;
     }
 
-    public function getDescription(): ?array
+    public function getDescription(): array
     {
         return $this->description;
     }
 
-    public function setDescription(?array $description): static
+    public function setDescription(array $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getLinks(): array
+    {
+        return $this->links;
+    }
+
+    public function setLinks(array $links): self
+    {
+        $this->links = $links;
 
         return $this;
     }
@@ -45,8 +59,10 @@ class Project
     {
         $project = new self();
         $project->id = $id;
-        $project->name = $data['name'];
-        $project->description = $data['description'];
+        $project
+            ->setName($data['name'])
+            ->setDescription($data['description'])
+            ->setLinks($data['links'] ?? []);
 
         return $project;
     }
