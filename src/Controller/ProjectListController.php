@@ -25,8 +25,9 @@ class ProjectListController extends AbstractController
         #[MapQueryParameter()] int $limit = 10
     ): Response {
         $projects = $this->projectService->getProjects($page, $limit);
+        $projectsCount = $this->projectService->count();
 
-        $adapter = new FixedAdapter($projects->getTotal(), (array) $projects);
+        $adapter = new FixedAdapter($projectsCount, (array) $projects);
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage($limit);
         $pagerfanta->setCurrentPage($page);
