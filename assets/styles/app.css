@@ -9,3 +9,21 @@
 h3 {
     @apply text-3xl font-bold mt-5 mb-5;
 }
+
+.markdown {
+    p + p {
+        @apply mt-3;
+    }
+}
+
+.image-blurred-edge {
+    /*background-image: url('http://localhost:8000/images/126-2.jpg');*/
+    box-shadow: 0 0 8px 8px white inset;
+}
+
+form {
+    button {
+        /*@apply bg-blue-500 text-white font-bold py-2 px-4 rounded;*/
+        @apply bg-blue-500;
+    }
+}

@@ -15,9 +15,11 @@
         {{ include('partials/_header.html.twig') }}
 
         <div class="flex justify-center">
-            <div class="w-2/3">
+{#            <div class="w-2/3">#}
                 {% block body %}{% endblock %}
-            </div>
+{#            </div>#}
         </div>
+
+        {{ include('partials/_footer.html.twig') }}
     </body>
 </html>
