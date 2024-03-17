@@ -49,6 +49,7 @@ final class ProjectFactory extends ModelFactory
         return [
             'description' => self::faker()->paragraphs(rand(1, 5), true),
             'name' => self::faker()->domainName(),
+            'owner' => UserFactory::random(),
         ];
     }
 

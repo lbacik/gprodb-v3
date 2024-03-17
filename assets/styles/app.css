@@ -81,6 +81,29 @@ h3 {
     }
 }
 
+.form-login {
+    input {
+        @apply border border-gray-300 p-1 px-2;
+    }
+
+    label {
+        @apply text-gray-400 text-xs;
+    }
+
+    form > div {
+        @apply mt-4;
+    }
+
+    .submit-button-row {
+        @apply text-center;
+    }
+
+    .submit-button {
+        @apply bg-blue-500 text-white p-2 px-4 rounded hover:bg-blue-600;
+    }
+
+}
+
 .sign-in-li {
     margin-left: 80px !important;
 }

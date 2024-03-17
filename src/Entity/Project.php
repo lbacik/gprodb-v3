@@ -28,6 +28,10 @@ class Project
     #[ORM\OneToMany(targetEntity: Link::class, mappedBy: 'project', orphanRemoval: true)]
     private Collection $links;
 
+    #[ORM\ManyToOne(inversedBy: 'projects')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
+
     public function __construct()
     {
         $this->links = new ArrayCollection();
@@ -88,6 +92,18 @@ class Project
                 $link->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
 
         return $this;
     }
