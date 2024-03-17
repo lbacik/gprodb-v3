@@ -1,35 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContactType extends AbstractType
+class LinkType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('subject')
-            ->add('message', TextareaType::class, [
-                'attr' => ['rows' => 5],
-
-            ])
-            ->add('submit', SubmitType::class, [
+            ->add('url', TextType::class)
+            ->add('delete', SubmitType::class, [
                 'row_attr' => [
-                    'class' => 'submit-button-row',
+                    'class' => 'link-delete-button-cell',
                 ],
                 'attr'=> [
-                    'class' => 'submit-button',
+                    'class' => 'link-delete-button',
                 ],
+                'label' => '<span class="fa-solid fa-trash-can"></span>',
+                'label_html' => true,
+
             ])
         ;
     }
@@ -37,7 +34,7 @@ class ContactType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => 'App\Entity\Link',
         ]);
     }
 }

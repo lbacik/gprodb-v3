@@ -16,14 +16,75 @@ h3 {
     }
 }
 
-.image-blurred-edge {
-    /*background-image: url('http://localhost:8000/images/126-2.jpg');*/
-    box-shadow: 0 0 8px 8px white inset;
+/*.image-blurred-edge {*/
+/*    !*background-image: url('http://localhost:8000/images/126-2.jpg');*!*/
+/*    box-shadow: 0 0 8px 8px white inset;*/
+/*}*/
+
+.form-links {
+    .link-element {
+        @apply mt-4;
+    }
+
+    .link-row {
+        @apply grid gap-2 grid-flow-col grid-cols-[auto_auto_30px];
+    }
+
+    .link-delete-button-cell {
+        @apply text-end flex items-end;
+    }
+
+    .link-delete-button {
+        @apply bg-red-500 hover:bg-red-700 text-white text-sm py-2 px-2 rounded;
+    }
+
+    input {
+        @apply border border-gray-300 p-1 px-2;
+    }
+
+    label {
+        @apply text-gray-400 text-xs;
+    }
+
+    .submit-button-row {
+        @apply text-center mt-8;
+    }
+
+    .submit-button {
+        @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+    }
+
+    .add-link-button {
+        @apply bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded;
+    }
 }
 
-form {
-    button {
-        /*@apply bg-blue-500 text-white font-bold py-2 px-4 rounded;*/
-        @apply bg-blue-500;
+.form-contact {
+    input, textarea {
+        @apply border border-gray-300 p-1 px-2;
     }
+
+    label {
+        @apply text-gray-400 text-xs;
+    }
+
+    form > div {
+        @apply mt-4;
+    }
+
+    .submit-button-row {
+        @apply text-center;
+    }
+
+    .submit-button {
+        @apply bg-blue-500 text-white p-2 px-4 rounded hover:bg-blue-600;
+    }
+}
+
+.sign-in-li {
+    margin-left: 80px !important;
+}
+
+.register-li {
+    margin-left: 20px !important;
 }

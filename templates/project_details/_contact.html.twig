@@ -1,2 +1,15 @@
 
-{{ form(contactForm) }}
+<div class="form-contact">
+    {{ form_start(form) }}
+    <div class="grid grid-cols-2 gap-4">
+        {{ form_row(form.name) }}
+        {{ form_row(form.email) }}
+    </div>
+
+    {{ form_row(form.subject) }}
+    {{ form_row(form.message) }}
+
+    {{ form_row(form.submit) }}
+
+    {{ form_end(form) }}
+</div>

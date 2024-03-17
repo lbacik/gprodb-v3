@@ -4,6 +4,7 @@ module.exports = {
   content: [
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
+    // "./src/Form/**/*.php",
     "./vendor/pagerfanta/twig/templates/tailwind.html.twig",
   ],
   theme: {

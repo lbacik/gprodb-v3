@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\ContactType;
+use App\Form\LinksType;
 use App\Service\ProjectService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,15 +28,17 @@ class ProjectDetailsController extends AbstractController
             throw $this->createNotFoundException('The project does not exist');
         }
 
-        if ($tab === 'contact') {
-            $contactForm = $this->createForm(ContactType::class);
-        }
+        match($tab) {
+            'links' => $form = $this->createForm(LinksType::class, $project),
+            'contact' => $form = $this->createForm(ContactType::class),
+            default => $form = null,
+        };
 
         return $this->render('project_details/index.html.twig', [
             'projectId' => $id,
             'tab' => $tab,
             'project' => $project,
-            'contactForm' => $contactForm ?? null,
+            'form' => $form ?? null,
         ]);
     }
 
