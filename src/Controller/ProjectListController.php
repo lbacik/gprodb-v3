@@ -21,11 +21,13 @@ class ProjectListController extends AbstractController
 
     #[Route('/projects', name: 'app_project_list')]
     public function index(
+        #[MapQueryParameter()] string $q = '',
         #[MapQueryParameter()] int $page = 1,
         #[MapQueryParameter()] int $limit = 10
     ): Response {
-        $projects = $this->projectService->getProjects($page, $limit);
-        $projectsCount = $this->projectService->count();
+
+        $projects = $this->projectService->getProjects($q, $page, $limit);
+        $projectsCount = $this->projectService->count($q);
 
         $adapter = new FixedAdapter($projectsCount, (array) $projects);
         $pagerfanta = new Pagerfanta($adapter);
@@ -34,6 +36,7 @@ class ProjectListController extends AbstractController
 
         return $this->render('project_list/index.html.twig', [
             'projects' => $pagerfanta,
+            'searchString' => $q,
         ]);
     }
 }

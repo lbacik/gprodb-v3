@@ -6,6 +6,7 @@ namespace App\Service;
 
 use App\Entity\Project;
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\Criteria;
 
 class ProjectService
 {
@@ -14,9 +15,9 @@ class ProjectService
     ) {
     }
 
-    public function getProjects(int $page = 1, int $limit = 10): array
+    public function getProjects(string $searchString, int $page = 1, int $limit = 10): array
     {
-        return $this->projectRepository->findBy([], [], $limit, ($page - 1) * $limit);
+        return $this->projectRepository->findBySearchString($searchString, ($page - 1) * $limit, $limit);
     }
 
     public function getProject(string $projectId): Project|null
@@ -24,8 +25,8 @@ class ProjectService
         return $this->projectRepository->find($projectId);
     }
 
-    public function count(): int
+    public function count(string $searchString): int
     {
-        return $this->projectRepository->count([]);
+        return $this->projectRepository->countBySearchString($searchString);
     }
 }
