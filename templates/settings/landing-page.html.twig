@@ -25,7 +25,24 @@
             </aside>
 
             <div class="w-full">
-                {% if form %}{{ form(form) }}{% endif %}
+                {% if form %}
+                    {{ form_start(form) }}
+
+                        {{ form_rest(form) }}
+
+                        <div class="text-end mt-10">
+                            <a href="{{ path('app_project_details', {id: projectId, tab: 'settings'}) }}"
+                               class="bg-red-400 px-4 py-2.5 rounded-lg text-white w-24"
+                            >Cancel</a>
+
+                            <button type="submit"
+                                    class="bg-blue-400 px-4 py-2 rounded-lg text-white ml-2 w-24"
+                            >Save</button>
+
+                        </div>
+
+                    {{ form_end(form) }}
+                {% endif %}
             </div>
         </div>
     </twig:Center>
