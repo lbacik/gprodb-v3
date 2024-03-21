@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{#    <div class="flex item-center mt-20">#}
+    <twig:Center>
         <div class="w-1/2 mt-10">
             <h3>{{ project.name }}</h3>
 
@@ -15,14 +15,16 @@
                 {{ include('project_details/_links.html.twig') }}
             {% elseif tab == 'contact' %}
                 {{ include('project_details/_contact.html.twig') }}
+            {% elseif tab == 'settings' %}
+                {{ include('project_details/_settings.html.twig') }}
             {% endif %}
 
-{#            <div class="mt-10 mb-10">#}
-{#                <span class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">#}
-{#                    Project tags:#}
-{#                </span>#}
-{#            </div>#}
+            {#            <div class="mt-10 mb-10"> #}
+            {#                <span class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"> #}
+            {#                    Project tags: #}
+            {#                </span> #}
+            {#            </div> #}
 
         </div>
-{#    </div>#}
+    </twig:Center>
 {% endblock %}

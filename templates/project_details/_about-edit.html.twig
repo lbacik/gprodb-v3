@@ -1,0 +1,16 @@
+
+<div>
+    <textarea id="md-editor" name="description" class="form-control" rows="10">{{ project.description }}</textarea>
+
+    <script>
+        const simplemde = new SimpleMDE({
+            element: document.getElementById("md-editor"),
+            toolbar: [
+                "bold", "italic", "heading", "|",
+                "quote", "unordered-list", "ordered-list", "|",
+                "link", "table", "|",
+                "guide"
+            ]
+        });
+    </script>
+</div>

@@ -1,0 +1,46 @@
+<div>
+    <table class="table w-full">
+        <tbody>
+            <twig:Settings:Item
+                :projectSettings="projectSettings"
+                name="Landing page"
+                property="landingPageEntityId"
+                urlPrefix="https://pages.gprodb.com/"
+                csrfName="landing-page"
+                editAction="%"
+                createAction="{{ path('app_settings_landing_page_create', {id: projectId}) }}"
+                />
+
+            <twig:Settings:Item
+                :projectSettings="projectSettings"
+                name="Custom domain"
+                property="customDomainEntityId"
+                urlPrefix="https://jsonhub.cloud/entities/"
+                csrfName="domain"
+                editAction="%"
+                createAction="%"
+                />
+
+            <twig:Settings:Item
+                :projectSettings="projectSettings"
+                name="Newsletter type"
+                property="newsletterProviderEntityId"
+                urlPrefix="https://jsonhub.cloud/entities/"
+                csrfName="newsletter-type"
+                editAction="%"
+                createAction="%"
+            />
+
+            <twig:Settings:Item
+                :projectSettings="projectSettings"
+                name="Newsletter config"
+                property="newsletterProviderConfigEntityId"
+                urlPrefix="https://jsonhub.cloud/entities/"
+                csrfName="newsletter-config"
+                editAction="%"
+                createAction="%"
+                />
+
+        </tbody>
+    </table>
+</div>

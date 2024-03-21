@@ -1,22 +1,15 @@
 
-<div class="form-links">
+<div>
 
-    {{ form_start(form) }}
-
-        <div {{ stimulus_controller('form-collection') }}
-            data-form-collection-index-value="{{ form.links|length > 0 ? form.links|last.vars.name + 1 : 0 }}"
-            data-form-collection-prototype-value="{{ form_widget(form.links.vars.prototype)|e('html_attr') }}"
-            class="text-end"
-        >
-            <button type="button"
-                    class="add-link-button"
-                    {{ stimulus_action('form-collection', 'addCollectionElement') }}
-            >Add a link</button>
-
-            <ul {{ stimulus_target('form-collection', 'collectionContainer') }}></ul>
-
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user == project.owner %}
+        <div class="mb-10 text-end">
+            <a href="{{ path('app_home', {id: project.id}) }}" class="bg-blue-500 px-4 py-2 text-white rounded-md">Edit</a>
         </div>
+    {% endif %}
 
-    {{ form_end(form) }}
-
+    <ul>
+        {% for link in project.links %}
+            <li>{{ link.name }}: <a href="{{ link.url }}">{{ link.url }}</a></li>
+        {% endfor %}
+    </ul>
 </div>

@@ -111,3 +111,41 @@ h3 {
 .register-li {
     margin-left: 20px !important;
 }
+
+.landing-page {
+    aside {
+
+        .active {
+            @apply px-4 py-2 rounded-full bg-blue-500 text-white;
+        }
+
+        .inactive {
+            @apply px-4 py-2 rounded-full bg-gray-200 text-gray-600;
+        }
+
+        ul {
+            @apply mt-10;
+
+            li {
+                @apply text-center;
+            }
+
+            li + li {
+                @apply mt-2;
+            }
+        }
+    }
+
+    label {
+        @apply text-gray-400 text-xs;
+    }
+
+    input,textarea {
+        @apply border border-gray-300 p-1 px-2;
+    }
+
+    input[type="checkbox"] {
+        @apply h-5 w-5 mr-2;
+    }
+
+}

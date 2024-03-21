@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Project;
+use App\Entity\ProjectSettings;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\Criteria;
 
@@ -28,5 +29,10 @@ class ProjectService
     public function count(string $searchString): int
     {
         return $this->projectRepository->countBySearchString($searchString);
+    }
+
+    public function getProjectSettings(Project $project): ProjectSettings
+    {
+        return new ProjectSettings();
     }
 }

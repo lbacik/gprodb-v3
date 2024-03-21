@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <twig:Center>
+        <div class="w-1/2 mt-10">
+            <h3>{{ project.name }}</h3>
+            <h4>Landing page configuration</h4>
+        </div>
+    </twig:Center>
+
+    <twig:Center>
+        <div class="landing-page flex w-2/3 mt-10">
+
+            <aside class="mr-10 flex-shrink-0">
+                <ul>
+                    <li class="{{ tab == 'base' ? 'active' : 'inactive' }}"><a
+                                href="{{ path('app_settings_landing_page', {id: projectId}) }}">Base data</a></li>
+                    <li class="{{ tab == 'hero' ? 'active' : 'inactive' }}"><a
+                                href="{{ path('app_settings_landing_page', {id: projectId, tab: 'hero'}) }}">Hero</a>
+                    </li>
+                    <li class="{{ tab == 'about' ? 'active' : 'inactive' }}"><a
+                                href="{{ path('app_settings_landing_page', {id: projectId, tab: 'about'}) }}">About</a>
+                    </li>
+                </ul>
+            </aside>
+
+            <div class="w-full">
+                {% if form %}{{ form(form) }}{% endif %}
+            </div>
+        </div>
+    </twig:Center>
+
+{% endblock %}

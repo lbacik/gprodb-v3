@@ -1,21 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="mt-20">
+    <twig:Center class="mt-10">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            {{ include('project_list/_search_input.html.twig') }}
 
-        {{ include('project_list/_search_input.html.twig') }}
-
-        <table class="table-fixed text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="table-fixed text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th class="px-6 py-3">Name</th>
                     <th class="px-6 py-3">Description</th>
                     <td class="px-6 py-3"></td>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 {% for project in projects %}
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -31,12 +30,12 @@
                         </td>
                     </tr>
                 {% endfor %}
-        </table>
+            </table>
 
-         <div class="my-5 grid justify-items-center">
-             {{ pagerfanta(projects) }}
-         </div>
-    </div>
-</div>
+            <div class="my-5 grid justify-items-center">
+                {{ pagerfanta(projects) }}
+            </div>
+        </div>
+    </twig:Center>
 
 {% endblock %}

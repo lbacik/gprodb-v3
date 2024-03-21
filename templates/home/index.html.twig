@@ -2,23 +2,14 @@
 
 {% block body %}
 
-    <div class="relative mt-20">
+    <div class="relative">
 
         <img src="{{ asset('images/126-2.jpg') }}"
              alt="home page graphic"
              class="drop-shadow-2xl"
-
-{#             class="border-x-2 border-gray-100"#}
-{#             class="w-full h-screen"#}
-{#             class="rounded-lg"#}
-{#             style="box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);"#}
         />
 
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-        p-6
-        bg-opacity-80 bg-gray-100 rounded-lg
-        backdrop-filter backdrop-blur-xs
-">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 bg-opacity-80 bg-gray-100 rounded-lg backdrop-filter backdrop-blur-xs">
             <a href="{{ path('app_project_list') }}"
                class="rounded rounded-lg bg-blue-600 px-10 py-3 font-bold text-white text-2xl transition hover:bg-blue-700"
                style="box-shadow: 0 0 10px 5px rgba(0,0,0,0.3);"

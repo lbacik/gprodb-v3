@@ -20,5 +20,15 @@
                class="{{ tab == 'contact' ? active : inactive }}"
             >Contact</a>
         </li>
+
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user == project.owner %}
+
+            <li>
+                <a href="{{ path('app_project_details', {id: projectId, tab: 'settings'}) }}"
+                   class="{{ tab == 'settings' ? active : inactive }}"
+                >Settings</a>
+            </li>
+
+        {% endif %}
     </ul>
 </div>

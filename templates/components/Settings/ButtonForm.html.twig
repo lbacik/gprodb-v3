@@ -1,0 +1,9 @@
+<div{{ attributes }}>
+    <form action="{{ action }}" method="POST">
+        <input type="submit"
+               class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-700 {{ iclass|default('w-24') }}"
+               value="{{ buttonLabel }}"
+        />
+        <input type="hidden" name="token" value="{{ csrf_token(csrfName) }}">
+    </form>
+</div>

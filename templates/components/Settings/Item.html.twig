@@ -1,0 +1,30 @@
+
+{% set settingProperty = attribute(projectSettings, property) %}
+
+<tr>
+    <th class="text-start">{{ name }}</th>
+    <td class="text-center">
+        {% if settingProperty %}
+            <a href="{{ urlPrefix }}{{ settingProperty }}">
+                {{ settingProperty }}
+            </a>
+        {% else %}
+            Not set
+        {% endif %}
+    </td>
+    <td class="text-end">
+        {% if settingProperty %}
+            <twig:Settings:ButtonForm
+                    buttonLabel="Edit"
+                    csrfName="{{ csrfName }}-edit"
+                    action="{{ editAction }}"
+            />
+        {% else %}
+            <twig:Settings:ButtonForm
+                    buttonLabel="Create"
+                    csrfName="{{ csrfName }}-create"
+                    action="{{ createAction }}"
+            />
+        {% endif %}
+    </td>
+</tr>
