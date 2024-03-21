@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,12 +14,18 @@ class AboutType extends AbstractType
     {
         $builder
             ->add('subtitle')
-            ->add('columnLeft', TextareaType::class, [
+            ->add('columnLeft', CKEditorType::class, [
+                'config' => [
+                    'uiColor' => '#e2e2e2',
+                ],
                 'attr' => [
                     'rows' => 10,
                 ],
             ])
-            ->add('columnRight', TextareaType::class, [
+            ->add('columnRight', CKEditorType::class, [
+                'config' => [
+                    'uiColor' => '#e2e2e2',
+                ],
                 'attr' => [
                     'rows' => 10,
                 ],
