@@ -2,19 +2,27 @@
 
     {{ form_start(form) }}
 
-    <div {{ stimulus_controller('form-collection') }}
-            data-form-collection-index-value="{{ form.links|length > 0 ? form.links|last.vars.name + 1 : 0 }}"
-            data-form-collection-prototype-value="{{ form_widget(form.links.vars.prototype)|e('html_attr') }}"
-            class="text-end"
-    >
-        <button type="button"
-                class="add-link-button"
-                {{ stimulus_action('form-collection', 'addCollectionElement') }}
-        >Add a link</button>
+        <div {{ stimulus_controller('form-collection') }}
+                data-form-collection-index-value="{{ form.links|length > 0 ? form.links|last.vars.name + 1 : 0 }}"
+                data-form-collection-prototype-value="{{ form_widget(form.links.vars.prototype)|e('html_attr') }}"
+                class="text-end"
+        >
+            <button type="button"
+                    class="add-link-button"
+                    {{ stimulus_action('form-collection', 'addCollectionElement') }}
+            >Add a link</button>
 
-        <ul {{ stimulus_target('form-collection', 'collectionContainer') }}></ul>
+            <ul {{ stimulus_target('form-collection', 'collectionContainer') }}></ul>
 
-    </div>
+        </div>
+
+        {{ form_rest(form) }}
+
+
+        <div class="text-end">
+            <a href="{{ path('app_project_details', {id: project.id, tab: 'links'}) }}" class="btn-cancel">Cancel</a>
+            <button class="btn-submit ml-2">Save</button>
+        </div>
 
     {{ form_end(form) }}
 

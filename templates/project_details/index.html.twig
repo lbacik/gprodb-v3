@@ -9,15 +9,18 @@
                 {{ include('project_details/_tabs.html.twig') }}
             </div>
 
-            {% if tab == 'about' %}
-                {{ include('project_details/_about.html.twig') }}
-            {% elseif tab == 'links' %}
-                {{ include('project_details/_links.html.twig') }}
-            {% elseif tab == 'contact' %}
-                {{ include('project_details/_contact.html.twig') }}
-            {% elseif tab == 'settings' %}
-                {{ include('project_details/_settings.html.twig') }}
-            {% endif %}
+            {{ include('project_details/' ~ template ~ '.html.twig') }}
+
+
+{#            {% if tab == 'about' %}#}
+{#                {{ include('project_details/_about.html.twig') }}#}
+{#            {% elseif tab == 'links' %}#}
+{#                {{ include('project_details/_links.html.twig') }}#}
+{#            {% elseif tab == 'contact' %}#}
+{#                {{ include('project_details/_contact.html.twig') }}#}
+{#            {% elseif tab == 'settings' %}#}
+{#                {{ include('project_details/_settings.html.twig') }}#}
+{#            {% endif %}#}
 
             {#            <div class="mt-10 mb-10"> #}
             {#                <span class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"> #}

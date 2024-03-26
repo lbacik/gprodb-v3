@@ -1,16 +1,19 @@
 
-<div>
-    <textarea id="md-editor" name="description" class="form-control" rows="10">{{ project.description }}</textarea>
+<div
+        {{ stimulus_controller('markdown_editor') }}
+>
 
-    <script>
-        const simplemde = new SimpleMDE({
-            element: document.getElementById("md-editor"),
-            toolbar: [
-                "bold", "italic", "heading", "|",
-                "quote", "unordered-list", "ordered-list", "|",
-                "link", "table", "|",
-                "guide"
-            ]
-        });
-    </script>
+    {{ form_start(form, {
+        action: path('app_project_edit', { id: project.id }),
+    }) }}
+
+        {{ form_rest(form) }}
+
+        <div class="text-end">
+            <a href="{{ path('app_project_details', {id: project.id}) }}" class="btn-cancel">Cancel</a>
+            <button class="btn-submit ml-2">Save</button>
+        </div>
+
+    {{ form_end(form) }}
+
 </div>

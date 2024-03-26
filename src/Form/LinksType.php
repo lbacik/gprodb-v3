@@ -31,14 +31,14 @@ class LinksType extends AbstractType
                 'by_reference' => false,
                 'label' => false,
             ])
-            ->add('submit', SubmitType::class, [
-                'row_attr' => [
-                    'class' => 'submit-button-row',
-                ],
-                'attr'=> [
-                    'class' => 'submit-button',
-                ],
-            ])
+//            ->add('submit', SubmitType::class, [
+//                'row_attr' => [
+//                    'class' => 'submit-button-row',
+//                ],
+//                'attr'=> [
+//                    'class' => 'submit-button',
+//                ],
+//            ])
         ;
     }
 

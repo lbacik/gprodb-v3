@@ -8,11 +8,14 @@ use App\Entity\Project;
 use App\Entity\ProjectSettings;
 use App\Form\ContactType;
 use App\Form\LinksType;
+use App\Form\ProjectAboutType;
 use App\Service\ProjectService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ProjectDetailsController extends AbstractController
@@ -24,28 +27,43 @@ class ProjectDetailsController extends AbstractController
     }
 
     #[Route('/projects/{id}/{tab}', name: 'app_project_details', methods: ['GET'])]
-    public function index(string $id, string|null $tab = 'about'): Response
-    {
+    public function index(
+        string $id,
+        string|null $tab = 'about',
+        #[MapQueryParameter('edit')] bool $edit = false,
+    ): Response {
         $project = $this->projectService->getProject($id);
 
         if ($project === null) {
             throw $this->createNotFoundException('The project does not exist');
         }
 
-        match($tab) {
-            'links' => $form = $this->createForm(LinksType::class, $project),
-            'contact' => $form = $this->createForm(ContactType::class),
-            'settings' => $projectSettings = $this->getProjectSettings($project),
-            default => $form = null,
-        };
+        return $this->render(
+            'project_details/index.html.twig',
+            array_merge([
+                'projectId' => $id,
+                'tab' => $tab,
+                'project' => $project,
+                'form' => $this->getForm($tab, $edit, $project),
+                'template' => $this->getTemplateName($tab, $edit),
+            ],
+            $this->getAdditionalData($tab, $project)
+            )
+        );
+    }
 
-        return $this->render('project_details/index.html.twig', [
-            'projectId' => $id,
-            'tab' => $tab,
-            'project' => $project,
-            'projectSettings' => $projectSettings ?? null,
-            'form' => $form ?? null,
-        ]);
+    #[Route('/projects/{id}/about', name: 'app_project_edit', methods: ['POST'])]
+    public function projectEdit(Request $request, string $id): Response
+    {
+        $form = $this->createForm(ProjectAboutType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Your changes have been saved');
+            return $this->redirect($this->generateUrl('app_project_details', ['id' => $id]));
+        }
+
+        return new Response(null, 400);
     }
 
     #[Route('/projects/{id}/contact', name: 'app_project_contact', methods: ['POST'])]
@@ -71,5 +89,36 @@ class ProjectDetailsController extends AbstractController
         }
 
         return $this->projectService->getProjectSettings($project);
+    }
+
+    private function getForm(string $tab, bool $edit, Project $project): FormInterface|null
+    {
+        return match($tab) {
+            'about' => $edit ? $this->createForm(ProjectAboutType::class, $project) : null,
+            'links' => $this->createForm(LinksType::class, $project),
+            'contact' => $this->createForm(ContactType::class),
+            default => null,
+        };
+    }
+
+    private function getTemplateName(string $tab, bool $edit): string
+    {
+        return match($tab) {
+            'about' => $edit ? '_about-edit' : '_about',
+            'links' => $edit ? '_links-edit' : '_links',
+            'contact' => '_contact',
+            'settings' => '_settings',
+            default => '_about',
+        };
+    }
+
+    private function getAdditionalData(string $tab, Project $project): array
+    {
+        return match($tab) {
+            'settings' => [
+                'projectSettings' => $this->getProjectSettings($project),
+            ],
+            default => [],
+        };
     }
 }
