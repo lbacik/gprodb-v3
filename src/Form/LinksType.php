@@ -16,6 +16,12 @@ class LinksType extends AbstractType
     {
         $builder
             ->add('links', CollectionType::class, [
+                'row_attr' => [
+                    'class' => 'links-collection-row',
+                ],
+                'attr' => [
+                    'class' => 'links-collection',
+                ],
                 'entry_type' => LinkType::class,
                 'entry_options' => [
                     'label' => false,

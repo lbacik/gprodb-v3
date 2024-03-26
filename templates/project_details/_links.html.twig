@@ -13,9 +13,14 @@
         </div>
     {% endif %}
 
-    <ul>
+    <div class="">
         {% for link in project.links %}
-            <li>{{ link.name }}: <a href="{{ link.url }}">{{ link.url }}</a></li>
+            <div class="grid grid-cols-10 mb-5">
+                <div class="col-span-3 text-end mr-2">{{ link.name }}</div>
+                <div class="col-span-7">
+                    <a href="{{ link.url }}" class="text-blue-400 hover:underline">{{ link.url }}</a>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>

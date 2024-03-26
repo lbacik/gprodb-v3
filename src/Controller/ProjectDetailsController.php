@@ -60,7 +60,29 @@ class ProjectDetailsController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $this->addFlash('success', 'Your changes have been saved');
-            return $this->redirect($this->generateUrl('app_project_details', ['id' => $id]));
+
+            dump($form->getData());
+
+            return new Response(null, 204);
+
+//            return $this->redirect($this->generateUrl('app_project_details', ['id' => $id]));
+        }
+
+        return new Response(null, 400);
+    }
+
+    #[Route('/projects/{id}/links', name: 'app_project_links_edit', methods: ['POST'])]
+    public function linksEdit(Request $request, string $id): Response
+    {
+        $form = $this->createForm(LinksType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Your changes have been saved');
+
+            dump($form->getData());
+
+            return new Response(null, 204);
         }
 
         return new Response(null, 400);
