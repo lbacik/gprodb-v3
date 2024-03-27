@@ -9,14 +9,16 @@ export default class extends Controller {
     static targets = ['editor']
 
     connect() {
-        const simplemde = new SimpleMDE({
-            element: this.editorTarget,
-            toolbar: [
-                "bold", "italic", "heading", "|",
-                "quote", "unordered-list", "ordered-list", "|",
-                "link", "table", "|",
-                "guide"
-            ]
-        });
+        this.editorTargets.forEach((editor) => {
+            new SimpleMDE({
+                element: editor,
+                toolbar: [
+                    "bold", "italic", "heading", "|",
+                    "quote", "unordered-list", "ordered-list", "|",
+                    "link", "table", "|",
+                    "preview", "guide"
+                ]
+            })
+        })
     }
 }

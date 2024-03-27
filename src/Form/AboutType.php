@@ -14,20 +14,16 @@ class AboutType extends AbstractType
     {
         $builder
             ->add('subtitle')
-            ->add('columnLeft', CKEditorType::class, [
-                'config' => [
-                    'uiColor' => '#e2e2e2',
-                ],
+            ->add('columnLeft', TextareaType::class, [
                 'attr' => [
                     'rows' => 10,
+                    'data-markdown-editor-target' => 'editor',
                 ],
             ])
-            ->add('columnRight', CKEditorType::class, [
-                'config' => [
-                    'uiColor' => '#e2e2e2',
-                ],
+            ->add('columnRight', TextareaType::class, [
                 'attr' => [
                     'rows' => 10,
+                    'data-markdown-editor-target' => 'editor',
                 ],
             ])
         ;

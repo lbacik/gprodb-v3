@@ -3,13 +3,12 @@
 
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user == project.owner %}
         <div class="mb-10 text-end">
-            <a href="{{ path('app_project_details', {
+            <twig:Button href="{{ path('app_project_details', {
                     id: project.id,
                     tab: 'links',
                     edit: true,
                 }) }}"
-               class="bg-blue-500 px-4 py-2 text-white rounded-md"
-            >Edit</a>
+            >Edit</twig:Button>
         </div>
     {% endif %}
 

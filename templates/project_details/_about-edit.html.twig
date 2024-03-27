@@ -10,8 +10,12 @@
         {{ form_rest(form) }}
 
         <div class="text-end">
-            <a href="{{ path('app_project_details', {id: project.id}) }}" class="btn-cancel">Cancel</a>
-            <button class="btn-submit ml-2">Save</button>
+            <twig:Button
+                    href="{{ path('app_project_details', { id: project.id }) }}"
+                    genre="danger"
+            >Cancel</twig:Button>
+            <twig:Button tag="button" class="ml-2">Save</twig:Button>
+
         </div>
 
     {{ form_end(form) }}

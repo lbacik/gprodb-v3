@@ -8,7 +8,9 @@
     {{ form_row(form.subject) }}
     {{ form_row(form.message) }}
 
-    {{ form_row(form.submit) }}
+    <div class="text-center">
+        <twig:Button tag="button">Send</twig:Button>
+    </div>
 
     {{ form_end(form) }}
 </div>

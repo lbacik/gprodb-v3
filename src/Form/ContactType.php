@@ -23,14 +23,14 @@ class ContactType extends AbstractType
                 'attr' => ['rows' => 5],
 
             ])
-            ->add('submit', SubmitType::class, [
-                'row_attr' => [
-                    'class' => 'submit-button-row',
-                ],
-                'attr'=> [
-                    'class' => 'submit-button',
-                ],
-            ])
+//            ->add('submit', SubmitType::class, [
+//                'row_attr' => [
+//                    'class' => 'submit-button-row',
+//                ],
+//                'attr'=> [
+//                    'class' => 'submit-button',
+//                ],
+//            ])
         ;
     }
 

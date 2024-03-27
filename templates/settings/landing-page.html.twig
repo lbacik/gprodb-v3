@@ -2,49 +2,23 @@
 
 {% block body %}
     <twig:Center>
-        <div class="w-1/2 mt-10">
-            <h3>{{ project.name }}</h3>
-            <h4>Landing page configuration</h4>
-        </div>
-    </twig:Center>
+        <div class="w-1/2">
+            <div class="mt-10">
+                <h3>{{ project.name }}</h3>
+                <h4>Landing page configuration</h4>
+            </div>
 
-    <twig:Center>
-        <div class="landing-page flex w-2/3 mt-10">
+            <div class="flex">
+                <div class="landing-page w-full mt-10">
+                    {% if form %}
+                        {{ include('settings/_form.html.twig') }}
+                    {% endif %}
+                </div>
 
-            <aside class="mr-10 flex-shrink-0">
-                <ul>
-                    <li class="{{ tab == 'base' ? 'active' : 'inactive' }}"><a
-                                href="{{ path('app_settings_landing_page', {id: projectId}) }}">Base data</a></li>
-                    <li class="{{ tab == 'hero' ? 'active' : 'inactive' }}"><a
-                                href="{{ path('app_settings_landing_page', {id: projectId, tab: 'hero'}) }}">Hero</a>
-                    </li>
-                    <li class="{{ tab == 'about' ? 'active' : 'inactive' }}"><a
-                                href="{{ path('app_settings_landing_page', {id: projectId, tab: 'about'}) }}">About</a>
-                    </li>
-                </ul>
-            </aside>
-
-            <div class="w-full">
-                {% if form %}
-                    {{ form_start(form) }}
-
-                        {{ form_rest(form) }}
-
-                        <div class="text-end mt-10">
-                            <a href="{{ path('app_project_details', {id: projectId, tab: 'settings'}) }}"
-                               class="bg-red-400 px-4 py-2.5 rounded-lg text-white w-24"
-                            >Cancel</a>
-
-                            <button type="submit"
-                                    class="bg-blue-400 px-4 py-2 rounded-lg text-white ml-2 w-24"
-                            >Save</button>
-
-                        </div>
-
-                    {{ form_end(form) }}
-                {% endif %}
+                <aside class="landing-page-aside ml-10 flex-shrink-0">
+                    {{ include('settings/_aside.html.twig') }}
+                </aside>
             </div>
         </div>
     </twig:Center>
-
 {% endblock %}

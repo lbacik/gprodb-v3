@@ -1,0 +1,23 @@
+<ul class="mt-10">
+    <li><twig:Button
+                href="{{ path('app_settings_landing_page', {id: projectId}) }}"
+                active="{{ tab == 'base' }}"
+                genre="secondary"
+                class="rounded-full"
+        >Base data</twig:Button>
+    </li>
+    <li><twig:Button
+                href="{{ path('app_settings_landing_page', {id: projectId, tab: 'hero'}) }}"
+                active="{{ tab == 'hero' }}"
+                genre="secondary"
+                class="rounded-full"
+        >Hero</twig:Button>
+    </li>
+    <li><twig:Button
+                href="{{ path('app_settings_landing_page', {id: projectId, tab: 'about'}) }}"
+                active="{{ tab == 'about' }}"
+                genre="secondary"
+                class="rounded-full"
+        >About</twig:Button>
+    </li>
+</ul>
