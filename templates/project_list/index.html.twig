@@ -4,7 +4,17 @@
     <twig:Center class="mt-10">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
-            {{ include('project_list/_search_input.html.twig') }}
+            <div class="flex flex-row">
+                <div class="flex-1">
+                    {{ include('project_list/_search_input.html.twig') }}
+                </div>
+
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <div>
+                        {{ include('project_list/_new.html.twig') }}
+                    </div>
+                {% endif %}
+            </div>
 
             <table class="table-fixed text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
