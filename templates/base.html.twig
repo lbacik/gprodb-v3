@@ -14,10 +14,14 @@
 {#            <script src="https://cdn.tailwindcss.com"></script>#}
         {% endblock %}
     </head>
-    <body class="pb-20">
+    <body class="pb-20" turbo="false">
         {{ include('partials/_header.html.twig') }}
 
         {% block body %}{% endblock %}
+
+        <div id="flash-container">
+            {{ include('partials/_flashes.html.twig') }}
+        </div>
 
 {#        <div#}
 {#            data-controller="modal"#}

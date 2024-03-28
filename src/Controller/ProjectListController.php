@@ -57,6 +57,8 @@ class ProjectListController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 //            $this->projectService->create($form->getData());
 
+            $this->addFlash('success', 'Project created successfully');
+
             return $this->redirectToRoute('app_project_list');
         }
 
