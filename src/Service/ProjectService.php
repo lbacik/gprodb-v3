@@ -6,13 +6,16 @@ namespace App\Service;
 
 use App\Entity\Project;
 use App\Entity\ProjectSettings;
+use App\Entity\User;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\Criteria;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class ProjectService
 {
     public function __construct(
         private readonly ProjectRepository $projectRepository,
+        private readonly Security $security,
     ) {
     }
 
@@ -34,5 +37,21 @@ class ProjectService
     public function getProjectSettings(Project $project): ProjectSettings
     {
         return new ProjectSettings();
+    }
+
+    public function createWithName(string $name): int
+    {
+        /** @var User $user */
+        $user = $this->security->getUser();
+        if ($user === null) {
+            throw new \LogicException('User must be authenticated to create a project');
+        }
+
+        $project = new Project();
+        $project->setName($name);
+        $project->setOwner($user);
+        $this->projectRepository->save($project);
+
+        return $project->getId();
     }
 }

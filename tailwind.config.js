@@ -24,4 +24,7 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms'),
   ],
+  safelist: [
+    'text-red-700',
+  ],
 }

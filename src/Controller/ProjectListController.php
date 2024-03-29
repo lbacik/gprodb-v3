@@ -48,25 +48,29 @@ class ProjectListController extends AbstractController
         ]);
     }
 
-    #[Route('/projects/new', name: 'app_project_new', methods: ['POST'])]
+    #[Route('/create/project', name: 'app_project_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
-        $form = $this->createForm(NewProjectType::class);
+        sleep(2);
+
+        $form = $this->createForm(NewProjectType::class, null, [
+            'attr' => [
+                'action' => $this->generateUrl('app_project_new'),
+                'method' => 'POST',
+            ],
+        ]);
+
         $form->handleRequest($request);
 
+        $project = $form->getData();
+
         if ($form->isSubmitted() && $form->isValid()) {
-//            $this->projectService->create($form->getData());
-
-            $this->addFlash('success', 'Project created successfully');
-
-            return $this->redirectToRoute('app_project_list');
+            $projectId = $this->projectService->createWithName($project->getName());
+            return $this->redirectToRoute('app_project_details', ['id' => $projectId, 'edit' => true]);
         }
 
-//        return $this->render('project_list/index.html.twig', [
-//            'projects' => $this->projectService->getProjects(),
-//            'form' => $form,
-//        ]);
-
-        return new Response(null, 400);
+        return $this->render('project_list/_new.html.twig', [
+            'form' => $form,
+        ]);
     }
 }

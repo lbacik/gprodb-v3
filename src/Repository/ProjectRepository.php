@@ -52,4 +52,9 @@ class ProjectRepository extends ServiceEntityRepository
             ;
         }
 
+        public function save(Project $project): void
+        {
+            $this->getEntityManager()->persist($project);
+            $this->getEntityManager()->flush();
+        }
 }

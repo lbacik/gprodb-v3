@@ -16,7 +16,11 @@
     >
         <div class="flex grow p-5">
             <div class="grow overflow-auto p-1">
-{#                <turbo-frame id="modal">#}
+                <turbo-frame
+                        id="modal"
+                        class="aria-busy:opacity-10 transition-opacity"
+                        <!-- https://symfonycasts.com/screencast/last-stack/modal-loading -->
+                >
                     <div class="text-gray-600 space-y-4">
                         <div class="flex justify-between items-center">
                             <h2 class="text-xl font-bold text-gray-600">Create new Project</h2>
@@ -34,7 +38,9 @@
 
                         {{ form_start(form) }}
 
-                            {{ form_rest(form) }}
+                            {{ form_row(form.name, {
+                                'error_item_class': 'text-red-700 text-xs bg-red-100 px-2 py-1 rounded-md',
+                            }) }}
 
                             <div class="flex justify-end">
                                 <twig:Button tag="button">Create</twig:Button>
@@ -43,7 +49,7 @@
                         {{ form_end(form) }}
 
                     </div>
-{#                </turbo-frame>#}
+                </turbo-frame>
             </div>
         </div>
     </dialog>
