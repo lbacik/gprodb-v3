@@ -1,3 +1,5 @@
+// const plugin = require('tailwindcss/plugin');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'selector',
@@ -23,6 +25,9 @@ module.exports = {
   // ...
   plugins: [
     require('@tailwindcss/forms'),
+    // plugin(function({ addVariant }) {
+    //   addVariant('turbo-frame', 'turbo-frame[src] &')
+    // }),
   ],
   safelist: [
     'text-red-700',

@@ -1,56 +1,41 @@
-<div
-        data-controller="modal"
-        data-action="turbo:before-cache@window->modal#close"
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<turbo-frame
+        id="modal"
+        class="aria-busy:opacity-10 transition-opacity"
+{#        data-turbo-form-redirect="true"#}
+{#        target="_top"#}
 >
+    <div class="text-gray-600 space-y-4">
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold text-gray-600">Create new Project</h2>
 
-    <twig:Button
-            tag="button"
-            class="mr-3"
-            data-action="click->modal#open"
-    >Add New</twig:Button>
+            <form method="dialog">
+                <button class="text-lg absolute top-5 right-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4" viewBox="0 0 24 24" stroke-width="2"
+                         stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M18 6l-12 12"/>
+                        <path d="M6 6l12 12"/>
+                    </svg>
+                </button>
+            </form>
 
-    <dialog
-            data-modal-target="dialog"
-            data-action="close->modal#close click->modal#clickOutside"
-            class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 open:flex bg-gray-100 rounded-lg shadow-xl inset-0 w-full md:w-fit md:max-w-[50%] md:min-w-[50%] animate-fade-in backdrop:bg-slate-600 backdrop:bg-opacity-80 backdrop:backdrop-blur-sm"
-    >
-        <div class="flex grow p-5">
-            <div class="grow overflow-auto p-1">
-                <turbo-frame
-                        id="modal"
-                        class="aria-busy:opacity-10 transition-opacity"
-                        <!-- https://symfonycasts.com/screencast/last-stack/modal-loading -->
-                >
-                    <div class="text-gray-600 space-y-4">
-                        <div class="flex justify-between items-center">
-                            <h2 class="text-xl font-bold text-gray-600">Create new Project</h2>
-                            <form method="dialog">
-                                <button class="text-lg absolute top-5 right-5">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4" viewBox="0 0 24 24" stroke-width="2"
-                                         stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M18 6l-12 12"/>
-                                        <path d="M6 6l12 12"/>
-                                    </svg>
-                                </button>
-                            </form>
-                        </div>
-
-                        {{ form_start(form) }}
-
-                            {{ form_row(form.name, {
-                                'error_item_class': 'text-red-700 text-xs bg-red-100 px-2 py-1 rounded-md',
-                            }) }}
-
-                            <div class="flex justify-end">
-                                <twig:Button tag="button">Create</twig:Button>
-                            </div>
-
-                        {{ form_end(form) }}
-
-                    </div>
-                </turbo-frame>
-            </div>
         </div>
-    </dialog>
-</div>
+
+        {{ form_start(form) }}
+
+        {{ form_row(form.name, {
+            'error_item_class': 'text-red-700 text-xs bg-red-100 px-2 py-1 rounded-md',
+        }) }}
+
+        <div class="flex justify-end">
+            <twig:Button tag="button">Create</twig:Button>
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+</turbo-frame>
+{% endblock %}

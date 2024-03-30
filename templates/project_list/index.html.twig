@@ -11,7 +11,14 @@
 
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <div>
-                        {{ include('project_list/_new.html.twig') }}
+                        <twig:Button
+                                href="{{ path('app_project_new') }}"
+                                data-turbo-frame="modal"
+                                class="mr-3"
+                        >Add New</twig:Button>
+
+{#                        {{ include('partials/_modal.html.twig') }}#}
+
                     </div>
                 {% endif %}
             </div>

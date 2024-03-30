@@ -39,19 +39,19 @@ class ProjectListController extends AbstractController
         return $this->render('project_list/index.html.twig', [
             'projects' => $pagerfanta,
             'searchString' => $q,
-            'form' => $this->createForm(NewProjectType::class, null, [
-                'attr' => [
-                    'action' => $this->generateUrl('app_project_new'),
-                    'method' => 'POST',
-                ],
-            ]),
+//            'form' => $this->createForm(NewProjectType::class, null, [
+//                'attr' => [
+//                    'action' => $this->generateUrl('app_project_new'),
+//                    'method' => 'POST',
+//                ],
+//            ]),
         ]);
     }
 
     #[Route('/create/project', name: 'app_project_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
-        sleep(2);
+//        sleep(2);
 
         $form = $this->createForm(NewProjectType::class, null, [
             'attr' => [
@@ -66,11 +66,20 @@ class ProjectListController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $projectId = $this->projectService->createWithName($project->getName());
-            return $this->redirectToRoute('app_project_details', ['id' => $projectId, 'edit' => true]);
+
+            return $this->redirectToRoute(
+                'app_project_details',
+                [
+                    'id' => $projectId,
+                    'edit' => true
+                ],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render('project_list/_new.html.twig', [
             'form' => $form,
+            'formTarget' => $request->headers->get('Turbo-Frame', '_top'),
         ]);
     }
 }
