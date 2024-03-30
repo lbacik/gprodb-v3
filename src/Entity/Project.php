@@ -28,7 +28,7 @@ class Project
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(targetEntity: Link::class, mappedBy: 'project', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Link::class, mappedBy: 'project', cascade: ["persist"], orphanRemoval: true)]
     private Collection $links;
 
     #[ORM\ManyToOne(inversedBy: 'projects')]

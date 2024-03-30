@@ -27,7 +27,7 @@ class Link
     #[ORM\Column(length: 255)]
     #[Assert\Url]
     #[Assert\NotBlank]
-    #[Assert\Length(min: 14, max: 255)]
+    #[Assert\Length(min: 10, max: 255)]
     private string $url;
 
     public function getId(): ?int

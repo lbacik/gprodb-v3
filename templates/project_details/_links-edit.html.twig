@@ -19,7 +19,9 @@
                 >Add a link</twig:Button>
             </div>
 
-            {{ form_rest(form) }}
+            {{ form_errors(form) }}
+            {{ form_errors(form.links) }}
+            {{ form_row(form.links) }}
 
             <ul
                     class="mb-6"
