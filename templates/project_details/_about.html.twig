@@ -1,12 +1,13 @@
 
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user == project.owner %}
-    <div class="mb-10 text-end">
+    <div class="mb-5 text-end">
         <twig:Button href="{{ path('app_project_details', {
                 id: project.id,
                 tab: 'about',
                 edit: true,
            }) }}"
         >Edit</twig:Button>
+        {#           data-turbo-frame="modal"#}
     </div>
 {% endif %}
 

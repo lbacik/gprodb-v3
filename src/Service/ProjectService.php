@@ -54,4 +54,32 @@ class ProjectService
 
         return $project->getId();
     }
+
+    public function updateProject(string $id, Project $updates, bool $updateLinks = false): void
+    {
+       /** @var User $user */
+        $user = $this->security->getUser();
+        if ($user === null) {
+            throw new \LogicException('User must be authenticated to create a project');
+        }
+
+        $project = $this->projectRepository->find($id);
+
+        if ($project === null) {
+            throw new \LogicException('Project not found');
+        }
+
+        if ($project->getOwner() !== $user) {
+            throw new \LogicException('User is not the owner of the project');
+        }
+
+        if ($updateLinks) {
+            $project->setLinks($updates->getLinks());
+        } else {
+            $project->setName($updates->getName());
+            $project->setDescription($updates->getDescription());
+        }
+
+        $this->projectRepository->save($project);
+    }
 }

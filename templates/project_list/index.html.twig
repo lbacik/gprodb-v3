@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <twig:Center class="mt-10">
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <twig:Center class="mt-20">
+        <div class="w-2/3 relative overflow-x-auto shadow-md sm:rounded-lg">
 
             <div class="flex flex-row">
                 <div class="flex-1">
@@ -16,14 +16,11 @@
                                 data-turbo-frame="modal"
                                 class="mr-3"
                         >Add New</twig:Button>
-
-{#                        {{ include('partials/_modal.html.twig') }}#}
-
                     </div>
                 {% endif %}
             </div>
 
-            <table class="table-fixed text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table class="table w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th class="px-6 py-3">Name</th>
@@ -40,7 +37,7 @@
                         <td class="px-6 py-4">
                             {{ project.description|default('')|u.truncate(100, '...') }}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-end">
                             <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                href="{{ path('app_project_details', {'id': project.id}) }}"
                             >Show</a>

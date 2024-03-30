@@ -62,7 +62,7 @@ class Project
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(string|null $description): static
     {
         $this->description = $description;
 
@@ -95,6 +95,13 @@ class Project
                 $link->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setLinks(Collection $links): static
+    {
+        $this->links = $links;
 
         return $this;
     }

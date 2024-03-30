@@ -39,12 +39,6 @@ class ProjectListController extends AbstractController
         return $this->render('project_list/index.html.twig', [
             'projects' => $pagerfanta,
             'searchString' => $q,
-//            'form' => $this->createForm(NewProjectType::class, null, [
-//                'attr' => [
-//                    'action' => $this->generateUrl('app_project_new'),
-//                    'method' => 'POST',
-//                ],
-//            ]),
         ]);
     }
 
@@ -66,6 +60,7 @@ class ProjectListController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $projectId = $this->projectService->createWithName($project->getName());
+            $this->addFlash('success', 'Project created');
 
             return $this->redirectToRoute(
                 'app_project_details',

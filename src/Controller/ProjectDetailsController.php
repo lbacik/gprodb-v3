@@ -59,16 +59,19 @@ class ProjectDetailsController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $this->projectService->updateProject($id, $form->getData());
             $this->addFlash('success', 'Your changes have been saved');
 
-            dump($form->getData());
-
-            return new Response(null, 204);
-
-//            return $this->redirect($this->generateUrl('app_project_details', ['id' => $id]));
+            return $this->redirect($this->generateUrl('app_project_details', ['id' => $id]));
         }
 
-        return new Response(null, 400);
+        return $this->render('project_details/index.html.twig', [
+            'projectId' => $id,
+            'tab' => 'about',
+            'project' => $this->projectService->getProject($id),
+            'form' => $form,
+            'template' => $this->getTemplateName('about', true),
+        ]);
     }
 
     #[Route('/projects/{id}/links', name: 'app_project_links_edit', methods: ['POST'])]
@@ -78,14 +81,19 @@ class ProjectDetailsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->projectService->updateProject($id, $form->getData(), true);
             $this->addFlash('success', 'Your changes have been saved');
 
-            dump($form->getData());
-
-            return new Response(null, 204);
+            return $this->redirect($this->generateUrl('app_project_details', ['id' => $id, 'tab' => 'links']));
         }
 
-        return new Response(null, 400);
+        return $this->render('project_details/index.html.twig', [
+            'projectId' => $id,
+            'tab' => 'links',
+            'project' => $this->projectService->getProject($id),
+            'form' => $form,
+            'template' => $this->getTemplateName('links', true),
+        ]);
     }
 
     #[Route('/projects/{id}/contact', name: 'app_project_contact', methods: ['POST'])]

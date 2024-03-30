@@ -15,11 +15,16 @@
                class="{{ tab == 'links' ? active : inactive }}"
             >Links</a>
         </li>
-        <li class="me-2">
-            <a href="{{ path('app_project_details', {id: projectId, tab: 'contact'}) }}"
-               class="{{ tab == 'contact' ? active : inactive }}"
-            >Contact</a>
-        </li>
+
+         {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') or (is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user != project.owner) %}
+
+            <li class="me-2">
+                <a href="{{ path('app_project_details', {id: projectId, tab: 'contact'}) }}"
+                   class="{{ tab == 'contact' ? active : inactive }}"
+                >Contact</a>
+            </li>
+
+        {% endif %}
 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user == project.owner %}
 

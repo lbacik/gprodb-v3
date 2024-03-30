@@ -26,9 +26,7 @@
 
         {{ form_start(form) }}
 
-        {{ form_row(form.name, {
-            'error_item_class': 'text-red-700 text-xs bg-red-100 px-2 py-1 rounded-md',
-        }) }}
+        {{ form_rest(form) }}
 
         <div class="flex justify-end">
             <twig:Button tag="button">Create</twig:Button>

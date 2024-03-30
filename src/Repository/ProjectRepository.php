@@ -23,38 +23,36 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
-        /**
-         * @return Project[] Returns an array of Project objects
-         */
-        public function findBySearchString(string $searchString, int $offset, int $limit): array
-        {
-            return $this->createQueryBuilder('p')
-                ->Where('p.name LIKE :searchString')
-                ->orWhere('p.description LIKE :searchString')
-                ->setParameter('searchString', '%'.$searchString.'%')
-                ->orderBy('p.name', 'ASC')
-                ->setMaxResults($limit)
-                ->setFirstResult($offset)
-                ->getQuery()
-                ->getResult()
-            ;
-        }
+    /**
+     * @return Project[] Returns an array of Project objects
+     */
+    public function findBySearchString(string $searchString, int $offset, int $limit): array
+    {
+        return $this->createQueryBuilder('p')
+            ->Where('p.name LIKE :searchString')
+            ->orWhere('p.description LIKE :searchString')
+            ->setParameter('searchString', '%' . $searchString . '%')
+            ->orderBy('p.name', 'ASC')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->getQuery()
+            ->getResult();
+    }
 
-        public function countBySearchString(string $searchString): int
-        {
-            return $this->createQueryBuilder('p')
-                ->select('count(p.id)')
-                ->Where('p.name LIKE :searchString')
-                ->orWhere('p.description LIKE :searchString')
-                ->setParameter('searchString', '%'.$searchString.'%')
-                ->getQuery()
-                ->getSingleScalarResult()
-            ;
-        }
+    public function countBySearchString(string $searchString): int
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->Where('p.name LIKE :searchString')
+            ->orWhere('p.description LIKE :searchString')
+            ->setParameter('searchString', '%' . $searchString . '%')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
-        public function save(Project $project): void
-        {
-            $this->getEntityManager()->persist($project);
-            $this->getEntityManager()->flush();
-        }
+    public function save(Project $project): void
+    {
+        $this->getEntityManager()->persist($project);
+        $this->getEntityManager()->flush();
+    }
 }
