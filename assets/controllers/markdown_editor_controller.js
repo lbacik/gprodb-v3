@@ -8,9 +8,12 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
     static targets = ['editor']
 
+    editors = []
+
     connect() {
         this.editorTargets.forEach((editor) => {
-            new SimpleMDE({
+            this.editors.push(
+              new SimpleMDE({
                 element: editor,
                 toolbar: [
                     "bold", "italic", "heading", "|",
@@ -18,7 +21,28 @@ export default class extends Controller {
                     "link", "table", "|",
                     "preview", "guide"
                 ]
-            })
+              })
+            )
         })
+    }
+
+    getDataForElementName(elementName) {
+
+        for (let editor of this.editors) {
+            if (editor.options.element.name === elementName) {
+                return editor.value()
+            }
+        }
+
+        return null
+    }
+
+    setDataForElementName(elementName, data) {
+        for (let editor of this.editors) {
+            if (editor.options.element.name === elementName) {
+                editor.value(data)
+                break
+            }
+        }
     }
 }

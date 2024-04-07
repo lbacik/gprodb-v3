@@ -13,23 +13,16 @@
                     {{ stimulus_controller('markdown_editor') }}
             >
 
-                {{ form_start(form) }}
+                {{ form_start(form, {
+                    'attr': {
+                        'data-controller': 'statefull-form',
+                        'data-action': 'keyup->statefull-form#saveState change->statefull-form#saveState',
+                    }
+                }) }}
 
-                <div class="flex" {{ stimulus_controller('tab_manager') }}>
-
+                <div class="flex">
                     <div class="landing-page mt-10 w-full">
-
-                        {{ form_errors(form) }}
-
-                        <div id="base" class="tab hidden">
-                            {{ form_row(form.base) }}
-                        </div>
-                        <div id="hero" class="tab hidden">
-                            {{ form_row(form.hero) }}
-                        </div>
-                        <div id="about" class="tab hidden">
-                            {{ form_row(form.about) }}
-                        </div>
+                        {{ form_rest(form) }}
                     </div>
 
                     <aside class="landing-page-aside ml-10 flex-shrink-0">

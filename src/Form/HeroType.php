@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\LandingPageHero;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,14 +14,16 @@ class HeroType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('subtitle')
+            ->add('subtitle', TextType::class, [
+                'required' => false,
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => LandingPageHero::class,
         ]);
     }
 }

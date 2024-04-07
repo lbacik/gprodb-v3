@@ -3,9 +3,6 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,26 +11,9 @@ class LandingPageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'Name',
-                'attr' => [
-                    'placeholder' => 'Internal name',
-                ],
-            ])
-            ->add('title', TextType::class, [
-                'label' => 'Title',
-                'attr' => [
-                    'placeholder' => 'Visible in browser tab',
-                ],
-            ])
-            ->add('contact', CheckboxType::class, [
-                'label' => 'Show contact form',
-                'required' => false,
-            ])
-            ->add('newsletter', CheckboxType::class, [
-                'label' => 'Show newsletter form',
-                'required' => false,
-            ])
+            ->add('base', LandingPageBaseType::class)
+            ->add('hero', HeroType::class)
+            ->add('about', AboutType::class)
         ;
     }
 

@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\LandingPage;
 use App\Entity\Project;
 use App\Entity\ProjectSettings;
 use App\Entity\User;
+use App\Repository\LandingPageRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\ProjectSettingsRepository;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Bundle\SecurityBundle\Security;
 
@@ -15,6 +18,8 @@ class ProjectService
 {
     public function __construct(
         private readonly ProjectRepository $projectRepository,
+        private readonly LandingPageRepository $landingPageRepository,
+        private readonly ProjectSettingsRepository $projectSettingsRepository,
         private readonly Security $security,
     ) {
     }
@@ -84,5 +89,33 @@ class ProjectService
         }
 
         $this->projectRepository->save($project);
+    }
+
+    public function saveLandingPage(int $projectId, array $data): void
+    {
+        $project = $this->projectRepository->find($projectId);
+
+        if ($project === null) {
+            throw new \LogicException('Project not found');
+        }
+
+        $landingPage = $data['base'];
+        $landingPage->setHero($data['hero']);
+        $landingPage->setAbout($data['about']);
+
+        $this->landingPageRepository->save($landingPage);
+
+        $settings = $project->getSettings();
+        if ($settings === null) {
+            $settings = new ProjectSettings();
+            $this->projectSettingsRepository->save($settings);
+            $project->setSettings($settings);
+            $this->projectRepository->save($project);
+        }
+
+        if ($settings->getLandingPage() === null) {
+            $settings->setLandingPage($landingPage);
+            $this->projectSettingsRepository->save($settings);
+        }
     }
 }

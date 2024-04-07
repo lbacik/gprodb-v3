@@ -35,6 +35,9 @@ class Project
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?ProjectSettings $settings = null;
+
     public function __construct()
     {
         $this->links = new ArrayCollection();
@@ -114,6 +117,18 @@ class Project
     public function setOwner(?User $owner): static
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getSettings(): ?ProjectSettings
+    {
+        return $this->settings;
+    }
+
+    public function setSettings(?ProjectSettings $settings): static
+    {
+        $this->settings = $settings;
 
         return $this;
     }

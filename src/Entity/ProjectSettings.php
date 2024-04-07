@@ -27,6 +27,9 @@ class ProjectSettings
     #[ORM\Column(length: 64, nullable: true)]
     private ?string $newsletterProviderConfigEntityId = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?LandingPage $landingPage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +79,18 @@ class ProjectSettings
     public function setNewsletterProviderConfigEntityId(?string $newsletterProviderConfigEntityId): static
     {
         $this->newsletterProviderConfigEntityId = $newsletterProviderConfigEntityId;
+
+        return $this;
+    }
+
+    public function getLandingPage(): ?LandingPage
+    {
+        return $this->landingPage;
+    }
+
+    public function setLandingPage(?LandingPage $landingPage): static
+    {
+        $this->landingPage = $landingPage;
 
         return $this;
     }
