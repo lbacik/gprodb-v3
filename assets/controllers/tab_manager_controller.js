@@ -10,6 +10,7 @@ export default class extends Controller {
     connect() {
         // const tab = this.getAnchor(document.URL) || 'base'
         this._makeVisible('base')
+        this._makeButtonActive('base')
     }
 
     getAnchor(url) {
@@ -17,10 +18,9 @@ export default class extends Controller {
     }
 
     changeTab(event) {
-        console.log('changeTab', event.target)
-
         if (event.target.dataset.tab) {
             this._makeVisible(event.target.dataset.tab)
+            this._makeButtonActive(event.target.dataset.tab)
         }
     }
 
@@ -38,6 +38,19 @@ export default class extends Controller {
                 tabElement.classList.remove('hidden')
                 tabElement.classList.add('active')
             }
+        }
+    }
+
+    _makeButtonActive(tab) {
+        const button = document.querySelector(`[data-tab="${tab}"]`)
+        const currentActiveButton = document.querySelector('.tab-button.active')
+
+        if (currentActiveButton) {
+            currentActiveButton.classList.remove('active')
+        }
+
+        if (button) {
+            button.classList.add('active')
         }
     }
 }

@@ -11,9 +11,15 @@ class LandingPageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('base', LandingPageBaseType::class)
-            ->add('hero', HeroType::class)
-            ->add('about', AboutType::class)
+            ->add('base', LandingPageBaseType::class, [
+                'label' => false,
+            ])
+            ->add('hero', HeroType::class, [
+                'label' => false,
+            ])
+            ->add('about', AboutType::class, [
+                'label' => false,
+            ])
         ;
     }
 

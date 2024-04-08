@@ -161,3 +161,7 @@ form,
 .form-input-error {
     @apply text-red-700 text-xs bg-red-100 px-2 py-1 rounded-md;
 }
+
+.tab-button.active {
+    @apply bg-gray-500 hover:bg-gray-700 text-white
+}
