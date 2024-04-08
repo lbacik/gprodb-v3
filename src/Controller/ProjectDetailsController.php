@@ -40,14 +40,15 @@ class ProjectDetailsController extends AbstractController
 
         return $this->render(
             'project_details/index.html.twig',
-            array_merge([
-                'projectId' => $id,
-                'tab' => $tab,
-                'project' => $project,
-                'form' => $this->getForm($tab, $edit, $project),
-                'template' => $this->getTemplateName($tab, $edit),
-            ],
-            $this->getAdditionalData($tab, $project)
+            array_merge(
+                [
+                    'projectId' => $id,
+                    'tab' => $tab,
+                    'project' => $project,
+                    'form' => $this->getForm($tab, $edit, $project),
+                    'template' => $this->getTemplateName($tab, $edit),
+                ],
+                $this->getAdditionalData($tab, $project)
             )
         );
     }
@@ -112,13 +113,11 @@ class ProjectDetailsController extends AbstractController
 
     public function getProjectSettings(Project $project): ProjectSettings
     {
-        $user = $this->security->getUser();
-
-        if ($project->getOwner() !== $user) {
-            throw $this->createAccessDeniedException('You are not allowed to access this page');
+        try {
+            return $this->projectService->getProjectSettings($project);
+        } catch (\LogicException $e) {
+            throw $this->createAccessDeniedException($e->getMessage());
         }
-
-        return $this->projectService->getProjectSettings($project);
     }
 
     private function getForm(string $tab, bool $edit, Project $project): FormInterface|null

@@ -41,7 +41,13 @@ class ProjectService
 
     public function getProjectSettings(Project $project): ProjectSettings
     {
-        return new ProjectSettings();
+        $user = $this->security->getUser();
+
+        if ($project->getOwner() !== $user) {
+            throw new \LogicException('You are not allowed to access this page');
+        }
+
+        return $project->getSettings();
     }
 
     public function createWithName(string $name): int

@@ -65,18 +65,18 @@ class SettingsLandingPageController extends AbstractController
         ]);
     }
 
-    #[Route('/projects/{id}/settings/landing-page', name: 'app_settings_landing_page_save', methods: ['POST'])]
-    public function landingPageSave(Request $request, int $id): Response
-    {
-        $form = $this->createForm(LandingPageBaseType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('session')->set('landing_page_data', $form->getData());
-        }
-
-        return $this->redirect($this->generateUrl('app_settings_landing_page', ['id' => $id]));
-    }
+//    #[Route('/projects/{id}/settings/landing-page', name: 'app_settings_landing_page_save', methods: ['POST'])]
+//    public function landingPageSave(Request $request, int $id): Response
+//    {
+//        $form = $this->createForm(LandingPageBaseType::class);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $this->get('session')->set('landing_page_data', $form->getData());
+//        }
+//
+//        return $this->redirect($this->generateUrl('app_settings_landing_page', ['id' => $id]));
+//    }
 
     #[Route('/projects/{id}/settings/landing-page/create', name: 'app_settings_landing_page_create', methods: ['POST'])]
     public function landingPageCreate(Request $request, int $id): Response

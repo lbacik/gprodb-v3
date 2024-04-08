@@ -4,11 +4,11 @@
             <twig:Settings:Item
                 :projectSettings="projectSettings"
                 name="Landing page"
-                property="landingPageEntityId"
+                property="landingPage"
                 urlPrefix="https://pages.gprodb.com/"
                 csrfName="landing-page"
-                editAction="%"
-                createAction="{{ path('app_settings_landing_page_create', {id: projectId}) }}"
+                editAction="{{ path('app_settings_landing_page', {id: projectId}) }}"
+                createAction="{{ path('app_settings_landing_page', {id: projectId}) }}"
                 />
 
             <twig:Settings:Item
