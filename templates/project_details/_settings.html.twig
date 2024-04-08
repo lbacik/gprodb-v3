@@ -14,32 +14,22 @@
             <twig:Settings:Item
                 :projectSettings="projectSettings"
                 name="Custom domain"
-                property="customDomainEntityId"
+                property="domain"
                 urlPrefix="https://jsonhub.cloud/entities/"
                 csrfName="domain"
-                editAction="%"
-                createAction="%"
+                editAction="{{ path('app_settings_domain', {id: projectId}) }}"
+                createAction="{{ path('app_settings_domain', {id: projectId}) }}"
                 />
 
             <twig:Settings:Item
                 :projectSettings="projectSettings"
-                name="Newsletter type"
-                property="newsletterProviderEntityId"
+                name="Newsletter"
+                property="newsletter"
                 urlPrefix="https://jsonhub.cloud/entities/"
                 csrfName="newsletter-type"
-                editAction="%"
-                createAction="%"
+                editAction="{{ path('app_settings_newsletter', {id: projectId, provider: projectSettings.newsletter ? projectSettings.newsletter.provider : null }) }}"
+                createAction="{{ path('app_settings_newsletter', {id: projectId}) }}"
             />
-
-            <twig:Settings:Item
-                :projectSettings="projectSettings"
-                name="Newsletter config"
-                property="newsletterProviderConfigEntityId"
-                urlPrefix="https://jsonhub.cloud/entities/"
-                csrfName="newsletter-config"
-                editAction="%"
-                createAction="%"
-                />
 
         </tbody>
     </table>

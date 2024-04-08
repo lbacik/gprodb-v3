@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <twig:Center>
+        <div class="w-1/2" {{ stimulus_controller('local_storage') }}>
+            <div class="mt-10">
+                <h3>{{ project.name }}</h3>
+                <h4>Domain configuration</h4>
+            </div>
+
+            <div class="mt-10">
+
+                {{ form_start(form) }}
+
+                {{ form_row(form.domain) }}
+
+                <dvi class="block w-full text-end mt-10">
+                    <twig:Button href="{{ path('app_project_details', { id: project.id, tab: 'settings'}) }}"
+                                 genre="secondary"
+                    >Cancel</twig:Button>
+
+                    <twig:Button tag="button"
+                                 name="delete"
+                                 value="delete"
+                                 genre="danger"
+                                 class="ml-2"
+                    >Delete</twig:Button>
+
+                    <twig:Button tag="button"
+                                 name="submit"
+                                 value="submit"
+                                 class="ml-2"
+                    >Save</twig:Button>
+                </dvi>
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </twig:Center>
+{% endblock %}

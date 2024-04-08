@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\LandingPage;
+use App\Entity\Mailing;
 use App\Entity\Project;
 use App\Entity\ProjectSettings;
 use App\Entity\User;
 use App\Repository\LandingPageRepository;
+use App\Repository\MailingRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\ProjectSettingsRepository;
 use Doctrine\Common\Collections\Criteria;
@@ -20,6 +22,7 @@ class ProjectService
         private readonly ProjectRepository $projectRepository,
         private readonly LandingPageRepository $landingPageRepository,
         private readonly ProjectSettingsRepository $projectSettingsRepository,
+        private readonly MailingRepository $mailingRepository,
         private readonly Security $security,
     ) {
     }
@@ -48,6 +51,19 @@ class ProjectService
         }
 
         return $project->getSettings();
+    }
+
+    public function updateLandingPageDomain(Project $project, string|null $domain): void
+    {
+        $user = $this->security->getUser();
+
+        if ($project->getOwner() !== $user) {
+            throw new \LogicException('You are not allowed to access this page');
+        }
+
+        $settings = $project->getSettings();
+        $settings->setDomain($domain);
+        $this->projectSettingsRepository->save($settings);
     }
 
     public function createWithName(string $name): int
@@ -123,5 +139,30 @@ class ProjectService
             $settings->setLandingPage($landingPage);
             $this->projectSettingsRepository->save($settings);
         }
+    }
+
+    public function setNewsletter(Project $project, string $provider, array $data): void
+    {
+        $user = $this->security->getUser();
+
+        if ($project->getOwner() !== $user) {
+            throw new \LogicException('You are not allowed to access this page');
+        }
+
+        $settings = $project->getSettings();
+        $newsletter = $settings->getNewsletter();
+
+        if ($newsletter === null) {
+            $newsletter = new Mailing('newsletter');
+        }
+
+        $newsletter->setProvider($provider);
+        $newsletter->setConfig($data);
+
+        if ($newsletter->getProjectSettings() === null) {
+            $newsletter->setProjectSettings($settings);
+        }
+
+        $this->mailingRepository->save($newsletter);
     }
 }

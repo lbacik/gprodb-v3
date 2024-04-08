@@ -5,9 +5,23 @@
     <th class="text-start">{{ name }}</th>
     <td class="text-center">
         {% if settingProperty %}
-            <a href="{{ urlPrefix }}{{ settingProperty.id }}">
-                {{ settingProperty.id }}
-            </a>
+
+            {% if property == 'domain' %}
+
+                {{ settingProperty }}
+
+            {% elseif property == 'newsletter' %}
+
+                {{ projectSettings.newsletter ? projectSettings.newsletter.provider : 'Not set' }}
+
+            {% else %}
+
+                <a href="{{ urlPrefix }}{{ settingProperty.id }}">
+                    {{ settingProperty.id }}
+                </a>
+
+            {% endif %}
+
         {% else %}
             Not set
         {% endif %}

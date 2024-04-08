@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ProjectSettingsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProjectSettingsRepository::class)]
@@ -29,6 +31,17 @@ class ProjectSettings
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?LandingPage $landingPage = null;
+
+    #[ORM\Column(length: 128, nullable: true)]
+    private ?string $domain = null;
+
+    #[ORM\OneToMany(targetEntity: Mailing::class, mappedBy: 'projectSettings', orphanRemoval: true)]
+    private Collection $mailing;
+
+    public function __construct()
+    {
+        $this->mailing = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -93,5 +106,56 @@ class ProjectSettings
         $this->landingPage = $landingPage;
 
         return $this;
+    }
+
+    public function getDomain(): ?string
+    {
+        return $this->domain;
+    }
+
+    public function setDomain(?string $domain): static
+    {
+        $this->domain = $domain;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mailing>
+     */
+    public function getMailing(): Collection
+    {
+        return $this->mailing;
+    }
+
+    public function addMailing(Mailing $mailing): static
+    {
+        if (!$this->mailing->contains($mailing)) {
+            $this->mailing->add($mailing);
+            $mailing->setProjectSettings($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMailing(Mailing $mailing): static
+    {
+        if ($this->mailing->removeElement($mailing)) {
+            // set the owning side to null (unless already changed)
+            if ($mailing->getProjectSettings() === $this) {
+                $mailing->setProjectSettings(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getNewsletter(): Mailing|null
+    {
+        $result = $this->getMailing()
+            ->filter(fn(Mailing $mailing) => $mailing->getType() === 'newsletter')
+            ->first();
+
+        return $result === false ? null : $result;
     }
 }

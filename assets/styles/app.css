@@ -37,35 +37,12 @@ h3 {
         @apply bg-red-500 hover:bg-red-700 text-white text-sm py-2 px-2 rounded;
     }
 
-    /*input {*/
-    /*    @apply border border-gray-300 p-1 px-2;*/
-    /*}*/
-
-    /*label {*/
-    /*    @apply text-gray-400 text-xs;*/
-    /*}*/
-
-    /*.submit-button-row {*/
-    /*    @apply text-center mt-8;*/
-    /*}*/
-
-    /*.submit-button {*/
-    /*    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;*/
-    /*}*/
-
     .add-link-button {
         @apply bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded;
     }
 }
 
 .form-contact {
-    /*input, textarea {*/
-    /*    @apply border border-gray-300 p-1 px-2;*/
-    /*}*/
-
-    /*label {*/
-    /*    @apply text-gray-400 text-xs;*/
-    /*}*/
 
     form > div {
         @apply mt-4;
@@ -81,13 +58,6 @@ h3 {
 }
 
 .form-login {
-    /*input {*/
-    /*    @apply border border-gray-300 p-1 px-2;*/
-    /*}*/
-
-    /*label {*/
-    /*    @apply text-gray-400 text-xs;*/
-    /*}*/
 
     form > div {
         @apply mt-4;
@@ -141,7 +111,7 @@ h3 {
 form,
 .form-links
 {
-    input, textarea {
+    input, textarea, select {
         @apply border border-gray-300 p-1 px-2;
     }
 
