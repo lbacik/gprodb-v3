@@ -12,7 +12,11 @@
                 hendrerit volutpat enim. Fusce pulvinar mattis orci, eu viverra orci pharetra et.
             </p>
 
-            {{ form_start(form) }}
+            {{ form_start(form, {
+                'attr': {
+                    'class': 'form'
+                },
+            }) }}
             <div class="grid grid-cols-2 gap-4">
                 {{ form_row(form.name) }}
                 {{ form_row(form.email) }}
