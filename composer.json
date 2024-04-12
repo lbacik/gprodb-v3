@@ -6,7 +6,12 @@
         {
             "type": "vcs",
             "url": "https://github.com/lbacik/jsonhub-sdk.git"
+        },
+        {
+            "type": "path",
+            "url": "../lib/gprodb-landingpage-data/"
         }
+
     ],
     "prefer-stable": true,
     "require": {
@@ -19,6 +24,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.1",
         "friendsofsymfony/ckeditor-bundle": "*",
+        "gprodb/landing-page": "dev-main",
         "lbacik/jsonhub-sdk": "^0.2.6",
         "league/commonmark": "^2.4",
         "pagerfanta/twig": "^4.3",

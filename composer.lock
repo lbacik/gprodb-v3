@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9183faa584baa7858756f0612bac5b7d",
+    "content-hash": "544950f56750834bc15d07400bd61c72",
     "packages": [
         {
             "name": "babdev/pagerfanta-bundle",
@@ -1614,6 +1614,33 @@
                 "source": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/tree/2.5.0"
             },
             "time": "2024-01-23T15:35:55+00:00"
+        },
+        {
+            "name": "gprodb/landing-page",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../lib/gprodb-landingpage-data",
+                "reference": "af08fd39a485769eb132fb148ce8c2f0ec35b023"
+            },
+            "require": {
+                "lbacik/object-collection": "^0.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GProDB\\": "src/GProDB/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Łukasz Bacik",
+                    "email": "mail@luka.sh"
+                }
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "guzzlehttp/guzzle",
