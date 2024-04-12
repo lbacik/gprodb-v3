@@ -1,30 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\MailingRepository;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
+//use Doctrine\DBAL\Types\Types;
+//use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MailingRepository::class)]
+//#[ORM\Entity(repositoryClass: MailingRepository::class)]
 class Mailing
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+//    #[ORM\Id]
+//    #[ORM\GeneratedValue]
+//    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 32)]
+//    #[ORM\Column(length: 32)]
     private ?string $type = null;
 
-    #[ORM\Column(length: 32)]
+//    #[ORM\Column(length: 32)]
     private ?string $provider = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+//    #[ORM\Column(type: Types::TEXT)]
     private ?string $config = null;
 
-    #[ORM\ManyToOne(inversedBy: 'mailing')]
-    #[ORM\JoinColumn(nullable: false)]
+//    #[ORM\ManyToOne(inversedBy: 'mailing')]
+//    #[ORM\JoinColumn(nullable: false)]
     private ?ProjectSettings $projectSettings = null;
 
     public function __construct(string $type)

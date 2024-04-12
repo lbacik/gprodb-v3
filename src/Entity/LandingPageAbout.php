@@ -1,27 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
-use App\Repository\LandingPageAboutRepository;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
+//use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: LandingPageAboutRepository::class)]
 class LandingPageAbout
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+//    #[ORM\Id]
+//    #[ORM\GeneratedValue]
+//    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+//    #[ORM\Column(length: 255, nullable: true)]
     private ?string $subtitle = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+//    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $columnLeft = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+//    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $columnRight = null;
 
     public function getId(): ?int

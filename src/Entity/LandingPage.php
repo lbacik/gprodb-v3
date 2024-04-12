@@ -1,44 +1,46 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\LandingPageRepository;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
+//use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: LandingPageRepository::class)]
+//#[ORM\Entity(repositoryClass: LandingPageRepository::class)]
 class LandingPage
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+//    #[ORM\Id]
+//    #[ORM\GeneratedValue]
+//    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 64)]
+//    #[ORM\Column(length: 64)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 3, max: 64)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+//    #[ORM\Column(length: 255, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\Column]
+//    #[ORM\Column]
     private bool $contact = false;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+//    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $contactInfo = null;
 
-    #[ORM\Column]
+//    #[ORM\Column]
     private ?bool $newsletter = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+//    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $newsletterInfo = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+//    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?LandingPageHero $hero = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+//    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?LandingPageAbout $about = null;
 
     public function getId(): ?int
