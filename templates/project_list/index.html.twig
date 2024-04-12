@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <twig:Center class="mt-20">
-        <div class="w-2/3 relative overflow-x-auto shadow-md sm:rounded-lg">
+    <twig:Title>Database</twig:Title>
+    <twig:Center>
+        <div class="w-2/3 relative overflow-x-auto shadow-md sm:rounded-lg pt-5 bg-white">
 
             <div class="flex flex-row">
                 <div class="flex-1">
@@ -37,10 +38,16 @@
                         <td class="px-6 py-4">
                             {{ project.description|default('')|u.truncate(100, '...') }}
                         </td>
-                        <td class="px-6 py-4 text-end">
-                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                               href="{{ path('app_project_details', {'id': project.id}) }}"
-                            >Show</a>
+                        <td class="px-2 py-2 text-end">
+{#                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"#}
+{#                               href="{{ path('app_project_details', {'id': project.id}) }}"#}
+{#                            >Show</a>#}
+
+                            <twig:Button
+                                    genre="lightBlueWhite"
+                                    href="{{ path('app_project_details', {'id': project.id}) }}"
+                            >Show</twig:Button>
+
                         </td>
                     </tr>
                 {% endfor %}

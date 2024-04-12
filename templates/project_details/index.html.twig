@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <twig:Center>
-        <div class="w-1/2 mt-10">
-            <h3>{{ project.name }}</h3>
+    <twig:Title>Project</twig:Title>
+    <twig:Center class="min-h-96">
+        <div class="w-1/2">
 
-            <div class="mt-5 mb-10">
+            <h3 class="project-name">{{ project.name }}</h3>
+
+            <div class="mt-10 mb-10">
                 {{ include('project_details/_tabs.html.twig') }}
             </div>
 

@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <twig:Title :project="project">Landing Page</twig:Title>
     <twig:Center>
         <div class="w-1/2" {{ stimulus_controller('local_storage') }}>
-            <div class="mt-10">
-                <h3>{{ project.name }}</h3>
-                <h4>Landing page configuration</h4>
-            </div>
-
             <div
                     id="markdown-editor"
                     {{ stimulus_controller('markdown_editor') }}
             >
 
-                {{ form_start(form) }}
+                {{ form_start(form, {
+                    attr: {
+                        class: 'form',
+                    },
+                }) }}
 
                 <div class="flex" {{ stimulus_controller('tab_manager') }}>
 
-                    <div class="landing-page mt-10 w-full">
+                    <div class="landing-page w-full">
 
                         {{ form_errors(form) }}
 

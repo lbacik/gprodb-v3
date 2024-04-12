@@ -15,20 +15,21 @@
         {#            <script src="https://cdn.tailwindcss.com"></script> #}
     {% endblock %}
 </head>
-<body class="flex flex-col h-screen" data-turbo="true">
+<body class="flex flex-col min-h-screen" data-turbo="true">
+{#    <div class="min-h-screen">#}
+        <twig:Header class="header"/>
 
-    <twig:Header class="mb-10"/>
+            <div class="mb-auto">
+                {% block body %}{% endblock %}
+            </div>
 
-    <div class="mb-auto">
-        {% block body %}{% endblock %}
-    </div>
+        <div id="flash-container">
+            {{ include('partials/_flashes.html.twig') }}
+        </div>
 
-    <div id="flash-container">
-        {{ include('partials/_flashes.html.twig') }}
-    </div>
+        {{ include('partials/_modal.html.twig') }}
 
-    {{ include('partials/_modal.html.twig') }}
-
-    {{ include('partials/_footer.html.twig') }}
+        <twig:Footer class="footer mt-32"/>
+{#    </div>#}
 </body>
 </html>

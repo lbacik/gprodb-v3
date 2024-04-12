@@ -1,24 +1,24 @@
 
 <div>
 
-    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user == project.owner %}
-        <div class="mb-10 text-end">
-            <twig:Button href="{{ path('app_project_details', {
-                    id: project.id,
-                    tab: 'links',
-                    edit: true,
-                }) }}"
-            >Edit</twig:Button>
-            {#                data-turbo-frame="modal"#}
-        </div>
-    {% endif %}
+{#    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user == project.owner %}#}
+{#        <div class="mb-10 text-end">#}
+{#            <twig:Button href="{{ path('app_project_details', {#}
+{#                    id: project.id,#}
+{#                    tab: 'links',#}
+{#                    edit: true,#}
+{#                }) }}"#}
+{#            >Edit</twig:Button>#}
+{#            #}{#                data-turbo-frame="modal"#}
+{#        </div>#}
+{#    {% endif %}#}
 
-    <table class="table-fixed w-full border-separate">
+    <table class="table-fixed w-full border-separate border-spacing-2">
         <tbody>
             {% for link in project.links %}
                 <tr>
-                    <th class="w-1/3 text-start bg-blue-50 px-3 py-1">{{ link.name }}</th>
-                    <td class="pl-2">
+                    <th class="w-1/3 text-start bg-blue-100 px-3 py-1 rounded-l-lg">{{ link.name }}</th>
+                    <td class="pl-3 bg-gray-100 rounded-r-lg font-light">
                         <a href="{{ link.url }}" class="text-blue-400 hover:underline">{{ link.url }}</a>
                     </td>
                 </tr>

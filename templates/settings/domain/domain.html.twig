@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <twig:Center>
+    <twig:Title :project="project">Domain</twig:Title>
+    <twig:Center class="mb-80">
         <div class="w-1/2" {{ stimulus_controller('local_storage') }}>
             <div class="mt-10">
-                <h3>{{ project.name }}</h3>
-                <h4>Domain configuration</h4>
-            </div>
 
-            <div class="mt-10">
+                {{ form_start(form, {
+                    attr: {
+                        class: 'form',
+                    },
 
-                {{ form_start(form) }}
+                }) }}
 
                 {{ form_row(form.domain) }}
 

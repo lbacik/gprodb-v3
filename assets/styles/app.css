@@ -2,9 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/*body {*/
-/*    background-color: skyblue;*/
-/*}*/
+/*
+gray-700
+indigo-950
+purple-900
+gray-400
+neutral-50
+ */
+
+/* colors */
+body {
+    @apply bg-neutral-50;
+
+    .header {
+        @apply bg-indigo-950;
+
+        .header-name {
+            @apply text-gray-100;
+        }
+
+        .nav-link {
+            @apply text-gray-200 hover:text-white hover:border-white;
+        }
+    }
+
+    footer.footer {
+        @apply bg-gray-700;
+    }
+}
 
 h3 {
     @apply text-3xl font-bold mt-5 mb-5;
@@ -57,21 +82,21 @@ h3 {
     }
 }
 
-.form-login {
+/*.form-login {*/
 
-    form > div {
-        @apply mt-4;
-    }
+/*    form > div {*/
+/*        @apply mt-4;*/
+/*    }*/
 
-    .submit-button-row {
-        @apply text-center;
-    }
+/*    .submit-button-row {*/
+/*        @apply text-center;*/
+/*    }*/
 
-    .submit-button {
-        @apply bg-blue-500 text-white p-2 px-4 rounded hover:bg-blue-600;
-    }
+/*    .submit-button {*/
+/*        @apply bg-blue-500 text-white p-2 px-4 rounded hover:bg-blue-600;*/
+/*    }*/
 
-}
+/*}*/
 
 .sign-in-li {
     margin-left: 80px !important;
@@ -134,4 +159,52 @@ h3 {
 
 .tab-button.active {
     @apply bg-gray-500 hover:bg-gray-700 text-white
+}
+
+
+.about-md {
+
+    @apply text-gray-600;
+
+    h1 {
+        @apply text-3xl font-bold mt-5 mb-5;
+    }
+
+    h2 {
+        @apply text-2xl font-bold mt-5 mb-5;
+    }
+
+    h3 {
+        @apply text-xl font-bold mt-5 mb-5;
+    }
+
+    p {
+        @apply m-3;
+    }
+
+    p.info {
+        @apply text-gray-800 bg-blue-100 p-6 m-8 rounded-md;
+    }
+
+    a {
+        @apply text-blue-500 hover:underline;
+    }
+
+    em {
+        @apply p-1 bg-green-100 rounded-md;
+    }
+
+    blockquote {
+        @apply text-gray-800 bg-blue-100 p-6 m-8 rounded-md;
+    }
+}
+
+.project-name {
+    /*font-family: Verdana, sans-serif;*/
+    @apply antialiased font-light;
+}
+
+.project-description {
+    /*font-family: Verdana, sans-serif;*/
+    @apply antialiased font-light;
 }

@@ -1,18 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <twig:Center data-turbo="false">
+    <twig:Title :project="project">Newsletter</twig:Title>
+    <twig:Center class="mb-80" data-turbo="false">
         <div class="w-1/2" {{ stimulus_controller('local_storage') }}>
-            <div class="mt-10">
-                <h3>{{ project.name }}</h3>
-                <h4>Newsletter configuration</h4>
-            </div>
-
             <div class="mt-10">
 
                 {{ form_start(formProvider, {
                     'attr': {
                         'data-controller': 'autosubmit',
+                        class: 'form',
                     }
                 }) }}
 
@@ -27,14 +24,18 @@
             </div>
 
             <div>
-                {{ form_start(formProviderConfig) }}
+                {{ form_start(formProviderConfig, {
+                    attr: {
+                        class: 'form',
+                    },
+                }) }}
 
                     {{ form_rest(formProviderConfig) }}
 
                     <div class="block w-full text-end mt-10">
                         <twig:Button
                                 genre="secondary"
-                                href="{{ path('app_project_details', {id: project.id, tag: 'settings'}) }}"
+                                href="{{ path('app_project_details', {id: project.id, tab: 'settings'}) }}"
                         >Cancel</twig:Button>
 
                         <twig:Button tag="button" class="ml-2">Save</twig:Button>
