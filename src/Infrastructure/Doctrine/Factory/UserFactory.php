@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Factory;
+namespace App\Infrastructure\Doctrine\Factory;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Infrastructure\SQLite\Repository\UserRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;

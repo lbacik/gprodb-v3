@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Factory;
+namespace App\Infrastructure\Doctrine\Factory;
 
 use App\Entity\Link;
-use App\Repository\LinkRepository;
+use App\Infrastructure\SQLite\Repository\LinkRepository;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;

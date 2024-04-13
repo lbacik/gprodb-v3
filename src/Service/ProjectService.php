@@ -4,25 +4,38 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\LandingPage;
 use App\Entity\Mailing;
 use App\Entity\Project;
 use App\Entity\ProjectSettings;
 use App\Entity\User;
-use App\Repository\LandingPageRepository;
-use App\Repository\MailingRepository;
-use App\Repository\ProjectRepository;
-use App\Repository\ProjectSettingsRepository;
-use Doctrine\Common\Collections\Criteria;
+use App\Infrastructure\JsonHub\Repository\LandingPageRepository;
+use App\Infrastructure\JsonHub\Repository\MailingRepository;
+use App\Infrastructure\JsonHub\Repository\ProjectRepository;
+use App\Infrastructure\JsonHub\Repository\ProjectSettingsRepository;
+use App\Repository\LandingPageRepositoryInterface;
+use App\Repository\MailingRepositoryInterface;
+use App\Repository\ProjectRepositoryInterface;
+use App\Repository\ProjectSettingsRepositoryInterface;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\DependencyInjection\Attribute\Target;
 
 class ProjectService
 {
+
     public function __construct(
-        private readonly ProjectRepository $projectRepository,
-        private readonly LandingPageRepository $landingPageRepository,
-        private readonly ProjectSettingsRepository $projectSettingsRepository,
-        private readonly MailingRepository $mailingRepository,
+//        #[Autowire(service: ProjectRepository::class)]
+        private readonly ProjectRepositoryInterface $projectRepository,
+
+//        #[Autowire(service: LandingPageRepository::class)]
+        private readonly LandingPageRepositoryInterface $landingPageRepository,
+
+//        #[Autowire(service: ProjectSettingsRepository::class)]
+        private readonly ProjectSettingsRepositoryInterface $projectSettingsRepository,
+
+//        #[Autowire(service: MailingRepository::class)]
+        private readonly MailingRepositoryInterface $mailingRepository,
+
         private readonly Security $security,
     ) {
     }
