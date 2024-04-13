@@ -10,8 +10,11 @@
         {
             "type": "path",
             "url": "../lib/gprodb-landingpage-data/"
+        },
+        {
+            "type": "path",
+            "url": "../jsonhub-sdk/"
         }
-
     ],
     "prefer-stable": true,
     "require": {

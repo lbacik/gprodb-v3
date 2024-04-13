@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "544950f56750834bc15d07400bd61c72",
+    "content-hash": "06b134226467ff1d9701640cfad6f19e",
     "packages": [
         {
             "name": "babdev/pagerfanta-bundle",
@@ -1972,12 +1972,12 @@
             "version": "v0.2.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/lbacik/jsonhub-sdk.git",
+                "url": "https://github.com/lbacik/jsonhub-sdk-php.git",
                 "reference": "5b8957995f99ee42b001baaa6fe8d756e85c89be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lbacik/jsonhub-sdk/zipball/5b8957995f99ee42b001baaa6fe8d756e85c89be",
+                "url": "https://api.github.com/repos/lbacik/jsonhub-sdk-php/zipball/5b8957995f99ee42b001baaa6fe8d756e85c89be",
                 "reference": "5b8957995f99ee42b001baaa6fe8d756e85c89be",
                 "shasum": ""
             },
@@ -2002,8 +2002,8 @@
                 }
             },
             "support": {
-                "source": "https://github.com/lbacik/jsonhub-sdk/tree/v0.2.6",
-                "issues": "https://github.com/lbacik/jsonhub-sdk/issues"
+                "source": "https://github.com/lbacik/jsonhub-sdk-php/tree/v0.2.6",
+                "issues": "https://github.com/lbacik/jsonhub-sdk-php/issues"
             },
             "time": "2024-02-22T10:49:13+00:00"
         },
@@ -11713,7 +11713,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "gprodb/landing-page": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
