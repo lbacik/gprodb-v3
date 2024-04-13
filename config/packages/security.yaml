@@ -6,9 +6,10 @@ security:
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
-            entity:
-                class: App\Entity\User
-                property: email
+#            entity:
+#                class: App\Entity\User
+#                property: email
+            id: App\Infrastructure\JsonHub\Security\UserProvider
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -16,7 +17,8 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            custom_authenticator: App\Security\AppCustomAuthenticator
+#            custom_authenticator: App\Security\AppCustomAuthenticator
+            custom_authenticator: App\Infrastructure\JsonHub\Security\JsonHubAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
