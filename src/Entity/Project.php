@@ -4,47 +4,39 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
-//use Doctrine\ORM\Mapping as ORM;
-
-//#[ORM\Entity(repositoryClass: ProjectRepository::class)]
-//#[ORM\Table(name: 'projects')]
 class Project
 {
-//    #[ORM\Id]
-//    #[ORM\GeneratedValue]
-//    #[ORM\Column]
-    private ?int $id = null;
+    private ?string $id = null;
 
-//    #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 3, max: 64)]
     private ?string $name;
 
-//    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-//    #[ORM\OneToMany(targetEntity: Link::class, mappedBy: 'project', cascade: ["persist"], orphanRemoval: true)]
-    private Collection $links;
+    private array $links;
 
-//    #[ORM\ManyToOne(inversedBy: 'projects')]
-//    #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
 
-//    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?ProjectSettings $settings = null;
 
     public function __construct()
     {
-        $this->links = new ArrayCollection();
+        $this->links = [];
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(string $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -71,10 +63,7 @@ class Project
         return $this;
     }
 
-    /**
-     * @return Collection<int, Link>
-     */
-    public function getLinks(): Collection
+    public function getLinks(): array
     {
         return $this->links;
     }
@@ -130,5 +119,14 @@ class Project
         $this->settings = $settings;
 
         return $this;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
+            'links' => $this->links,
+        ];
     }
 }

@@ -8,34 +8,19 @@ use App\Entity\Mailing;
 use App\Entity\Project;
 use App\Entity\ProjectSettings;
 use App\Entity\User;
-use App\Infrastructure\JsonHub\Repository\LandingPageRepository;
-use App\Infrastructure\JsonHub\Repository\MailingRepository;
-use App\Infrastructure\JsonHub\Repository\ProjectRepository;
-use App\Infrastructure\JsonHub\Repository\ProjectSettingsRepository;
 use App\Repository\LandingPageRepositoryInterface;
 use App\Repository\MailingRepositoryInterface;
 use App\Repository\ProjectRepositoryInterface;
 use App\Repository\ProjectSettingsRepositoryInterface;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Component\DependencyInjection\Attribute\Target;
 
 class ProjectService
 {
-
     public function __construct(
-//        #[Autowire(service: ProjectRepository::class)]
         private readonly ProjectRepositoryInterface $projectRepository,
-
-//        #[Autowire(service: LandingPageRepository::class)]
         private readonly LandingPageRepositoryInterface $landingPageRepository,
-
-//        #[Autowire(service: ProjectSettingsRepository::class)]
         private readonly ProjectSettingsRepositoryInterface $projectSettingsRepository,
-
-//        #[Autowire(service: MailingRepository::class)]
         private readonly MailingRepositoryInterface $mailingRepository,
-
         private readonly Security $security,
     ) {
     }
@@ -79,7 +64,7 @@ class ProjectService
         $this->projectSettingsRepository->save($settings);
     }
 
-    public function createWithName(string $name): int
+    public function createWithName(string $name): string
     {
         /** @var User $user */
         $user = $this->security->getUser();

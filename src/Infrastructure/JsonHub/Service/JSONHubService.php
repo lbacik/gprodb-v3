@@ -5,23 +5,51 @@ declare(strict_types=1);
 namespace App\Infrastructure\JsonHub\Service;
 
 use App\Entity\Project;
+use App\Entity\User;
 use JsonHub\SDK\Client;
 use JsonHub\SDK\ClientFactory;
 use JsonHub\SDK\Entity;
+use JsonHub\SDK\EntityCollection;
 use JsonHub\SDK\FilterCriteria;
+use Psr\Log\LoggerInterface;
+use RuntimeException;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class JSONHubService
 {
     private Client $client;
 
-    public function __construct(string $jsonHubApiUrl)
-    {
-        $this->client = ClientFactory::create($jsonHubApiUrl);
+    public function __construct(
+        string $jsonHubApiUrl,
+        LoggerInterface $logger,
+        private readonly Security $security,
+    ) {
+        $this->client = ClientFactory::create($jsonHubApiUrl, $logger);
     }
 
     public function getClient(): Client
     {
         return $this->client;
+    }
+
+    public function lastQueryCount(): int
+    {
+        return $this->client->getLastQueryCount();
+    }
+
+    public function save(Entity $entity): Entity
+    {
+        /** @var User $user */
+        $user = $this->security->getUser();
+        $token = $user->getJsonHubAccessToken();
+
+        if ($entity->id === null) {
+            $result = $this->client->createEntity($entity->data, $entity->definition, $token);
+        } else {
+            $result = $this->client->updateEntity($entity, $token);
+        }
+
+        return $result;
     }
 
     public function getProject(string $id): Project|null
@@ -37,24 +65,22 @@ class JSONHubService
         return new Project();
     }
 
-    public function findById(string $id): Entity
+    public function findById(string $id): Entity|null
     {
-        return $this->client->getEntity($id);
+        /** @var User $user */
+        $user = $this->security->getUser();
+        $token = $user->getJsonHubAccessToken();
+
+        try {
+            return $this->client->getEntity($id, $token);
+        } catch (RuntimeException $exception) {
+            return null;
+        }
     }
 
-    public function find(FilterCriteria $criteria): array // ProjectCollection
+    public function find(FilterCriteria $criteria): EntityCollection
     {
-//        $result = new ProjectCollection();
-//        $entities = $this->jsonHubClient->getEntities($criteria);
-//
-//        foreach($entities as $entity) {
-//            $result[] = Project::createFromJson($entity->id, $entity->data);
-//        }
-//
-//        $result->setTotal($this->jsonHubClient->getLastQueryCount());
-//
-//        return $result;
-
-        return [];
+        return $this->client
+            ->getEntities($criteria);
     }
 }
