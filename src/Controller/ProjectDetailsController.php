@@ -22,7 +22,6 @@ class ProjectDetailsController extends AbstractController
 {
     public function __construct(
         private readonly ProjectService $projectService,
-        private readonly Security $security
     ) {
     }
 
@@ -63,7 +62,7 @@ class ProjectDetailsController extends AbstractController
             $this->projectService->updateProject($id, $form->getData());
             $this->addFlash('success', 'Your changes have been saved');
 
-            return $this->redirect($this->generateUrl('app_project_details', ['id' => $id]));
+            return $this->redirectToRoute('app_project_details', ['id' => $id]);
         }
 
         return $this->render('project_details/index.html.twig', [
@@ -85,7 +84,7 @@ class ProjectDetailsController extends AbstractController
             $this->projectService->updateProject($id, $form->getData(), true);
             $this->addFlash('success', 'Your changes have been saved');
 
-            return $this->redirect($this->generateUrl('app_project_details', ['id' => $id, 'tab' => 'links']));
+            return $this->redirectToRoute('app_project_details', ['id' => $id, 'tab' => 'links']);
         }
 
         return $this->render('project_details/index.html.twig', [
