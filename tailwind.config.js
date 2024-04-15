@@ -25,6 +25,7 @@ module.exports = {
   // ...
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
     // plugin(function({ addVariant }) {
     //   addVariant('turbo-frame', 'turbo-frame[src] &')
     // }),

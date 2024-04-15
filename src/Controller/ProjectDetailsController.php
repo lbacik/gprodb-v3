@@ -10,13 +10,14 @@ use App\Form\ContactType;
 use App\Form\LinksType;
 use App\Form\ProjectAboutType;
 use App\Service\ProjectService;
+use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProjectDetailsController extends AbstractController
 {
@@ -37,6 +38,14 @@ class ProjectDetailsController extends AbstractController
             throw $this->createNotFoundException('The project does not exist');
         }
 
+        if ($edit) {
+            $this->denyAccessUnlessGranted('ROLE_USER');
+
+            if ($this->getUser() !== $project->getOwner()) {
+                throw $this->createAccessDeniedException('You are not allowed to edit this project');
+            }
+        }
+
         return $this->render(
             'project_details/index.html.twig',
             array_merge(
@@ -53,28 +62,28 @@ class ProjectDetailsController extends AbstractController
     }
 
     #[Route('/projects/{id}/about', name: 'app_project_edit', methods: ['POST'])]
+    #[isGranted('ROLE_USER')]
     public function projectEdit(Request $request, string $id): Response
     {
         $form = $this->createForm(ProjectAboutType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->projectService->updateProject($id, $form->getData());
             $this->addFlash('success', 'Your changes have been saved');
 
             return $this->redirectToRoute('app_project_details', ['id' => $id]);
         }
 
-        return $this->render('project_details/index.html.twig', [
-            'projectId' => $id,
+        return $this->redirectToRoute('app_project_details', [
+            'id' => $id,
             'tab' => 'about',
-            'project' => $this->projectService->getProject($id),
-            'form' => $form,
-            'template' => $this->getTemplateName('about', true),
+            'edit' => true,
         ]);
     }
 
     #[Route('/projects/{id}/links', name: 'app_project_links_edit', methods: ['POST'])]
+    #[isGranted('ROLE_USER')]
     public function linksEdit(Request $request, string $id): Response
     {
         $form = $this->createForm(LinksType::class);
@@ -102,7 +111,7 @@ class ProjectDetailsController extends AbstractController
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->addFlash('success', 'Your message has been sent');
             return new Response(null, 204);
         }
@@ -114,14 +123,14 @@ class ProjectDetailsController extends AbstractController
     {
         try {
             return $this->projectService->getProjectSettings($project);
-        } catch (\LogicException $e) {
+        } catch (LogicException $e) {
             throw $this->createAccessDeniedException($e->getMessage());
         }
     }
 
     private function getForm(string $tab, bool $edit, Project $project): FormInterface|null
     {
-        return match($tab) {
+        return match ($tab) {
             'about' => $edit ? $this->createForm(ProjectAboutType::class, $project) : null,
             'links' => $this->createForm(LinksType::class, $project),
             'contact' => $this->createForm(ContactType::class),
@@ -131,7 +140,7 @@ class ProjectDetailsController extends AbstractController
 
     private function getTemplateName(string $tab, bool $edit): string
     {
-        return match($tab) {
+        return match ($tab) {
             'about' => $edit ? '_about-edit' : '_about',
             'links' => $edit ? '_links-edit' : '_links',
             'contact' => '_contact',
@@ -142,7 +151,7 @@ class ProjectDetailsController extends AbstractController
 
     private function getAdditionalData(string $tab, Project $project): array
     {
-        return match($tab) {
+        return match ($tab) {
             'settings' => [
                 'projectSettings' => $this->getProjectSettings($project),
             ],
