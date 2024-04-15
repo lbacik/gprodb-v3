@@ -99,9 +99,6 @@ class ProjectService
         }
 
         if ($updateLinks) {
-            foreach($updates->getLinks() as $link) {
-                $link->setProject($project);
-            }
             $project->setLinks($updates->getLinks());
         } else {
             $project->setName($updates->getName());

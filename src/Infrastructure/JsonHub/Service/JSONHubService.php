@@ -41,6 +41,11 @@ class JSONHubService
     {
         /** @var User $user */
         $user = $this->security->getUser();
+
+        if ($user === null) {
+            throw new RuntimeException('No user');
+        }
+
         $token = $user->getJsonHubAccessToken();
 
         if ($entity->id === null) {
@@ -69,7 +74,7 @@ class JSONHubService
     {
         /** @var User $user */
         $user = $this->security->getUser();
-        $token = $user->getJsonHubAccessToken();
+        $token = $user?->getJsonHubAccessToken();
 
         try {
             return $this->client->getEntity($id, $token);

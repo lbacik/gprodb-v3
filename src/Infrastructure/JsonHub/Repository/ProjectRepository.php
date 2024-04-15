@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\JsonHub\Repository;
 
+use App\Entity\Link;
 use App\Entity\Project;
 use App\Infrastructure\JsonHub\Service\JSONHubService;
 use App\Repository\ProjectRepositoryInterface;
@@ -70,14 +71,24 @@ class ProjectRepository implements ProjectRepositoryInterface
         } else {
             $currentEntity = $this->jsonHubService->findById($project->getId());
 
-            $data = $currentEntity->data;
+            $data = [
+                'name' => $project->getName(),
+                'description' => $project->getDescription(),
+                'links' => array_map(
+                    fn (Link $link) => [
+                        'name' => $link->getName() ?? '',
+                        'url' => $link->getUrl(),
+                    ],
+                    array_values($project->getLinks()),
+                ),
+            ];
 
             $entity = new Entity(
                 id: $currentEntity->id,
-                iri: $currentEntity->iri,
-                slug: $currentEntity->slug,
+                iri: null,
+                slug: '',
                 data: $data,
-                definition: $this->projectDefinitionUuid,
+                definition: null,
             );
 
         }
@@ -100,7 +111,15 @@ class ProjectRepository implements ProjectRepositoryInterface
         $project = (new Project())
             ->setId($entity->id)
             ->setName($entity->data['name'])
-            ->setDescription($entity->data['description'] ?? null);
+            ->setDescription($entity->data['description'] ?? null)
+            ->setLinks(
+                array_map(
+                    fn (array $link) => (new Link())
+                        ->setName($link['name'])
+                        ->setUrl($link['url']),
+                $entity->data['links'] ?? [],
+                )
+            );
 
         if ($entity->owned === true) {
             $project->setOwner($this->security->getUser());

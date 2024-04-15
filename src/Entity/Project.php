@@ -68,29 +68,29 @@ class Project
         return $this->links;
     }
 
-    public function addLink(Link $link): static
-    {
-        if (!$this->links->contains($link)) {
-            $this->links->add($link);
-            $link->setProject($this);
-        }
+//    public function addLink(Link $link): static
+//    {
+//        if (!$this->links->contains($link)) {
+//            $this->links->add($link);
+//            $link->setProject($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeLink(Link $link): static
+//    {
+//        if ($this->links->removeElement($link)) {
+//            // set the owning side to null (unless already changed)
+//            if ($link->getProject() === $this) {
+//                $link->setProject(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 
-        return $this;
-    }
-
-    public function removeLink(Link $link): static
-    {
-        if ($this->links->removeElement($link)) {
-            // set the owning side to null (unless already changed)
-            if ($link->getProject() === $this) {
-                $link->setProject(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function setLinks(Collection $links): static
+    public function setLinks(array $links): static
     {
         $this->links = $links;
 
