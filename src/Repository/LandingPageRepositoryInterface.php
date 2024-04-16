@@ -8,5 +8,6 @@ use App\Entity\LandingPage;
 
 interface LandingPageRepositoryInterface
 {
+    public function findByProjectId(string $projectId): LandingPage|null;
     public function save(LandingPage $landingPage): void;
 }
