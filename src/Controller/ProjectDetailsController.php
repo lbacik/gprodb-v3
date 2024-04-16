@@ -96,12 +96,10 @@ class ProjectDetailsController extends AbstractController
             return $this->redirectToRoute('app_project_details', ['id' => $id, 'tab' => 'links']);
         }
 
-        return $this->render('project_details/index.html.twig', [
-            'projectId' => $id,
+        return $this->redirectToRoute('app_project_details', [
+            'id' => $id,
             'tab' => 'links',
-            'project' => $this->projectService->getProject($id),
-            'form' => $form,
-            'template' => $this->getTemplateName('links', true),
+            'edit' => true,
         ]);
     }
 

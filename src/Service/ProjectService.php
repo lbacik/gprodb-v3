@@ -48,7 +48,12 @@ class ProjectService
             throw new \LogicException('You are not allowed to access this page');
         }
 
-        return $project->getSettings();
+//        return $project->getSettings();
+
+        $settings = $this->projectSettingsRepository->findByProjectId($project->getId());
+        $settings->setLandingPage($this->landingPageRepository->findByProjectId($project->getId()));
+
+        return $settings;
     }
 
     public function updateLandingPageDomain(Project $project, string|null $domain): void
