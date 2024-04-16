@@ -4,28 +4,15 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-//use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class LandingPageHero
 {
-//    #[ORM\Id]
-//    #[ORM\GeneratedValue]
-//    #[ORM\Column]
-    private ?int $id = null;
-
-//    #[ORM\Column(length: 32)]
     #[Assert\NotBlank]
     #[Assert\Length(max: 32)]
     private ?string $title = null;
 
-//    #[ORM\Column(length: 255, nullable: true)]
     private ?string $subtitle = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getTitle(): ?string
     {

@@ -7,45 +7,25 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-//use Doctrine\ORM\Mapping as ORM;
-
-//#[ORM\Entity(repositoryClass: ProjectSettingsRepository::class)]
 class ProjectSettings
 {
-//    #[ORM\Id]
-//    #[ORM\GeneratedValue]
-//    #[ORM\Column]
-    private ?int $id = null;
-
-//    #[ORM\Column(length: 64, nullable: true)]
     private ?string $landingPageEntityId = null;
 
-//    #[ORM\Column(length: 64, nullable: true)]
     private ?string $customDomainEntityId = null;
 
-//    #[ORM\Column(length: 64, nullable: true)]
     private ?string $newsletterProviderEntityId = null;
 
-//    #[ORM\Column(length: 64, nullable: true)]
     private ?string $newsletterProviderConfigEntityId = null;
 
-//    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?LandingPage $landingPage = null;
 
-//    #[ORM\Column(length: 128, nullable: true)]
     private ?string $domain = null;
 
-//    #[ORM\OneToMany(targetEntity: Mailing::class, mappedBy: 'projectSettings', orphanRemoval: true)]
     private Collection $mailing;
 
     public function __construct()
     {
         $this->mailing = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getLandingPageEntityId(): ?string
