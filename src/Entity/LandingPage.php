@@ -34,7 +34,7 @@ class LandingPage
         $this->id = $id;
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -87,7 +87,7 @@ class LandingPage
         return $this;
     }
 
-    public function isNewsletter(): ?bool
+    public function getNewsletter(): ?bool
     {
         return $this->newsletter;
     }

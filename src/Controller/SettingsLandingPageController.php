@@ -51,7 +51,8 @@ class SettingsLandingPageController extends AbstractController
             $this->projectService->saveLandingPage($project->getId(), $form->getData());
 
             $this->addFlash('success', 'Landing page settings saved!');
-            return $this->redirectToRoute('app_settings_landing_page', ['id' => $id]);
+
+            return $this->redirectToRoute('app_project_details', ['id' => $id, 'tab' => 'settings']);
         }
 
         return $this->render('settings/landing/landing-page.html.twig', [

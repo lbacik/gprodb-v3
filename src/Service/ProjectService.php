@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\LandingPage;
 use App\Entity\Mailing;
 use App\Entity\Project;
 use App\Entity\ProjectSettings;
@@ -113,7 +114,7 @@ class ProjectService
         $this->projectRepository->save($project);
     }
 
-    public function saveLandingPage(int $projectId, array $data): void
+    public function saveLandingPage(string $projectId, array $data): void
     {
         $project = $this->projectRepository->find($projectId);
 
@@ -121,24 +122,27 @@ class ProjectService
             throw new \LogicException('Project not found');
         }
 
+        // TODO: Check the user
+
+        /** @var LandingPage $landingPage */
         $landingPage = $data['base'];
         $landingPage->setHero($data['hero']);
         $landingPage->setAbout($data['about']);
 
-        $this->landingPageRepository->save($landingPage);
+        $this->landingPageRepository->save($projectId, $landingPage);
 
-        $settings = $project->getSettings();
-        if ($settings === null) {
-            $settings = new ProjectSettings();
-            $this->projectSettingsRepository->save($settings);
-            $project->setSettings($settings);
-            $this->projectRepository->save($project);
-        }
-
-        if ($settings->getLandingPage() === null) {
-            $settings->setLandingPage($landingPage);
-            $this->projectSettingsRepository->save($settings);
-        }
+//        $settings = $project->getSettings();
+//        if ($settings === null) {
+//            $settings = new ProjectSettings();
+//            $this->projectSettingsRepository->save($settings);
+//            $project->setSettings($settings);
+//            $this->projectRepository->save($project);
+//        }
+//
+//        if ($settings->getLandingPage() === null) {
+//            $settings->setLandingPage($landingPage);
+//            $this->projectSettingsRepository->save($settings);
+//        }
     }
 
     public function setNewsletter(Project $project, string $provider, array $data): void

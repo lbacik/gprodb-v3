@@ -49,7 +49,7 @@ class JSONHubService
         $token = $user->getJsonHubAccessToken();
 
         if ($entity->id === null) {
-            $result = $this->client->createEntity($entity->data, $entity->definition, $token);
+            $result = $this->client->createEntity($entity, $token);
         } else {
             $result = $this->client->updateEntity($entity, $token);
         }
