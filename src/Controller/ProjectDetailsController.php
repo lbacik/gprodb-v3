@@ -23,6 +23,7 @@ class ProjectDetailsController extends AbstractController
 {
     public function __construct(
         private readonly ProjectService $projectService,
+        private readonly string $pagesUrlPrefix,
     ) {
     }
 
@@ -152,6 +153,7 @@ class ProjectDetailsController extends AbstractController
         return match ($tab) {
             'settings' => [
                 'projectSettings' => $this->getProjectSettings($project),
+                'pagesUrlPrefix' => $this->pagesUrlPrefix,
             ],
             default => [],
         };

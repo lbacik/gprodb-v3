@@ -16,8 +16,10 @@
 
             {% else %}
 
-                <a href="{{ urlPrefix }}{{ settingProperty.id }}">
-                    {{ settingProperty.id }}
+                <a
+                        class="text-sm text-blue-500 hover:underline"
+                        href="{{ urlPrefix }}{{ settingProperty.id }}">
+                    {{ urlPrefix }}{{ settingProperty.id }}
                 </a>
 
             {% endif %}
