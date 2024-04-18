@@ -22,9 +22,10 @@ class JSONHubService
     public function __construct(
         string $jsonHubApiUrl,
         LoggerInterface $logger,
+        HttpClient $httpClient,
         private readonly Security $security,
     ) {
-        $this->client = ClientFactory::create($jsonHubApiUrl, $logger);
+        $this->client = ClientFactory::create($jsonHubApiUrl, $logger, $httpClient);
     }
 
     public function getClient(): Client
