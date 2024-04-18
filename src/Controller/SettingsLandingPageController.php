@@ -26,7 +26,8 @@ class SettingsLandingPageController extends AbstractController
         #[MapQueryParameter()] string $tab = 'base'
     ): Response {
         $project = $this->projectService->getProject($id);
-        $landingPage = $project->getSettings()?->getLandingPage();
+        $settings = $this->projectService->getProjectSettings($project);
+        $landingPage = $settings->getLandingPage();
 
         $form = $this->createForm(
             LandingPageType::class,
