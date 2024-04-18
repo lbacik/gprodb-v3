@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\JsonHub\Repository;
 
 use App\Entity\LandingPage;
+use App\Entity\LandingPageAbout;
 use App\Entity\LandingPageHero;
-use App\Infrastructure\JsonHub\Service\JSONHubService;
 use App\Infrastructure\JsonHub\Service\LandingPageService;
 use App\Repository\LandingPageRepositoryInterface;
 use Exception;
@@ -31,11 +31,11 @@ class LandingPageRepository implements LandingPageRepositoryInterface
         $values = (new LandingPageValues())
             ->addElement(new Meta(
                 $landingPage->getName(),
-                $landingPage->getTitle() ?? '',
+                $landingPage->getTitle(),
             ))
             ->addElement(new Hero(
-                $landingPage->getHero()->getTitle(),
-                $landingPage->getHero()->getSubtitle() ?? '',
+                $landingPage->getHero()?->getTitle(),
+                $landingPage->getHero()?->getSubtitle() ?? '',
             ))
             ->addElement(new About(
                 $landingPage->getAbout()->getSubtitle() ?? '',
@@ -71,7 +71,17 @@ class LandingPageRepository implements LandingPageRepositoryInterface
 
         foreach($values->getElements() as $element) {
             match($element->elementName()) {
+                ElementName::META => $landingPage
+                    ->setName($element->name)
+                    ->setTitle($element->title),
                 ElementName::HERO => $this->addHero($element, $landingPage),
+                ElementName::ABOUT => $this->addAbout($element, $landingPage),
+                ElementName::CONTACT => $landingPage
+                    ->setContactInfo($element->description)
+                    ->setContact($element->enabled),
+                ElementName::NEWSLETTER => $landingPage
+                    ->setNewsletterInfo($element->description)
+                    ->setNewsletter($element->enabled),
                 default => throw new Exception('Unknown element type'),
             };
         }
@@ -85,5 +95,15 @@ class LandingPageRepository implements LandingPageRepositoryInterface
         $hero->setTitle($element->title);
         $hero->setSubtitle($element->subtitle);
         $landingPage->setHero($hero);
+    }
+
+    private function addAbout(About $element, LandingPage $landingPage): void
+    {
+        $about = new LandingPageAbout();
+        $about->setSubtitle($element->subtitle);
+        $about->setColumnLeft($element->columnLeft);
+        $about->setColumnRight($element->columnRight);
+//        $about->setEnabled($element->enabled);
+        $landingPage->setAbout($about);
     }
 }
