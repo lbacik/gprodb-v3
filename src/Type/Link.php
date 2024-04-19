@@ -2,25 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Type;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
 class Link
 {
-//    private ?int $id = null;
-
     private string|null $name = null;
 
     #[Assert\Url]
     #[Assert\NotBlank]
     #[Assert\Length(min: 10, max: 255)]
     private string $url;
-
-//    public function getId(): ?int
-//    {
-//        return $this->id;
-//    }
 
     public function getName(): ?string
     {
@@ -44,5 +37,12 @@ class Link
         $this->url = $url;
 
         return $this;
+    }
+
+    public static function fromArray(array $data): static
+    {
+        return (new static())
+            ->setName($data['name'] ?? null)
+            ->setUrl($data['url']);
     }
 }

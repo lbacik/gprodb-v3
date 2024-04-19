@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Doctrine\Factory;
 
-use App\Entity\Link;
 use App\Infrastructure\SQLite\Repository\LinkRepository;
+use App\Type\Link;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;

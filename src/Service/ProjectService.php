@@ -13,6 +13,7 @@ use App\Repository\LandingPageRepositoryInterface;
 use App\Repository\MailingRepositoryInterface;
 use App\Repository\ProjectRepositoryInterface;
 use App\Repository\ProjectSettingsRepositoryInterface;
+use App\Type\ProjectCollection;
 use Symfony\Bundle\SecurityBundle\Security;
 
 class ProjectService
@@ -26,19 +27,19 @@ class ProjectService
     ) {
     }
 
-    public function getProjects(string $searchString, int $page = 1, int $limit = 10): array
+    public function getProjects(string $searchString, int $page = 1, int $limit = 10): ProjectCollection
     {
         return $this->projectRepository->findBySearchString($searchString, ($page - 1) * $limit, $limit);
-    }
-
-    public function getProject(string $projectId): Project|null
-    {
-        return $this->projectRepository->find($projectId);
     }
 
     public function count(string $searchString): int
     {
         return $this->projectRepository->countBySearchString($searchString);
+    }
+
+    public function getProject(string $projectId): Project|null
+    {
+        return $this->projectRepository->find($projectId);
     }
 
     public function getProjectSettings(Project $project): ProjectSettings

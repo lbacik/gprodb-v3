@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\SQL\Repository;
 
-use App\Entity\Link;
+use App\Type\Link;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

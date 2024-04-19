@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Type\LinkCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class Project
@@ -63,14 +64,14 @@ class Project
         return $this;
     }
 
-    public function getLinks(): array
+    public function getLinks(): LinkCollection
     {
-        return $this->links;
+        return new LinkCollection($this->links);
     }
 
-    public function setLinks(array $links): static
+    public function setLinks(LinkCollection $links): static
     {
-        $this->links = $links;
+        $this->links = $links->getArrayCopy();
 
         return $this;
     }
