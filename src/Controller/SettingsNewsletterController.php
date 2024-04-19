@@ -12,7 +12,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[isGranted('ROLE_USER')]
 class SettingsNewsletterController extends AbstractController
 {
     public function __construct(
@@ -21,7 +23,7 @@ class SettingsNewsletterController extends AbstractController
     }
 
     #[Route('/projects/{id}/settings/newsletter/{provider?}', name: 'app_settings_newsletter', methods: ['GET', 'POST'])]
-    public function domain(Request $request, string $id, string|null $provider): Response
+    public function newsletter(Request $request, string $id, string|null $provider): Response
     {
         $project = $this->projectService->getProject($id);
         $newsletter = $this->projectService->getProjectSettings($project)->getNewsletter();

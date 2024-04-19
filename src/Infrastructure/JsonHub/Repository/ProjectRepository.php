@@ -64,7 +64,7 @@ class ProjectRepository implements ProjectRepositoryInterface
             $entity = new Entity(
                 id: $project->getId(),
                 iri: null,
-                slug: '',
+                slug: null,
                 data: $data,
                 definition: $this->projectDefinitionUuid,
             );
@@ -86,7 +86,7 @@ class ProjectRepository implements ProjectRepositoryInterface
             $entity = new Entity(
                 id: $currentEntity->id,
                 iri: null,
-                slug: '',
+                slug: null,
                 data: $data,
                 definition: null,
             );
