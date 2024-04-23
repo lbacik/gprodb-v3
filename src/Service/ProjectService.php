@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\Domain;
 use App\Entity\LandingPage;
-use App\Entity\Mailing;
 use App\Entity\Project;
-use App\Entity\ProjectSettings;
 use App\Entity\User;
+use App\Repository\DomainRepositoryInterface;
 use App\Repository\LandingPageRepositoryInterface;
-use App\Repository\MailingRepositoryInterface;
+use App\Repository\MailingProviderRepositoryInterface;
+use App\Repository\MailingRConfigRepositoryInterface;
 use App\Repository\ProjectRepositoryInterface;
-use App\Repository\ProjectSettingsRepositoryInterface;
 use App\Type\ProjectCollection;
+use App\Type\ProjectSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 
 class ProjectService
@@ -21,8 +22,9 @@ class ProjectService
     public function __construct(
         private readonly ProjectRepositoryInterface $projectRepository,
         private readonly LandingPageRepositoryInterface $landingPageRepository,
-        private readonly ProjectSettingsRepositoryInterface $projectSettingsRepository,
-        private readonly MailingRepositoryInterface $mailingRepository,
+        private readonly DomainRepositoryInterface $domainRepository,
+        private readonly MailingProviderRepositoryInterface $mailingProviderRepository,
+        private readonly MailingRConfigRepositoryInterface $mailingRConfigRepository,
         private readonly Security $security,
     ) {
     }
@@ -50,10 +52,14 @@ class ProjectService
             throw new \LogicException('You are not allowed to access this page');
         }
 
-//        return $project->getSettings();
-
-        $settings = $this->projectSettingsRepository->findByProjectId($project->getId());
-        $settings->setLandingPage($this->landingPageRepository->findByProjectId($project->getId()));
+        $settings = new ProjectSettings();
+        $landingPage = $this->landingPageRepository->findByProjectId($project->getId());
+        if ($landingPage) {
+            $settings->setLandingPage($landingPage);
+            $settings->setDomain($this->domainRepository->findByLandingPageId($landingPage->getId()));
+            $settings->setMailingProvider($this->mailingProviderRepository->findByLandingPageId($landingPage->getId()));
+            $settings->setMailingRConfig($this->mailingRConfigRepository->findByLandingPageId($landingPage->getId()));
+        }
 
         return $settings;
     }
@@ -67,7 +73,7 @@ class ProjectService
         }
 
         $settings = $project->getSettings();
-        $settings->setDomain($domain);
+//        $settings->setDomain($domain);
         $this->projectSettingsRepository->save($settings);
     }
 
@@ -168,6 +174,38 @@ class ProjectService
             $newsletter->setProjectSettings($settings);
         }
 
-        $this->mailingRepository->save($newsletter);
+        $this->mailingProviderRepository->save($newsletter);
+    }
+
+    public function deleteDomain(Project $project): void
+    {
+        $user = $this->security->getUser();
+
+        if ($project->getOwner() !== $user) {
+            throw new \LogicException('You are not allowed to access this page');
+        }
+
+        $settings = $project->getSettings();
+        if ($settings->getDomain() === null) {
+            return;
+        }
+
+        $this->domainRepository->delete($settings->getDomain());
+    }
+
+    public function setDomain(Project $project, Domain $domain): void
+    {
+        $user = $this->security->getUser();
+
+        if ($project->getOwner() !== $user) {
+            throw new \LogicException('You are not allowed to access this page');
+        }
+
+        $landingPage = $this->landingPageRepository->findByProjectId($project->getId());
+        if ($landingPage === null) {
+            throw new \LogicException('Landing page not found');
+        }
+
+        $this->domainRepository->save($domain, $landingPage);
     }
 }
