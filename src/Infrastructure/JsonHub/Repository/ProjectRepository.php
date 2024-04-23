@@ -43,7 +43,7 @@ class ProjectRepository implements ProjectRepositoryInterface
                 ->setId($entity->id)
                 ->setName($entity->data[self::NAME])
                 ->setDescription($entity->data[self::DESCRIPTION] ?? null)
-                ->setLinks(LinkCollection::fromArray($entity->data[self::LINKS])),
+                ->setLinks(LinkCollection::fromArray($entity->data[self::LINKS] ?? [])),
             (array) $entities
         ));
     }
@@ -76,13 +76,13 @@ class ProjectRepository implements ProjectRepositoryInterface
 
             $data = [
                 'name' => $project->getName(),
-                'description' => $project->getDescription(),
+                'description' => $project->getDescription() ?? '',
                 'links' => array_map(
                     fn (Link $link) => [
                         'name' => $link->getName() ?? '',
                         'url' => $link->getUrl(),
                     ],
-                    array_values($project->getLinks()),
+                    array_values($project->getLinks()->getArrayCopy()),
                 ),
             ];
 
@@ -115,14 +115,7 @@ class ProjectRepository implements ProjectRepositoryInterface
             ->setId($entity->id)
             ->setName($entity->data['name'])
             ->setDescription($entity->data['description'] ?? null)
-            ->setLinks(
-                array_map(
-                    fn (array $link) => (new Link())
-                        ->setName($link['name'])
-                        ->setUrl($link['url']),
-                $entity->data['links'] ?? [],
-                )
-            );
+            ->setLinks(LinkCollection::fromArray($entity->data['links'] ?? []));
 
         if ($entity->owned === true) {
             $project->setOwner($this->security->getUser());

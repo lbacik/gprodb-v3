@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Entity\Project;
+use App\Type\LinkCollection;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,6 +51,8 @@ class LinksType extends AbstractType
                 'label' => false,
             ])
         ;
+
+        $this->addTransformers($builder);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -56,5 +60,18 @@ class LinksType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Project::class,
         ]);
+    }
+
+    private function addTransformers(FormBuilderInterface $builder): void
+    {
+        $builder->get('links')
+            ->addModelTransformer(new CallbackTransformer(
+                function (LinkCollection|null $links) {
+                    return $links;
+                },
+                function (array $links) {
+                    return LinkCollection::fromArray($links);
+                }
+            ));
     }
 }

@@ -14,7 +14,7 @@ class LinkCollection extends ObjectCollection
     {
         return new static(
             array_map(
-                fn(array $link) => Link::fromArray($link),
+                fn(array|Link $link) => $link instanceof Link ? $link : Link::fromArray($link),
                 $data
             )
         );
