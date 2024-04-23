@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Project;
-use App\Entity\ProjectSettings;
 use App\Form\ContactType;
 use App\Form\LinksType;
+use App\Form\NewProjectType;
 use App\Form\ProjectAboutType;
 use App\Service\ProjectService;
+use App\Type\ProjectSettings;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +27,49 @@ class ProjectDetailsController extends AbstractController
         private readonly ProjectService $projectService,
         private readonly string $pagesUrlPrefix,
     ) {
+    }
+
+    #[Route('/projects/new', name: 'app_project_new', methods: ['GET', 'POST'])]
+    public function new(Request $request): Response
+    {
+//        sleep(3); // FIXME: closing the modal dialog is not working properly
+
+        $form = $this->createForm(NewProjectType::class, null, [
+            'attr' => [
+                'action' => $this->generateUrl('app_project_new'),
+                'method' => 'POST',
+            ],
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $project = $form->getData();
+
+            try {
+//                throw new \Exception('Project could not be created');
+
+                $projectId = $this->projectService->createWithName($project->getName());
+
+                $this->addFlash('success', 'Project created');
+
+                return $this->redirectToRoute(
+                    'app_project_details',
+                    [
+                        'id' => $projectId,
+                        'edit' => true
+                    ],
+                    Response::HTTP_SEE_OTHER
+                );
+            } catch (\Exception $e) {
+                $form->addError(new FormError('Project could not be created'));
+            }
+        }
+
+        return $this->render('project_details/new.html.twig', [
+            'form' => $form,
+//            'formTarget' => $request->headers->get('Turbo-Frame', '_top'),
+        ]);
     }
 
     #[Route('/projects/{id}/{tab}', name: 'app_project_details', methods: ['GET'])]

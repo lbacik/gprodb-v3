@@ -36,45 +36,11 @@ class ProjectListController extends AbstractController
         $pagerfanta->setMaxPerPage($limit);
         $pagerfanta->setCurrentPage($page);
 
+//        $this->addFlash('success', 'Hello!');
+
         return $this->render('project_list/index.html.twig', [
             'projects' => $pagerfanta,
             'searchString' => $q,
-        ]);
-    }
-
-    #[Route('/create/project', name: 'app_project_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
-    {
-//        sleep(2);
-
-        $form = $this->createForm(NewProjectType::class, null, [
-            'attr' => [
-                'action' => $this->generateUrl('app_project_new'),
-                'method' => 'POST',
-            ],
-        ]);
-
-        $form->handleRequest($request);
-
-        $project = $form->getData();
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $projectId = $this->projectService->createWithName($project->getName());
-            $this->addFlash('success', 'Project created');
-
-            return $this->redirectToRoute(
-                'app_project_details',
-                [
-                    'id' => $projectId,
-                    'edit' => true
-                ],
-                Response::HTTP_SEE_OTHER
-            );
-        }
-
-        return $this->render('project_list/_new.html.twig', [
-            'form' => $form,
-            'formTarget' => $request->headers->get('Turbo-Frame', '_top'),
         ]);
     }
 }
