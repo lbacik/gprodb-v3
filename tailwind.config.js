@@ -1,4 +1,4 @@
-// const plugin = require('tailwindcss/plugin');
+const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -26,9 +26,10 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-    // plugin(function({ addVariant }) {
-    //   addVariant('turbo-frame', 'turbo-frame[src] &')
-    // }),
+    plugin(function({ addVariant }) {
+      addVariant('turbo-frame', 'turbo-frame[src] &')
+      addVariant('modal', 'dialog &')
+    }),
   ],
   safelist: [
     'text-red-700',
