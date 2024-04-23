@@ -7,7 +7,17 @@ import './bootstrap.js';
  */
 
 import '@fortawesome/fontawesome-free/css/all.css';
-
 import './styles/app.css';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+// enable the interactive UI components from Flowbite with Turbo
+// import 'flowbite';
+// import { initFlowbite } from 'flowbite';
+
+//Turbo.session.drive = false;
+
+// document.addEventListener('turbo:render', () => {
+//     initFlowbite();
+// });
+// document.addEventListener('turbo:frame-render', () => {
+//     initFlowbite();
+// });
