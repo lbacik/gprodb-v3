@@ -8,11 +8,11 @@
 
             {% if property == 'domain' %}
 
-                {{ settingProperty }}
+                {{ settingProperty.domain }}
 
-            {% elseif property == 'newsletter' %}
+            {% elseif property == 'mailingProvider' %}
 
-                {{ projectSettings.newsletter ? projectSettings.newsletter.provider : 'Not set' }}
+                {{ settingProperty ? settingProperty.nameString : 'Not set' }}
 
             {% else %}
 
