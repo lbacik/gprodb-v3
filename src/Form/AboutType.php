@@ -2,8 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\LandingPageAbout;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Type\LandingPageAbout;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
