@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Type\LinkCollection;
+use App\Type\ProjectSettings;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class Project
