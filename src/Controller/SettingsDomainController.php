@@ -24,12 +24,11 @@ class SettingsDomainController extends AbstractController
     public function domain(Request $request, string $id): Response
     {
         $project = $this->projectService->getProject($id);
+        $settings = $this->projectService->getProjectSettings($project);
 
         $form = $this->createForm(
             DomainType::class,
-            [
-                'domain' => $project->getSettings()?->getDomain()
-            ],
+            $settings->getDomain(),
             [
                 'action' => $this->generateUrl('app_settings_domain', ['id' => $id]),
                 'method' => 'POST',
@@ -42,10 +41,9 @@ class SettingsDomainController extends AbstractController
             $delete = $request->request->get('delete', '') == 'delete';
 
             if ($delete) {
-                $this->projectService->updateLandingPageDomain($project, null);
+                $this->projectService->deleteDomain($project);
             } else {
-                $data = $form->getData();
-                $this->projectService->updateLandingPageDomain($project, $data['domain']);
+                $this->projectService->setDomain($project, $form->getData());
             }
 
             return $this->redirectToRoute('app_project_details', ['id' => $id, 'tab' => 'settings']);
