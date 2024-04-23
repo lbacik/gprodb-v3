@@ -1,0 +1,17 @@
+<div data-controller="popover"
+     data-action="mouseenter->popover#show mouseleave->popover#hide"
+     class="relative"
+>
+  {% block content%}{% endblock%}
+
+  <template data-popover-target="content">
+    <div
+            data-popover-target="card"
+            class="max-w-sm rounded shadow-lg bg-gray-900 absolute left-0 bottom-10"
+    >
+      <span class="text-white">
+        This content is in a hidden template.
+      </span>
+    </div>
+  </template>
+</div>
