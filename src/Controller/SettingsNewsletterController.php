@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\MailingProvider;
+use App\Entity\MailingRConfig;
 use App\Form\MailingRType;
 use App\Form\NewsletterProviderType;
+use App\Service\MailingService;
 use App\Service\ProjectService;
+use App\Type\MailingProvider as MailingProviderEnum;
+use App\Type\ProjectSettings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +23,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class SettingsNewsletterController extends AbstractController
 {
     public function __construct(
-        private readonly ProjectService $projectService
+        private readonly ProjectService $projectService,
+        private readonly MailingService $mailingService,
     ) {
     }
 
@@ -26,26 +32,28 @@ class SettingsNewsletterController extends AbstractController
     public function newsletter(Request $request, string $id, string|null $provider): Response
     {
         $project = $this->projectService->getProject($id);
-        $newsletter = $this->projectService->getProjectSettings($project)->getNewsletter();
+        $settings = $this->projectService->getProjectSettings($project);
+        $mailingProvider = $this->getMailingProvider($settings, $provider);
 
-        $formProvider = $this->createForm(NewsletterProviderType::class, [
-            'provider' => $provider ?? $newsletter?->getProvider(),
-        ], [
-            'action' => $this->generateUrl('app_settings_newsletter', ['id' => $id]),
-            'method' => 'POST',
-        ]);
+        $formProvider = $this->createForm(
+            NewsletterProviderType::class,
+            $mailingProvider,
+            [
+                'action' => $this->generateUrl('app_settings_newsletter', ['id' => $id]),
+                'method' => 'POST',
+            ]
+        );
 
         $formProvider->handleRequest($request);
         if ($formProvider->isSubmitted() && $formProvider->isValid()) {
-            $provider = $formProvider->get('provider')->getData();
+            $mailingProviderName = $formProvider->get('name')->getData();
         }
 
-        $formProviderConfig = match($provider ?? 'generic') {
-            'generic' => $this->createGenericForm($id),
-            'mailingr' => $this->createMailingRForm(
-                $id,
-                $newsletter?->getConfig()['apiKey'] ?? '',
-                $newsletter?->getConfig()['apiSecret'] ?? ''
+        $formProviderConfig = match($mailingProviderName ?? $mailingProvider?->getName() ?? MailingProviderEnum::GENERIC) {
+            MailingProviderEnum::GENERIC => $this->createGenericForm($id),
+            MailingProviderEnum::MAILINGR => $this->createMailingRForm(
+                $project->getId(),
+                $settings->getMailingRConfig(),
             ),
         };
 
@@ -60,37 +68,68 @@ class SettingsNewsletterController extends AbstractController
     public function newsletterConfig(Request $request, string $id, string $provider): Response
     {
         $form = match($provider) {
-            'generic' => $this->createGenericForm($id),
-            'mailingr' => $this->createMailingRForm($id, '', ''),
+            MailingProviderEnum::GENERIC->value => $this->createGenericForm($id),
+            MailingProviderEnum::MAILINGR->value => $this->createMailingRForm($id, null),
         };
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $project = $this->projectService->getProject($id);
-            $this->projectService->setNewsletter($project, $provider, $form->getData());
+            $settings = $this->projectService->getProjectSettings($project);
 
-            $this->redirectToRoute('app_project_details', ['id' => $id, 'tab' => 'settings']);
+            $this->mailingService->save(
+                $settings,
+                MailingProviderEnum::from($provider),
+                $form->getData(),
+            );
+
+            return $this->redirectToRoute('app_project_details', ['id' => $id, 'tab' => 'settings']);
         }
 
         return $this->redirectToRoute('app_settings_newsletter', ['id' => $id, 'provider' => $provider]);
     }
 
+    private function getMailingProvider(ProjectSettings $settings, string|null $provider): MailingProvider|null
+    {
+        $providerName = null;
+
+        if ($provider) {
+            $providerName = MailingProviderEnum::tryFrom($provider);
+        }
+
+        return $providerName !== null
+            ? (new MailingProvider())->setName($providerName)
+            : $settings->getMailingProvider();
+    }
+
     private function createGenericForm(string $id): FormInterface
     {
         return $this->createFormBuilder(null, [
-            'action' => $this->generateUrl('app_settings_newsletter_config', ['id' => $id, 'provider' => 'generic']),
+            'action' => $this->generateUrl(
+                'app_settings_newsletter_config',
+                [
+                    'id' => $id,
+                    'provider' => MailingProviderEnum::GENERIC->value,
+                ]
+            ),
             'method' => 'POST',
         ])->getForm();
     }
 
-    private function createMailingRForm(string $id, string $apiKey, string $apiSecret): FormInterface
+    private function createMailingRForm(string $id, MailingRConfig|null $mailingRConfig): FormInterface
     {
-        return $this->createForm(MailingRType::class, [
-            'apiKey' => $apiKey,
-            'apiSecret' => $apiSecret,
-        ], [
-            'action' => $this->generateUrl('app_settings_newsletter_config', ['id' => $id, 'provider' => 'mailingr']),
-            'method' => 'POST',
-        ]);
+        return $this->createForm(
+            MailingRType::class,
+            $mailingRConfig,
+            [
+                'action' => $this->generateUrl(
+                    'app_settings_newsletter_config',
+                    [
+                        'id' => $id,
+                        'provider' => MailingProviderEnum::MAILINGR->value,
+                    ]
+                ),
+                'method' => 'POST',
+            ]
+        );
     }
 }
