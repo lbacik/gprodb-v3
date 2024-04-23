@@ -24,10 +24,15 @@
             <twig:Settings:Item
                 :projectSettings="projectSettings"
                 name="Newsletter"
-                property="newsletter"
+                property="mailingProvider"
                 urlPrefix="https://jsonhub.cloud/entities/"
                 csrfName="newsletter-type"
-                editAction="{{ path('app_settings_newsletter', {id: projectId, provider: projectSettings.newsletter ? projectSettings.newsletter.provider : null }) }}"
+                editAction="{{ path('app_settings_newsletter', {
+                    id: projectId,
+                    provider: projectSettings.mailingProvider
+                        ? projectSettings.mailingProvider.nameString
+                        : null
+                }) }}"
                 createAction="{{ path('app_settings_newsletter', {id: projectId}) }}"
             />
 
