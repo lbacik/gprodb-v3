@@ -16,20 +16,21 @@
     {% endblock %}
 </head>
 <body class="flex flex-col min-h-screen" data-turbo="true">
-{#    <div class="min-h-screen">#}
-        <twig:Header class="header"/>
 
-            <div class="mb-auto">
-                {% block body %}{% endblock %}
-            </div>
+{#    {{ include('test/header.html.twig') }}#}
 
-        <div id="flash-container">
-            {{ include('partials/_flashes.html.twig') }}
-        </div>
+    <twig:Header class="header"/>
 
-        {{ include('partials/_modal.html.twig') }}
+    <div class="mb-auto">{% block body %}{% endblock %}</div>
 
-        <twig:Footer class="footer mt-32"/>
-{#    </div>#}
+    <div id="stream1"></div>
+
+    <twig:Footer class="footer mt-32"/>
+
+    {{ include('partials/_modal.html.twig') }}
+
+    <div id="flash-container">
+        {{ include('partials/_flashes.html.twig') }}
+    </div>
 </body>
 </html>
