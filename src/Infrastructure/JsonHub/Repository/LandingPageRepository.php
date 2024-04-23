@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Infrastructure\JsonHub\Repository;
 
 use App\Entity\LandingPage;
-use App\Entity\LandingPageAbout;
-use App\Entity\LandingPageHero;
 use App\Infrastructure\JsonHub\Service\LandingPageService;
 use App\Repository\LandingPageRepositoryInterface;
+use App\Type\LandingPageAbout;
+use App\Type\LandingPageHero;
 use Exception;
 use GProDB\LandingPage\ElementName;
 use GProDB\LandingPage\Elements\About;

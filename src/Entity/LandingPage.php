@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Type\LandingPageAbout;
+use App\Type\LandingPageHero;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class LandingPage
