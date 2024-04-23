@@ -1,13 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'modalBase.html.twig' %}
 
 {% block body %}
-<turbo-frame
-        id="modal"
-        class="aria-busy:opacity-10 transition-opacity"
-{#        data-turbo-form-redirect="true"#}
-{#        target="_top"#}
->
-    <div class="text-gray-600 space-y-4">
+    <div class="text-gray-600 space-y-4 block w-1/2 mt-20 mx-auto modal:mx-0 modal:w-full modal:mt-0">
         <div class="flex justify-between items-center">
             <h2 class="text-xl font-bold text-gray-600">Create new Project</h2>
 
@@ -21,12 +15,15 @@
                     </svg>
                 </button>
             </form>
-
         </div>
 
         {{ form_start(form) }}
 
         {{ form_rest(form) }}
+
+        <div class="mb-5 mt-1">
+            {{ form_errors(form) }}
+        </div>
 
         <div class="flex justify-end">
             <twig:Button tag="button">Create</twig:Button>
@@ -35,5 +32,4 @@
         {{ form_end(form) }}
 
     </div>
-</turbo-frame>
 {% endblock %}

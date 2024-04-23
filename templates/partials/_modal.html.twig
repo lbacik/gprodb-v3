@@ -11,8 +11,15 @@
             <div class="grow overflow-auto p-1">
                 <turbo-frame
                         id="modal"
+                        class="aria-busy:opacity-50 aria-busy:delay-500 transition-opacity"
                         data-modal-target="dynamicContent"
-                ></turbo-frame>
+                >
+{#                    {% if app.request.headers.get('turbo-frame') == 'modal' %}#}
+                        <turbo-stream action="append" target="flash-container">
+                            <template>{{ include('partials/_flashes.html.twig') }}</template>
+                        </turbo-stream>
+{#                    {% endif %}#}
+                </turbo-frame>
             </div>
         </div>
     </dialog>

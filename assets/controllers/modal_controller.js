@@ -9,25 +9,26 @@ import * as Turbo from '@hotwired/turbo'
 export default class extends Controller {
     static targets = ['dialog', 'dynamicContent']
 
+    observer = null
+
     connect() {
 
         if (this.hasDynamicContentTarget) {
             // when the content changes, call this.open()
             this.observer = new MutationObserver(() => {
-                const shouldOpen = this.dynamicContentTarget.innerHTML.trim().length > 0;
+                const shouldOpen = this.dynamicContentTarget.innerHTML.trim().length > 0
                 if (shouldOpen && !this.dialogTarget.open) {
-                    this.open();
+                    this.open()
                 } else if (!shouldOpen && this.dialogTarget.open) {
-                    console.log('opened')
-                    this.close();
+                    this.close()
                 }
-            });
+            })
 
             this.observer.observe(this.dynamicContentTarget, {
                 childList: true,
                 characterData: true,
                 subtree: true
-            });
+            })
         }
 
         document.addEventListener('turbo:before-fetch-response', (event) => {
