@@ -208,3 +208,12 @@ h3 {
     /*font-family: Verdana, sans-serif;*/
     @apply antialiased font-light;
 }
+
+[data-popover-target=card]:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 1rem;
+    border-width: .75rem;
+    @apply border-t-gray-900 border-transparent;
+}
