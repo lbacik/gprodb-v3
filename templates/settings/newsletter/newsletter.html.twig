@@ -13,7 +13,7 @@
                     }
                 }) }}
 
-                    {{ form_row(formProvider.provider, {
+                    {{ form_row(formProvider.name, {
                         'attr': {
                             'data-action': 'autosubmit#submit',
                         }
@@ -27,6 +27,7 @@
                 {{ form_start(formProviderConfig, {
                     attr: {
                         class: 'form',
+                        autocomplete: 'off',
                     },
                 }) }}
 
