@@ -40,22 +40,16 @@ class JSONHubService
 
     public function save(Entity $entity): Entity
     {
-        /** @var User $user */
-        $user = $this->security->getUser();
-
-        if ($user === null) {
-            throw new RuntimeException('No user');
-        }
-
-        $token = $user->getJsonHubAccessToken();
-
         if ($entity->id === null) {
-            $result = $this->client->createEntity($entity, $token);
-        } else {
-            $result = $this->client->updateEntity($entity, $token);
+            return $this->client->createEntity($entity, $this->getToken());
         }
 
-        return $result;
+        return $this->client->updateEntity($entity, $this->getToken());
+    }
+
+    public function delete(string $entityId): void
+    {
+        $this->client->deleteEntity($entityId, $this->getToken());
     }
 
     public function getProject(string $id): Project|null
@@ -88,5 +82,23 @@ class JSONHubService
     {
         return $this->client
             ->getEntities($criteria);
+    }
+
+    public function findMy(FilterCriteria $criteria): EntityCollection
+    {
+        return $this->client
+            ->getMyEntities($criteria, $this->getToken());
+    }
+
+    private function getToken(): string
+    {
+        /** @var User $user */
+        $user = $this->security->getUser();
+
+        if ($user === null) {
+            throw new RuntimeException('No user');
+        }
+
+        return $user->getJsonHubAccessToken();
     }
 }
