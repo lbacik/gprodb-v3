@@ -1541,12 +1541,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lbacik/gprodb-landing-page-data.git",
-                "reference": "3db91734ba68020e2a682a541b2ba5140fc60824"
+                "reference": "281a03d68f024704426f4ade24d86b3d32db7191"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lbacik/gprodb-landing-page-data/zipball/3db91734ba68020e2a682a541b2ba5140fc60824",
-                "reference": "3db91734ba68020e2a682a541b2ba5140fc60824",
+                "url": "https://api.github.com/repos/lbacik/gprodb-landing-page-data/zipball/281a03d68f024704426f4ade24d86b3d32db7191",
+                "reference": "281a03d68f024704426f4ade24d86b3d32db7191",
                 "shasum": ""
             },
             "require": {
@@ -1569,7 +1569,7 @@
                 "source": "https://github.com/lbacik/gprodb-landing-page-data/tree/main",
                 "issues": "https://github.com/lbacik/gprodb-landing-page-data/issues"
             },
-            "time": "2024-04-18T14:00:50+00:00"
+            "time": "2024-04-23T14:59:14+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1902,12 +1902,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lbacik/jsonhub-sdk-php.git",
-                "reference": "ea332979845d074af192bc6786f9a2196bc4887e"
+                "reference": "f7002b2e2b7fd5b23ed522c77de8273ed9d68bd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lbacik/jsonhub-sdk-php/zipball/ea332979845d074af192bc6786f9a2196bc4887e",
-                "reference": "ea332979845d074af192bc6786f9a2196bc4887e",
+                "url": "https://api.github.com/repos/lbacik/jsonhub-sdk-php/zipball/f7002b2e2b7fd5b23ed522c77de8273ed9d68bd5",
+                "reference": "f7002b2e2b7fd5b23ed522c77de8273ed9d68bd5",
                 "shasum": ""
             },
             "require": {
@@ -1939,7 +1939,7 @@
                 "source": "https://github.com/lbacik/jsonhub-sdk-php/tree/develop",
                 "issues": "https://github.com/lbacik/jsonhub-sdk-php/issues"
             },
-            "time": "2024-04-18T15:30:16+00:00"
+            "time": "2024-04-24T12:04:36+00:00"
         },
         {
             "name": "lbacik/object-collection",
@@ -7412,16 +7412,16 @@
         },
         {
             "name": "symfony/stimulus-bundle",
-            "version": "v2.16.0",
+            "version": "v2.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stimulus-bundle.git",
-                "reference": "6add4bdab1b9df4f2b2532a9dcb7b2f26dbba634"
+                "reference": "b828a32fe9f75500d26b563cc01874657162c413"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/6add4bdab1b9df4f2b2532a9dcb7b2f26dbba634",
-                "reference": "6add4bdab1b9df4f2b2532a9dcb7b2f26dbba634",
+                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/b828a32fe9f75500d26b563cc01874657162c413",
+                "reference": "b828a32fe9f75500d26b563cc01874657162c413",
                 "shasum": ""
             },
             "require": {
@@ -7431,7 +7431,7 @@
                 "symfony/deprecation-contracts": "^2.0|^3.0",
                 "symfony/finder": "^5.4|^6.0|^7.0",
                 "symfony/http-kernel": "^5.4|^6.0|^7.0",
-                "twig/twig": "^2.15.3|~3.8.0"
+                "twig/twig": "^2.15.3|^3.8"
             },
             "require-dev": {
                 "symfony/asset-mapper": "^6.3|^7.0",
@@ -7461,7 +7461,7 @@
                 "symfony-ux"
             ],
             "support": {
-                "source": "https://github.com/symfony/stimulus-bundle/tree/v2.16.0"
+                "source": "https://github.com/symfony/stimulus-bundle/tree/v2.17.0"
             },
             "funding": [
                 {
@@ -7477,7 +7477,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-29T16:20:46+00:00"
+            "time": "2024-04-21T10:23:35+00:00"
         },
         {
             "name": "symfony/stopwatch",
@@ -7993,16 +7993,16 @@
         },
         {
             "name": "symfony/ux-turbo",
-            "version": "v2.16.0",
+            "version": "v2.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-turbo.git",
-                "reference": "d3590a43fee73304855dfc8022ccb57b0df9f03d"
+                "reference": "7093e20d7ca599902a7d1bf4d831849fd78befdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-turbo/zipball/d3590a43fee73304855dfc8022ccb57b0df9f03d",
-                "reference": "d3590a43fee73304855dfc8022ccb57b0df9f03d",
+                "url": "https://api.github.com/repos/symfony/ux-turbo/zipball/7093e20d7ca599902a7d1bf4d831849fd78befdb",
+                "reference": "7093e20d7ca599902a7d1bf4d831849fd78befdb",
                 "shasum": ""
             },
             "require": {
@@ -8069,7 +8069,7 @@
                 "turbo-stream"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-turbo/tree/v2.16.0"
+                "source": "https://github.com/symfony/ux-turbo/tree/v2.17.0"
             },
             "funding": [
                 {
@@ -8085,20 +8085,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-20T16:11:17+00:00"
+            "time": "2024-04-22T13:58:54+00:00"
         },
         {
             "name": "symfony/ux-twig-component",
-            "version": "v2.16.0",
+            "version": "v2.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-twig-component.git",
-                "reference": "c789f33dd8800949293dd94bf8e7bf01c39559a2"
+                "reference": "fb3d978b7f19e9a94533a3bf30d68269908ffae1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/c789f33dd8800949293dd94bf8e7bf01c39559a2",
-                "reference": "c789f33dd8800949293dd94bf8e7bf01c39559a2",
+                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/fb3d978b7f19e9a94533a3bf30d68269908ffae1",
+                "reference": "fb3d978b7f19e9a94533a3bf30d68269908ffae1",
                 "shasum": ""
             },
             "require": {
@@ -8107,7 +8107,7 @@
                 "symfony/deprecation-contracts": "^2.2|^3.0",
                 "symfony/event-dispatcher": "^5.4|^6.0|^7.0",
                 "symfony/property-access": "^5.4|^6.0|^7.0",
-                "twig/twig": "~3.8.0"
+                "twig/twig": "^3.8"
             },
             "conflict": {
                 "symfony/config": "<5.4.0"
@@ -8153,7 +8153,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-twig-component/tree/v2.16.0"
+                "source": "https://github.com/symfony/ux-twig-component/tree/v2.17.0"
             },
             "funding": [
                 {
@@ -8169,7 +8169,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-29T16:20:59+00:00"
+            "time": "2024-04-19T16:14:05+00:00"
         },
         {
             "name": "symfony/validator",
@@ -8847,30 +8847,37 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.8.0",
+            "version": "v3.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "9d15f0ac07f44dc4217883ec6ae02fd555c6f71d"
+                "reference": "a842d75fed59cdbcbd3a3ad7fb9eb768fc350d58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9d15f0ac07f44dc4217883ec6ae02fd555c6f71d",
-                "reference": "9d15f0ac07f44dc4217883ec6ae02fd555c6f71d",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a842d75fed59cdbcbd3a3ad7fb9eb768fc350d58",
+                "reference": "a842d75fed59cdbcbd3a3ad7fb9eb768fc350d58",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.5|^3",
                 "symfony/polyfill-ctype": "^1.8",
                 "symfony/polyfill-mbstring": "^1.3",
                 "symfony/polyfill-php80": "^1.22"
             },
             "require-dev": {
                 "psr/container": "^1.0|^2.0",
-                "symfony/phpunit-bridge": "^5.4.9|^6.3|^7.0"
+                "symfony/phpunit-bridge": "^5.4.9|^6.4|^7.0"
             },
             "type": "library",
             "autoload": {
+                "files": [
+                    "src/Resources/core.php",
+                    "src/Resources/debug.php",
+                    "src/Resources/escaper.php",
+                    "src/Resources/string_loader.php"
+                ],
                 "psr-4": {
                     "Twig\\": "src/"
                 }
@@ -8903,7 +8910,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.8.0"
+                "source": "https://github.com/twigphp/Twig/tree/v3.9.3"
             },
             "funding": [
                 {
@@ -8915,7 +8922,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-21T18:54:41+00:00"
+            "time": "2024-04-18T11:59:33+00:00"
         },
         {
             "name": "webmozart/assert",
