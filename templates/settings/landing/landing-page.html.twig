@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block metas %}
+{#    <meta name="turbo-cache-control" content="no-cache">#}
+{% endblock %}
+
 {% block body %}
     <twig:Title :project="project">Landing Page</twig:Title>
     <twig:Center>
@@ -7,6 +11,7 @@
             <div
                     id="markdown-editor"
                     {{ stimulus_controller('markdown_editor') }}
+                    data-action="tab-manager:tab-changed->markdown-editor#update"
             >
 
                 {{ form_start(form, {
@@ -15,9 +20,13 @@
                     },
                 }) }}
 
-                <div class="flex" {{ stimulus_controller('tab_manager') }}>
+                <div
+                        class="flex" {{ stimulus_controller('tab_manager') }}
+                >
 
-                    <div class="landing-page w-full">
+                    <div
+                            class="landing-page w-full"
+                    >
 
                         {{ form_errors(form) }}
 

@@ -217,3 +217,7 @@ h3 {
     border-width: .75rem;
     @apply border-t-gray-900 border-transparent;
 }
+
+/*[data-turbo-preview] body {*/
+/*    opacity: .2;*/
+/*}*/

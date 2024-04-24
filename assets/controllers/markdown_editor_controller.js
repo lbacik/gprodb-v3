@@ -12,8 +12,8 @@ export default class extends Controller {
 
     connect() {
         this.editorTargets.forEach((editor) => {
-            this.editors.push(
-              new SimpleMDE({
+            const editorInstance = new SimpleMDE({
+                spellChecker: false,
                 element: editor,
                 toolbar: [
                     "bold", "italic", "heading", "|",
@@ -22,7 +22,7 @@ export default class extends Controller {
                     "preview", "guide"
                 ]
               })
-            )
+            this.editors.push(editorInstance)
         })
     }
 
@@ -44,5 +44,9 @@ export default class extends Controller {
                 break
             }
         }
+    }
+
+    update() {
+        this.editors.forEach((editor) => editor.codemirror.refresh())
     }
 }

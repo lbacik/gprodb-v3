@@ -38,6 +38,8 @@ export default class extends Controller {
                 tabElement.classList.remove('hidden')
                 tabElement.classList.add('active')
             }
+
+            this.dispatch('tab-changed')
         }
     }
 
