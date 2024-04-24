@@ -2,3 +2,5 @@ vendor/
 .git/
 .idea/
 assets/vendor/
+var/
+public/bundles
