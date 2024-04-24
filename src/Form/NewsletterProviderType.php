@@ -28,7 +28,7 @@ class NewsletterProviderType extends AbstractType
         $builder->get('name')
             ->addModelTransformer(
                 new CallbackTransformer(
-                    fn (MailingProviderEnum $name) => $name->value,
+                    fn (MailingProviderEnum|null $name) => $name?->value,
                     fn (string $name) => MailingProviderEnum::from($name),
                 )
             );
