@@ -185,7 +185,8 @@ class ProjectService
             throw new \LogicException('You are not allowed to access this page');
         }
 
-        $settings = $project->getSettings();
+        $settings = $this->getProjectSettings($project);
+
         if ($settings->getDomain() === null) {
             return;
         }
