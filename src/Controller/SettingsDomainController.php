@@ -51,6 +51,7 @@ class SettingsDomainController extends AbstractController
 
         return $this->render('settings/domain/domain.html.twig', [
             'project' => $project,
+            'settings' => $settings,
             'form' => $form,
         ]);
     }
