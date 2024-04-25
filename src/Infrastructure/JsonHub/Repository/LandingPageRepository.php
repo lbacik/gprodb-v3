@@ -43,8 +43,8 @@ class LandingPageRepository implements LandingPageRepositoryInterface
                 $landingPage->getAbout()->getColumnRight() ?? '',
             ))
             ->addElement(new Contact(
-                $landingPage->getContactInfo() ?? '',
-                $landingPage->getContact(),
+                description: $landingPage->getContactInfo() ?? '',
+                enabled: $landingPage->getContact(),
             ))
             ->addElement(new Newsletter(
                 $landingPage->getNewsletterInfo() ?? '',
