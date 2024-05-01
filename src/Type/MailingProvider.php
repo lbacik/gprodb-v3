@@ -6,7 +6,7 @@ namespace App\Type;
 
 enum MailingProvider: string
 {
-    case GENERIC = 'generic';
+    case GENERIC = 'general';
     case MAILINGR = 'mailingr';
 
     public static function values(): array
