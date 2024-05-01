@@ -46,10 +46,10 @@ class SettingsNewsletterController extends AbstractController
 
         $formProvider->handleRequest($request);
         if ($formProvider->isSubmitted() && $formProvider->isValid()) {
-            $mailingProviderName = $formProvider->get('name')->getData();
+            $mailingProviderName = $formProvider->get('newsletter')->getData();
         }
 
-        $formProviderConfig = match($mailingProviderName ?? $mailingProvider?->getName() ?? MailingProviderEnum::GENERIC) {
+        $formProviderConfig = match($mailingProviderName ?? $mailingProvider?->getNewsletter() ?? MailingProviderEnum::GENERIC) {
             MailingProviderEnum::GENERIC => $this->createGenericForm($id),
             MailingProviderEnum::MAILINGR => $this->createMailingRForm(
                 $project->getId(),
@@ -97,7 +97,7 @@ class SettingsNewsletterController extends AbstractController
         }
 
         return $providerName !== null
-            ? (new MailingProvider())->setName($providerName)
+            ? (new MailingProvider())->setNewsletter($providerName)
             : $settings->getMailingProvider();
     }
 

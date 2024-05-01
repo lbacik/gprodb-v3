@@ -35,9 +35,9 @@ class MailingProviderRepository implements MailingProviderRepositoryInterface
         $entity = $entities[0];
 
         return (new MailingProvider($entity->id))
-            ->setName(match($entity->data['name']) {
-                MailingProviderEnum::GENERIC->value => MailingProviderEnum::GENERIC,
+            ->setNewsletter(match($entity->data['newsletter'] ?? null) {
                 'MailingR' => MailingProviderEnum::MAILINGR,
+                default => MailingProviderEnum::GENERIC,
             })
             ->setParent($entity->parent);
     }
@@ -49,7 +49,7 @@ class MailingProviderRepository implements MailingProviderRepositoryInterface
             iri: null,
             slug: null,
             data: [
-                'name' => match($mailingProvider->getName()) {
+                'newsletter' => match($mailingProvider->getNewsletter()) {
                     MailingProviderEnum::GENERIC => MailingProviderEnum::GENERIC->value,
                     MailingProviderEnum::MAILINGR => 'MailingR',
                 },

@@ -26,11 +26,11 @@ class MailingService
         if ($currentProvider === null) {
             $current->setMailingProvider(
                 (new MailingProvider())
-                    ->setName($provider)
+                    ->setNewsletter($provider)
                     ->setParent($current->getLandingPage()->getId())
             );
         } else {
-            $currentProvider->setName($provider);
+            $currentProvider->setNewsletter($provider);
         }
 
         if ($provider === MailingProviderEnum::MAILINGR && $config instanceof MailingRConfig) {

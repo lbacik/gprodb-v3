@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\MailingProvider;
@@ -15,17 +17,17 @@ class NewsletterProviderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', ChoiceType::class, [
+            ->add('newsletter', ChoiceType::class, [
                 'choices' => array_reduce(
                     MailingProviderEnum::values(),
                     fn (array $choices, string $name) => array_merge($choices, [$name => $name]),
                     [],
                 ),
-                'label' => 'Provider',
+                'label' => 'Newsletter provider',
             ])
         ;
 
-        $builder->get('name')
+        $builder->get('newsletter')
             ->addModelTransformer(
                 new CallbackTransformer(
                     fn (MailingProviderEnum|null $name) => $name?->value,

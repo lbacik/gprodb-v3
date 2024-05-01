@@ -10,7 +10,7 @@ class MailingProvider
 {
     private string|null $id;
 
-    private MailingProviderEnum $name = MailingProviderEnum::GENERIC;
+    private MailingProviderEnum $newsletter = MailingProviderEnum::GENERIC;
 
     private string $parent;
 
@@ -24,20 +24,20 @@ class MailingProvider
         return $this->id;
     }
 
-    public function getName(): MailingProviderEnum
+    public function getNewsletter(): MailingProviderEnum
     {
-        return $this->name;
+        return $this->newsletter;
     }
 
-    public function setName(MailingProviderEnum $name): static
+    public function setNewsletter(MailingProviderEnum $newsletter): static
     {
-        $this->name = $name;
+        $this->newsletter = $newsletter;
         return $this;
     }
 
     public function getNameString(): string
     {
-        return $this->name->value;
+        return $this->newsletter->value;
     }
 
     public function getParent(): string
