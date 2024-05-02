@@ -2,6 +2,7 @@ FROM php:8.3.1-apache
 
 ARG REF
 ENV REF=${REF}
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN apt-get -y update && apt-get install -y \
     git zip unzip \

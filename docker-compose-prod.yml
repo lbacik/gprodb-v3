@@ -1,0 +1,23 @@
+version: '3.9'
+
+networks:
+    default:
+        external: true
+        name: "${NETWORK}"
+
+services:
+  web:
+    build: .
+    image: "gprodb-v3-${TAG}"
+    environment:
+      VIRTUAL_HOST: "${DOMAIN}"
+      LETSENCRYPT_HOST: "${DOMAIN}"
+      APP_VERSION: "${TAG}"
+      APP_ENV: "prod"
+      JSON_HUB_API_URL: "${JSON_HUB_API_URL}"
+      PROJECT_INFO_DEFINITION: "${PROJECT_INFO_DEFINITION}"
+      LANDING_PAGE_DEFINITION: "${LANDING_PAGE_DEFINITION}"
+      DOMAIN_DEFINITION: "${DOMAIN_DEFINITION}"
+      MAILING_PROVIDER_DEFINITION: "${MAILING_PROVIDER_DEFINITION}"
+      MAILING_R_CONFIG_DEFINITION: "${MAILING_R_CONFIG_DEFINITION}"
+      PAGES_URL_PREFIX: "${PAGES_URL_PREFIX}"
