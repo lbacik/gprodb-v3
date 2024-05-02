@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Doctrine\Factory;
 
-use App\Infrastructure\SQLite\Repository\LinkRepository;
+use App\Infrastructure\SQL\Repository\LinkRepository;
 use App\Type\Link;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;

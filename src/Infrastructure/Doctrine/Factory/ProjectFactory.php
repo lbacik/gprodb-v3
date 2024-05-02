@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Doctrine\Factory;
 
 use App\Entity\Project;
-use App\Infrastructure\SQLite\Repository\ProjectRepository;
+use App\Infrastructure\SQL\Repository\ProjectRepository;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;

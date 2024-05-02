@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Infrastructure\SQL\Repository;
+namespace App\Infrastructure\Doctrine\Repository;
 
-use App\Entity\Mailing;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
