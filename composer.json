@@ -12,7 +12,7 @@
             "url": "https://github.com/lbacik/gprodb-landing-page-data.git"
         }
     ],
-    "prefer-stable": false,
+    "prefer-stable": true,
     "require": {
         "php": ">=8.2",
         "ext-ctype": "*",
@@ -22,8 +22,8 @@
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.1",
-        "gprodb/landing-page": "dev-main",
-        "lbacik/jsonhub-sdk": "dev-develop",
+        "gprodb/landing-page": "^0.1",
+        "lbacik/jsonhub-sdk": "^0.3",
         "league/commonmark": "^2.4",
         "pagerfanta/twig": "^4.3",
         "phpdocumentor/reflection-docblock": "^5.3",
