@@ -15,6 +15,7 @@ class DomainRepository implements DomainRepositoryInterface
 {
     public function __construct(
         private readonly string $domainDefinitionUuid,
+        private readonly string $proxyDefaultTargetPrefix,
         private readonly JSONHubService $jsonHubService,
     ) {
     }
@@ -47,7 +48,7 @@ class DomainRepository implements DomainRepositoryInterface
             data:       [
                 'domain' => $domain->getDomain(),
                 'enable' => true,
-                'target' => $landingPage->getId(),
+                'target' => sprintf("%s%s", $this->proxyDefaultTargetPrefix, $landingPage->getId()),
             ],
             definition: $this->domainDefinitionUuid,
             parent:     $landingPage->getId(),
