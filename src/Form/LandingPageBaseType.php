@@ -38,6 +38,7 @@ class LandingPageBaseType extends AbstractType
                 'attr' => [
                     'rows' => 5,
                     'data-markdown-editor-target' => 'editor',
+                    'data-toolbar' => 'simple',
                 ],
             ])
             ->add('newsletter', CheckboxType::class, [
@@ -50,6 +51,7 @@ class LandingPageBaseType extends AbstractType
                 'attr' => [
                     'rows' => 5,
                     'data-markdown-editor-target' => 'editor',
+                    'data-toolbar' => 'simple',
                 ],
             ])
         ;

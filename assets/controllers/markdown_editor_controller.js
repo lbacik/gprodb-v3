@@ -11,16 +11,21 @@ export default class extends Controller {
     editors = []
 
     connect() {
+
+        const toolbar = [
+          "bold", "italic", "heading", "|",
+          "quote", "unordered-list", "ordered-list", "|",
+          "link", "table", "|",
+          "preview", "guide"
+        ]
+
+        const toolbarSimple = ["bold", "italic", "link", "|", "guide"]
+
         this.editorTargets.forEach((editor) => {
             const editorInstance = new SimpleMDE({
                 spellChecker: false,
                 element: editor,
-                toolbar: [
-                    "bold", "italic", "heading", "|",
-                    "quote", "unordered-list", "ordered-list", "|",
-                    "link", "table", "|",
-                    "preview", "guide"
-                ]
+                toolbar: editor.dataset.toolbar === 'simple' ? toolbarSimple : toolbar,
               })
             this.editors.push(editorInstance)
         })
