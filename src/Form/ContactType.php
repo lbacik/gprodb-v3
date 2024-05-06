@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,21 +26,12 @@ class ContactType extends AbstractType
                 'attr' => ['rows' => 5],
 
             ])
-//            ->add('submit', SubmitType::class, [
-//                'row_attr' => [
-//                    'class' => 'submit-button-row',
-//                ],
-//                'attr'=> [
-//                    'class' => 'submit-button',
-//                ],
-//            ])
+            ->add('entityId', HiddenType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            // Configure your form options here
-        ]);
+        $resolver->setDefaults([]);
     }
 }

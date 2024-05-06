@@ -10,6 +10,7 @@ use App\Form\LinksType;
 use App\Form\NewProjectType;
 use App\Form\ProjectAboutType;
 use App\Service\ProjectService;
+use App\Service\SendContactRequestService;
 use App\Type\ProjectSettings;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -150,13 +151,20 @@ class ProjectDetailsController extends AbstractController
     }
 
     #[Route('/projects/{id}/contact', name: 'app_project_contact', methods: ['POST'])]
-    public function contact(Request $request): Response
-    {
-        $form = $this->createForm(ContactType::class);
+    public function contact(
+        Request $request,
+        SendContactRequestService $contactRequestService,
+    ): Response {
+        $form = $this->createForm(ContactType::class, [
+            'entityId' => $request->get('id'),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $contactRequestService->send($form->getData());
+
             $this->addFlash('success', 'Your message has been sent');
+
             return new Response(null, 204);
         }
 
@@ -177,7 +185,9 @@ class ProjectDetailsController extends AbstractController
         return match ($tab) {
             'about' => $edit ? $this->createForm(ProjectAboutType::class, $project) : null,
             'links' => $this->createForm(LinksType::class, $project),
-            'contact' => $this->createForm(ContactType::class),
+            'contact' => $this->createForm(ContactType::class, [
+                'entityId' => $project->getId(),
+            ]),
             default => null,
         };
     }
