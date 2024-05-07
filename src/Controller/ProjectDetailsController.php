@@ -119,7 +119,11 @@ class ProjectDetailsController extends AbstractController
             $this->projectService->updateProject($id, $form->getData());
             $this->addFlash('success', 'Your changes have been saved');
 
-            return $this->redirectToRoute('app_project_details', ['id' => $id]);
+            return $this->redirectToRoute(
+                'app_project_details',
+                ['id' => $id],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->redirectToRoute('app_project_details', [
@@ -164,11 +168,12 @@ class ProjectDetailsController extends AbstractController
             $contactRequestService->send($form->getData());
 
             $this->addFlash('success', 'Your message has been sent');
-
-            return new Response(null, 204);
         }
 
-        return new Response(null, 400);
+        return $this->redirectToRoute('app_project_details', [
+            'id' => $request->get('id'),
+            'tab' => 'contact',
+        ]);
     }
 
     public function getProjectSettings(Project $project): ProjectSettings

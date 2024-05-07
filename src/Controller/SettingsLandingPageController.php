@@ -12,13 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[IsGranted('ROLE_USER')]
 class SettingsLandingPageController extends AbstractController
 {
     public function __construct(
-        private readonly ProjectService $projectService
+        private readonly ProjectService $projectService,
+        private readonly TranslatorInterface $translator,
     ) {
     }
 
@@ -51,12 +52,13 @@ class SettingsLandingPageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->projectService->saveLandingPage($project->getId(), $form->getData());
-
-            $this->addFlash('success', 'Landing page settings saved!');
-
+            $this->addFlash('success', $this->translator->trans('landing_page.form.success'));
             return $this->redirectToRoute('app_project_details', ['id' => $id, 'tab' => 'settings']);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', $this->translator->trans('landing_page.form.error'));
         }
 
         return $this->render('settings/landing/landing-page.html.twig', [

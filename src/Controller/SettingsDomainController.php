@@ -42,8 +42,10 @@ class SettingsDomainController extends AbstractController
 
             if ($delete) {
                 $this->projectService->deleteDomain($project);
+                $this->addFlash('success', 'Domain deleted');
             } else {
                 $this->projectService->setDomain($project, $form->getData());
+                $this->addFlash('success', 'Domain updated');
             }
 
             return $this->redirectToRoute('app_project_details', ['id' => $id, 'tab' => 'settings']);
