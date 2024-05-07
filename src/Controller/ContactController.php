@@ -19,6 +19,7 @@ class ContactController extends AbstractController
         SendContactRequestService $contactRequestService,
         string $gprodbEntityUuid,
     ): Response {
+
         $form = $this->createForm(ContactType::class, [
             'entityId' => $gprodbEntityUuid,
         ]);
@@ -29,7 +30,18 @@ class ContactController extends AbstractController
              $contactRequestService->send($contact);
              $this->addFlash('success', 'Your message has been sent!');
 
-             return $this->redirectToRoute('app_contact');
+            return $this->render(
+                'contact/index.html.twig',
+                [
+                    'form' => $this->createForm(
+                        ContactType::class,
+                        [
+                            'entityId' => $gprodbEntityUuid,
+                        ]
+                    ),
+                ],
+                new Response(null, Response::HTTP_CREATED)
+            );
         }
 
         return $this->render('contact/index.html.twig', [
