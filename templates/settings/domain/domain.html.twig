@@ -24,6 +24,11 @@
                     <p class="bg-gray-200 p-1 px-2 font-mono text-sm">example.com TXT "gprodb-target={{ settings.landingPage.id|default(' (no landing page has been created yet)') }}"</p>
                 </div>
 
+                <div class="bg-red-100 rounded-lg p-4 mb-10 text-gray-600">
+                    <strong>At this stage the domain activation process is not automated.</strong>
+                    After creating an domain record, and adding the TXT record to your domain's DNS settings,
+                    please <a class="text-blue-500 font-semibold hover:underline" href="{{ path('app_contact') }}">contact</a> us to activate the domain.
+                </div>
 
                 {{ form_start(form, {
                     attr: {
