@@ -1,2 +1,10 @@
 contact:
   information: "Any questions, feedback or suggestions?"
+newsletter:
+  description: "Want us to email you with the latest news?"
+  success: "Please check your email to confirm your subscription."
+  error: "There was an error subscribing you to our newsletter. Please try again."
+landing_page:
+  form:
+    error: "Please check all form tabs and correct the errors."
+    success: "Landing page settings saved!"
