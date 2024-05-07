@@ -48,20 +48,18 @@ class ProjectDetailsController extends AbstractController
             $project = $form->getData();
 
             try {
-//                throw new \Exception('Project could not be created');
-
                 $projectId = $this->projectService->createWithName($project->getName());
-
                 $this->addFlash('success', 'Project created');
 
                 return $this->redirectToRoute(
                     'app_project_details',
                     [
                         'id' => $projectId,
-                        'edit' => true
+                        'edit' => true,
                     ],
                     Response::HTTP_SEE_OTHER
                 );
+
             } catch (\Exception $e) {
                 $form->addError(new FormError('Project could not be created'));
             }
@@ -69,7 +67,6 @@ class ProjectDetailsController extends AbstractController
 
         return $this->render('project_details/new.html.twig', [
             'form' => $form,
-//            'formTarget' => $request->headers->get('Turbo-Frame', '_top'),
         ]);
     }
 

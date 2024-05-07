@@ -9,6 +9,7 @@ import * as Turbo from '@hotwired/turbo'
 export default class extends Controller {
     static targets = ['dialog', 'dynamicContent']
 
+    // modal = null
     observer = null
 
     connect() {
@@ -31,23 +32,31 @@ export default class extends Controller {
             })
         }
 
-        document.addEventListener('turbo:before-fetch-response', (event) => {
-            const fetchResponse = event.detail.fetchResponse;
-            console.log('fetch response', event)
-            if(fetchResponse.succeeded && fetchResponse.redirected) {
-                console.log('redirect', fetchResponse.location)
-                event.preventDefault()
-                Turbo.visit(fetchResponse.location)
-            }
-        })
+        this.bindBeforeFetchResponse = this.beforeFetchResponse.bind(this)
+        document.addEventListener('turbo:before-fetch-response', this.bindBeforeFetchResponse)
     }
 
     disconnect() {
+        document.removeEventListener('turbo:before-fetch-response', this.bindBeforeFetchResponse)
+
         if (this.observer) {
             this.observer.disconnect();
         }
         if (this.dialogTarget.open) {
             this.close();
+        }
+    }
+
+    beforeFetchResponse(event) {
+        if (!this.dialogTarget.open) {
+            return;
+        }
+
+        const fetchResponse = event.detail.fetchResponse;
+        if (fetchResponse.succeeded && fetchResponse.redirected) {
+            console.log('redirect', fetchResponse.location)
+            event.preventDefault();
+            Turbo.visit(fetchResponse.location);
         }
     }
 
