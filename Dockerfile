@@ -5,7 +5,11 @@ ENV REF=${REF}
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN apt-get -y update && apt-get install -y \
-    git zip unzip \
+    git zip unzip librabbitmq-dev libssl-dev \
+    && apt -y clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && pecl install amqp \
+    && docker-php-ext-enable amqp \
     && a2enmod rewrite
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
