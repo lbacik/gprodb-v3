@@ -21,6 +21,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCre
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Throwable;
 
 class JsonHubAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -49,12 +50,17 @@ class JsonHubAuthenticator extends AbstractLoginFormAuthenticator
             new UserBadge($email),
             new CustomCredentials(
                 function ($credentials, User $user) {
-                    $accessToken = $this->jsonHubClient
-                        ->getClient()
-                        ->getOAuthToken(
-                            $user->getUserIdentifier(),
-                            $credentials
-                        );
+                    try {
+                        $accessToken = $this->jsonHubClient
+                            ->getClient()
+                            ->getOAuthToken(
+                                $user->getUserIdentifier(),
+                                $credentials
+                            );
+
+                    } catch (Throwable $exception) {
+                        throw new BadCredentialsException();
+                    }
 
                     if ($accessToken === null) {
                         throw new BadCredentialsException();
