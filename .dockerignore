@@ -4,3 +4,6 @@ vendor/
 assets/vendor/
 var/
 public/bundles
+.env.local
+.env.docker
+.env.docker.*
