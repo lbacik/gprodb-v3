@@ -25,4 +25,27 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    '@fortawesome/fontawesome-free' => [
+        'version' => '6.5.1',
+    ],
+    '@fortawesome/fontawesome-free/css/fontawesome.min.css' => [
+        'version' => '6.5.1',
+        'type' => 'css',
+    ],
+    '@fortawesome/fontawesome-free/css/all.css' => [
+        'version' => '6.5.1',
+        'type' => 'css',
+    ],
+    'stimulus-use' => [
+        'version' => '0.52.2',
+    ],
+    'stimulus-popover' => [
+        'version' => '6.2.0',
+    ],
+//    'flowbite' => [
+//        'version' => '2.3.0',
+//    ],
+//    '@popperjs/core' => [
+//        'version' => '2.11.8',
+//    ],
 ];

@@ -1,28 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{#    <div class="flex item-center mt-20">#}
-{#        <div class="w-1/2">#}
-            <h3>{{ project.name }}</h3>
+    <twig:Title>Project</twig:Title>
+    <twig:Center class="min-h-96">
+        <div class="w-1/2">
 
-            <div class="mb-10">
+            <h3 class="project-name">{{ project.name }}</h3>
+
+            <div class="mt-10 mb-10">
                 {{ include('project_details/_tabs.html.twig') }}
             </div>
 
-            {% if tab == 'about' %}
-                {{ include('project_details/_about.html.twig') }}
-            {% elseif tab == 'links' %}
-                {{ include('project_details/_links.html.twig') }}
-            {% elseif tab == 'contact' %}
-                {{ include('project_details/_contact.html.twig') }}
-            {% endif %}
+            {{ include('project_details/' ~ template ~ '.html.twig') }}
 
-{#            <div class="mt-10 mb-10">#}
-{#                <span class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">#}
-{#                    Project tags:#}
-{#                </span>#}
-{#            </div>#}
+            {#            <div class="mt-10 mb-10"> #}
+            {#                <span class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"> #}
+            {#                    Project tags: #}
+            {#                </span> #}
+            {#            </div> #}
 
-{#        </div>#}
-{#    </div>#}
+        </div>
+    </twig:Center>
 {% endblock %}

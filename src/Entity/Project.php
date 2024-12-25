@@ -4,19 +4,41 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Type\LinkCollection;
+use App\Type\ProjectSettings;
+use Symfony\Component\Validator\Constraints as Assert;
+
 class Project
 {
     private ?string $id = null;
 
-    private ?string $name = null;
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
+    private ?string $name;
 
-    private array $description = [];
+    private ?string $description = null;
 
-    private array $links = [];
+    private array $links;
+
+    private ?User $owner = null;
+
+    private ?ProjectSettings $settings = null;
+
+    public function __construct()
+    {
+        $this->links = [];
+    }
 
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(string $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -31,39 +53,60 @@ class Project
         return $this;
     }
 
-    public function getDescription(): array
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(array $description): static
+    public function setDescription(string|null $description): static
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getLinks(): array
+    public function getLinks(): LinkCollection
     {
-        return $this->links;
+        return new LinkCollection($this->links);
     }
 
-    public function setLinks(array $links): self
+    public function setLinks(LinkCollection $links): static
     {
-        $this->links = $links;
+        $this->links = $links->getArrayCopy();
 
         return $this;
     }
 
-    public static function createFromJson(string $id, array $data): static
+    public function getOwner(): ?User
     {
-        $project = new self();
-        $project->id = $id;
-        $project
-            ->setName($data['name'])
-            ->setDescription($data['description'])
-            ->setLinks($data['links'] ?? []);
+        return $this->owner;
+    }
 
-        return $project;
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getSettings(): ?ProjectSettings
+    {
+        return $this->settings;
+    }
+
+    public function setSettings(?ProjectSettings $settings): static
+    {
+        $this->settings = $settings;
+
+        return $this;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
+            'links' => $this->links,
+        ];
     }
 }

@@ -1,0 +1,27 @@
+<div
+        {{ stimulus_controller('markdown_editor') }}
+>
+
+    {{ form_start(form, {
+        action: path('app_project_edit', { id: project.id }),
+        attr: {
+            class: 'form',
+        }
+    }) }}
+
+       {{ form_rest(form) }}
+
+        <div class="text-end">
+            <twig:Button
+                    href="{{ path('app_project_details', { id: project.id }) }}"
+                    genre="danger"
+            >Cancel</twig:Button>
+            <twig:Button
+                    tag="button"
+                    class="ml-2"
+            >Save</twig:Button>
+
+        </div>
+    {{ form_end(form) }}
+
+</div>

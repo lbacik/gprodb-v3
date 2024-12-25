@@ -1,0 +1,19 @@
+{% props project = null %}
+
+<div {{ attributes.defaults({ class: "bg-white text-gray-600 border-b border-gray-400 py-6 mb-10"}) }}>
+    <div class="w-4/5 mx-auto">
+        <span class="col-span-6 text-2xl text-bold font-semibold">
+            {% block content %}{% endblock %}
+        </span>
+        {% if project %}
+            <span class="text-gray-300 ml-5 text-2xl">|</span>
+            <span>
+                <twig:Button
+                        genre="lightSecondary"
+                        class="w-fit"
+                        href="{{ path('app_project_details', { id: project.id, tab: "settings"}) }}"
+                >{{ project.name }}</twig:Button>
+            </span>
+        {% endif %}
+    </div>
+</div>

@@ -15,10 +15,20 @@ framework:
             failed: 'doctrine://default?queue_name=failed'
             # sync: 'sync://'
 
+            mailing:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                serializer: messenger.transport.symfony_serializer
+                options:
+                    exchange:
+                        name: mailing
+                        type: direct
+                        default_publish_routing_key: !php/enum App\Type\MailingRoutingKey::GENERAL->value
+
         routing:
             Symfony\Component\Mailer\Messenger\SendEmailMessage: async
             Symfony\Component\Notifier\Message\ChatMessage: async
             Symfony\Component\Notifier\Message\SmsMessage: async
+            App\Message\MailingSubscribe: mailing
 
             # Route your messages to the transports
             # 'App\Message\YourMessage': async

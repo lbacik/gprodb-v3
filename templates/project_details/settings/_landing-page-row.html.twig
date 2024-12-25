@@ -1,0 +1,25 @@
+<tr>
+    <th>Landing page</th>
+    <td class="text-center">
+        {% if projectSettings.landingPageEntityId %}
+            <a href="https://pages.gprodb.com/{{ projectSettings.landingPageEntityId }}">{{ projectSettings.landingPageEntityId }}</a>
+        {% else %}
+            Not set
+        {% endif %}
+    </td>
+    <td class="text-end">
+        {% if projectSettings.landingPageEntityId %}
+            <twig:Settings:ButtonForm
+                    buttonLabel="Edit"
+                    csrfName="edit-landing-page"
+                    action="#"
+            />
+        {% else %}
+            <twig:Settings:ButtonForm
+                    buttonLabel="Create"
+                    csrfName="create-landing-page"
+                    action="#"
+            />
+        {% endif %}
+    </td>
+</tr>

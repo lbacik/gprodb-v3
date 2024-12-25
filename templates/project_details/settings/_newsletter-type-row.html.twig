@@ -1,0 +1,27 @@
+<tr>
+    <th>Newsletter provider</th>
+    <td class="text-center">
+        {% if projectSettings.newsletterProviderEntityId %}
+            <a href="https://jsonhun.cloud/entities/{{ projectSettings.newsletterProviderEntityId }}">
+                {{ projectSettings.newsletterProviderEntityId }}
+            </a>
+        {% else %}
+            Not set
+        {% endif %}
+    </td>
+    <td class="text-end">
+        {% if projectSettings.newsletterProviderEntityId %}
+            <twig:Settings:ButtonForm
+                    buttonLabel="Edit"
+                    csrfName="newsletter-provider-edit"
+                    action="%"
+            />
+        {% else %}
+            <twig:Settings:ButtonForm
+                    buttonLabel="Create"
+                    csrfName="newsletter-provider-create"
+                    action="%"
+            />
+        {% endif %}
+    </td>
+</tr>

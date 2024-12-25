@@ -1,0 +1,41 @@
+<div>
+    <table class="table w-full">
+        <tbody>
+            <twig:Settings:Item
+                :projectSettings="projectSettings"
+                name="Landing page"
+                property="landingPage"
+                urlPrefix="{{ pagesUrlPrefix }}"
+                csrfName="landing-page"
+                editAction="{{ path('app_settings_landing_page', {id: projectId}) }}"
+                createAction="{{ path('app_settings_landing_page', {id: projectId}) }}"
+                />
+
+            <twig:Settings:Item
+                :projectSettings="projectSettings"
+                name="Custom domain"
+                property="domain"
+                urlPrefix="https://jsonhub.cloud/entities/"
+                csrfName="domain"
+                editAction="{{ path('app_settings_domain', {id: projectId}) }}"
+                createAction="{{ path('app_settings_domain', {id: projectId}) }}"
+                />
+
+            <twig:Settings:Item
+                :projectSettings="projectSettings"
+                name="Newsletter"
+                property="mailingProvider"
+                urlPrefix="https://jsonhub.cloud/entities/"
+                csrfName="newsletter-type"
+                editAction="{{ path('app_settings_newsletter', {
+                    id: projectId,
+                    provider: projectSettings.mailingProvider
+                        ? projectSettings.mailingProvider.nameString
+                        : null
+                }) }}"
+                createAction="{{ path('app_settings_newsletter', {id: projectId}) }}"
+            />
+
+        </tbody>
+    </table>
+</div>

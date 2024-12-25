@@ -1,0 +1,27 @@
+<tr>
+    <th>Custom domain</th>
+    <td class="text-center">
+        {% if projectSettings.customDomainEntityId %}
+            <a href="https://jsonhun.cloud/entities/{{ projectSettings.customDomainEntityId }}">
+                {{ projectSettings.customDomainEntityId }}
+            </a>
+        {% else %}
+            Not set
+        {% endif %}
+    </td>
+    <td class="text-end">
+        {% if projectSettings.customDomainEntityId %}
+            <twig:Settings:ButtonForm
+                    buttonLabel="Edit"
+                    csrfName="edit-custom-domain"
+                    action="%"
+            />
+        {% else %}
+            <twig:Settings:ButtonForm
+                buttonLabel="Create"
+                csrfName="create-custom-domain"
+                action="%"
+            />
+        {% endif %}
+    </td>
+</tr>

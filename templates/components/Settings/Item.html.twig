@@ -1,0 +1,44 @@
+
+{% set settingProperty = attribute(projectSettings, property) %}
+
+<tr>
+    <th class="text-start">{{ name }}</th>
+    <td class="text-center">
+        {% if settingProperty %}
+
+            {% if property == 'domain' %}
+
+                {{ settingProperty.domain }}
+
+            {% elseif property == 'mailingProvider' %}
+
+                {{ settingProperty ? settingProperty.nameString : 'Not set' }}
+
+            {% else %}
+
+                <a
+                        class="text-sm text-blue-500 hover:underline"
+                        href="{{ urlPrefix }}{{ settingProperty.id }}">
+                    {{ urlPrefix }}{{ settingProperty.id }}
+                </a>
+
+            {% endif %}
+
+        {% else %}
+            Not set
+        {% endif %}
+    </td>
+    <td class="text-end">
+        {% if settingProperty %}
+            <twig:Button
+                    genre="lightBlueWhite"
+                    href="{{ editAction }}"
+            >Edit</twig:Button>
+        {% else %}
+            <twig:Button
+                    genre="lightBlueWhite"
+                    href="{{ createAction }}"
+            >Create</twig:Button>
+        {% endif %}
+    </td>
+</tr>

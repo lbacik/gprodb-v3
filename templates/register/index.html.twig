@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <twig:Title>Register</twig:Title>
+    <twig:Center>
+        <div class="about-md w-1/2 text-start">
+            {{ register|default('')|markdown_to_html }}
+        </div>
+    </twig:Center>
+{% endblock %}

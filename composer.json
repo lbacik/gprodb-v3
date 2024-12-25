@@ -1,11 +1,15 @@
 {
     "type": "project",
     "license": "proprietary",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/lbacik/jsonhub-sdk.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/lbacik/gprodb-landing-page-data.git"
         }
     ],
     "prefer-stable": true,
@@ -18,10 +22,14 @@
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.1",
-        "lbacik/jsonhub-sdk": "^0.2.6",
+        "gprodb/landing-page": "^0.1",
+        "lbacik/jsonhub-sdk": "^0.3",
+        "league/commonmark": "^2.4",
         "pagerfanta/twig": "^4.3",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.26",
+        "symfony/amqp-messenger": "7.0.*",
+        "symfony/apache-pack": "^1.0",
         "symfony/asset": "7.0.*",
         "symfony/asset-mapper": "7.0.*",
         "symfony/console": "7.0.*",
@@ -48,11 +56,13 @@
         "symfony/translation": "7.0.*",
         "symfony/twig-bundle": "7.0.*",
         "symfony/ux-turbo": "^2.16",
+        "symfony/ux-twig-component": "2.16.*",
         "symfony/validator": "7.0.*",
         "symfony/web-link": "7.0.*",
         "symfony/yaml": "7.0.*",
         "symfonycasts/tailwind-bundle": "^0.5.1",
         "twig/extra-bundle": "^2.12|^3.0",
+        "twig/markdown-extra": "^3.8",
         "twig/string-extra": "^3.8",
         "twig/twig": "^2.12|^3.0"
     },
@@ -107,6 +117,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.5",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "7.0.*",
         "symfony/css-selector": "7.0.*",
@@ -114,6 +125,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^7.0",
         "symfony/stopwatch": "7.0.*",
-        "symfony/web-profiler-bundle": "7.0.*"
+        "symfony/web-profiler-bundle": "7.0.*",
+        "zenstruck/foundry": "^1.36"
     }
 }

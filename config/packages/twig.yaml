@@ -1,6 +1,11 @@
 twig:
     file_name_pattern: '*.twig'
     form_themes: ['tailwind_2_layout.html.twig']
+    globals:
+        error_item_class: 'form-input-error'
+        version: '%env(APP_VERSION)%'
+        ref: '%env(REF)%'
+        app_env: '%env(APP_ENV)%'
 
 when@test:
     twig:

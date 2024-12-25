@@ -1,7 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
-
 {% block body %}
-    <img src="{{ asset('images/126-2.jpg') }}" alt="" />
+
+    <twig:Center class="mt-10">
+        <div class="relative">
+
+            <img src="{{ asset('images/126-2.jpg') }}"
+                 alt="home page graphic"
+                 class="drop-shadow-md"
+            />
+
+            <div class="w-full text-center mt-1">
+                <a class="text-gray-400 text-sm hover:underline" href="http://www.freepik.com">Designed by ikatod / Freepik</a>
+            </div>
+
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 bg-opacity-80 bg-gray-100 rounded-lg backdrop-filter backdrop-blur-xs">
+                <a href="{{ path('app_project_list') }}"
+                   class="rounded rounded-lg bg-blue-600 px-10 py-3 font-bold text-white text-2xl transition hover:bg-blue-700"
+                   style="box-shadow: 0 0 10px 5px rgba(0,0,0,0.3);"
+                >
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </twig:Center>
+
 {% endblock %}

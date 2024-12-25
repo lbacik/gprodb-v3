@@ -1,0 +1,44 @@
+{#<turbo-frame id="modal">#}
+
+<div class="form-links">
+
+    {{ form_start(form, {
+        action: path('app_project_links_edit', { id: project.id }),
+    }) }}
+
+        <div {{ stimulus_controller('form-collection') }}
+                data-form-collection-index-value="{{ form.links|length > 0 ? form.links|last.vars.name + 1 : 0 }}"
+                data-form-collection-prototype-value="{{ form_widget(form.links.vars.prototype)|e('html_attr') }}"
+        >
+            <div class="text-end">
+                <twig:Button
+                        tag="button"
+                        type="button"
+                        data-action="click->form-collection#addCollectionElement"
+                        class="mb-6"
+                >Add a link</twig:Button>
+            </div>
+
+            {{ form_errors(form) }}
+            {{ form_errors(form.links) }}
+            {{ form_row(form.links) }}
+
+            <ul
+                    class="mb-6"
+                    {{ stimulus_target('form-collection', 'collectionContainer') }}
+            ></ul>
+
+        </div>
+
+        <div class="text-end">
+            <twig:Button
+                    href="{{ path('app_project_details', { id: project.id, tab: 'links' }) }}"
+                    genre="danger"
+            >Cancel</twig:Button>
+            <twig:Button tag="button" class="ml-2">Save</twig:Button>
+        </div>
+
+    {{ form_end(form) }}
+
+</div>
+{#</turbo-frame>#}

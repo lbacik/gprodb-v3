@@ -1,0 +1,9 @@
+vendor/
+.git/
+.idea/
+assets/vendor/
+var/
+public/bundles
+.env.local
+.env.docker
+.env.docker.*

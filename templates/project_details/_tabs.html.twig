@@ -2,7 +2,7 @@
 {% set active = "inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" %}
 {% set inactive = "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" %}
 
-<div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+<div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 flex justify-between">
     <ul class="flex flex-wrap -mb-px">
         <li class="me-2">
             <a href="{{ path('app_project_details', {id: projectId}) }}"
@@ -15,10 +15,39 @@
                class="{{ tab == 'links' ? active : inactive }}"
             >Links</a>
         </li>
-        <li class="me-2">
-            <a href="{{ path('app_project_details', {id: projectId, tab: 'contact'}) }}"
-               class="{{ tab == 'contact' ? active : inactive }}"
-            >Contact</a>
-        </li>
+
+         {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') or (is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user != project.owner) %}
+
+            <li class="me-2">
+                <a href="{{ path('app_project_details', {id: projectId, tab: 'contact'}) }}"
+                   class="{{ tab == 'contact' ? active : inactive }}"
+                >Contact</a>
+            </li>
+
+        {% endif %}
+
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user == project.owner %}
+
+            <li>
+                <a href="{{ path('app_project_details', {id: projectId, tab: 'settings'}) }}"
+                   class="{{ tab == 'settings' ? active : inactive }}"
+                >Settings</a>
+            </li>
+
+        {% endif %}
     </ul>
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user == project.owner and tab in ['about', 'links'] %}
+        <div class="mb-5 text-end">
+            <twig:Button
+                    href="{{ path('app_project_details', {
+                        id: project.id,
+                        tab: tab,
+                        edit: true,
+                    }) }}"
+                    genre="lightBlueWhite"
+                    class="font-bold"
+            >Edit</twig:Button>
+            {#           data-turbo-frame="modal"#}
+        </div>
+    {% endif %}
 </div>

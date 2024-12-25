@@ -1,19 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <div class="mt-20 grid justify-items-center">
-        <div class="w-2/3">
-            <h1>About</h1>
-
-            <div>
-
-            </div>
-
-            <div>
-
-            </div>
+    <twig:Title>About</twig:Title>
+    <twig:Center>
+        <div class="about-md w-1/2 text-start">
+            {{ about|default('')|markdown_to_html }}
         </div>
-
-    </div>
+    </twig:Center>
 {% endblock %}

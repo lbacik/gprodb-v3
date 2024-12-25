@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <twig:Title :project="project">Domain</twig:Title>
+    <twig:Center class="mb-80">
+        <div class="w-1/2" {{ stimulus_controller('local_storage') }}>
+            <div class="mt-10">
+
+                <div class="bg-blue-100 rounded-lg p-4 mb-10 space-y-4 text-gray-600">
+                    <p>
+                        To use your domain, add a TXT record to your domain's DNS settings. The TXT record for
+                        this project's landing page should be formatted as follows:
+                    </p>
+
+                    <p class="bg-gray-200 p-1 px-2 font-mono text-sm">gprodb-target={{ settings.landingPage.id|default(' (no landing page has been created yet)') }}</p>
+
+                    <div class="font-semibold pt-5">Example:</div>
+
+                    <p>
+                        To use the domain <strong>example.com</strong> for this project's landing page, you need to add the following
+                        DNS record to example.com's settings:
+                    </p>
+
+                    <p class="bg-gray-200 p-1 px-2 font-mono text-sm">example.com TXT "gprodb-target={{ settings.landingPage.id|default(' (no landing page has been created yet)') }}"</p>
+                </div>
+
+                <div class="bg-red-100 rounded-lg p-4 mb-10 text-gray-600">
+                    <strong>At this stage the domain activation process is not automated.</strong>
+                    After creating an domain record, and adding the TXT record to your domain's DNS settings,
+                    please <a class="text-blue-500 font-semibold hover:underline" href="{{ path('app_contact') }}">contact</a> us to activate the domain.
+                </div>
+
+                {{ form_start(form, {
+                    attr: {
+                        class: 'form',
+                    },
+
+                }) }}
+
+                {{ form_row(form.domain) }}
+
+                <dvi class="block w-full text-end mt-10">
+                    <twig:Button href="{{ path('app_project_details', { id: project.id, tab: 'settings'}) }}"
+                                 genre="secondary"
+                    >Cancel</twig:Button>
+
+                    <twig:Button tag="button"
+                                 name="delete"
+                                 value="delete"
+                                 genre="danger"
+                                 class="ml-2"
+                    >Delete</twig:Button>
+
+                    <twig:Button tag="button"
+                                 name="submit"
+                                 value="submit"
+                                 class="ml-2"
+                    >Save</twig:Button>
+                </dvi>
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </twig:Center>
+{% endblock %}

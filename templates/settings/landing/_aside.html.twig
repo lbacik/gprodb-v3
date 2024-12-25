@@ -1,0 +1,46 @@
+<div class="flex flex-col h-full mt-10">
+    <ul class="flex-none"
+        data-action="click->tab-manager#changeTab"
+    >
+        <li>
+            <twig:Button tag="button"
+                         type="button"
+                         genre="light"
+                         class="rounded-full tab-button"
+                         data-tab="base"
+            >Base data</twig:Button>
+        </li>
+        <li>
+            <twig:Button tag="button"
+                         type="button"
+                         genre="light"
+                         class="rounded-full tab-button"
+                         data-tab="hero"
+            >Hero</twig:Button>
+        </li>
+        <li>
+            <twig:Button tag="button"
+                         type="button"
+                         genre="light"
+                         class="rounded-full tab-button"
+                         data-tab="about"
+            >About</twig:Button>
+        </li>
+    </ul>
+
+    <div class="flex-auto mt-10 mb-20">
+        <div class="h-full flex items-end">
+            <ul>
+                <li class="mb-4">
+                    <twig:Button
+                            href="{{ path('app_project_details', {id: project.id, tab: 'settings'}) }}"
+                            genre="danger"
+                    >Cancel</twig:Button>
+                </li>
+                <li>
+                    <twig:Button tag="button">Save</twig:Button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
 
-{% for paragraph in project.description %}
-    <p class="mb-5">{{ paragraph }}</p>
-{% endfor %}
+<div class="project-description mb-5">
+    <article class="prose">{{ project.description|default('')|markdown_to_html }}</article>
+</div>

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block metas %}
+{#    <meta name="turbo-cache-control" content="no-cache">#}
+{% endblock %}
+
+{% block body %}
+    <twig:Title :project="project">Landing Page</twig:Title>
+    <twig:Center>
+        <div class="w-1/2" {{ stimulus_controller('local_storage') }}>
+            <div
+                    id="markdown-editor"
+                    {{ stimulus_controller('markdown_editor') }}
+                    data-action="tab-manager:tab-changed->markdown-editor#update"
+            >
+
+                {{ form_start(form, {
+                    attr: {
+                        class: 'form',
+                    },
+                }) }}
+
+                <div
+                        class="flex" {{ stimulus_controller('tab_manager') }}
+                >
+                    <div
+                            class="landing-page w-full"
+                    >
+                        <div id="base" class="tab hidden">
+                            {{ form_row(form.base) }}
+                        </div>
+                        <div id="hero" class="tab hidden">
+                            {{ form_row(form.hero) }}
+                        </div>
+                        <div id="about" class="tab hidden">
+                            {{ form_row(form.about) }}
+                        </div>
+                    </div>
+
+                    <aside class="landing-page-aside ml-10 flex-shrink-0">
+                        {{ include('settings/landing/_aside.html.twig') }}
+                    </aside>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </twig:Center>
+{% endblock %}

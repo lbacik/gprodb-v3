@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <twig:Title :project="project">Newsletter</twig:Title>
+    <twig:Center class="mb-80" data-turbo="false">
+        <div class="w-1/2" {{ stimulus_controller('local_storage') }}>
+            <div class="mt-10">
+
+                {{ form_start(formProvider, {
+                    'attr': {
+                        'data-controller': 'autosubmit',
+                        class: 'form',
+                    }
+                }) }}
+
+                    {{ form_row(formProvider.newsletter, {
+                        'attr': {
+                            'data-action': 'autosubmit#submit',
+                        }
+                    }) }}
+
+                {{ form_end(formProvider) }}
+
+            </div>
+
+            <div>
+                {{ form_start(formProviderConfig, {
+                    attr: {
+                        class: 'form',
+                        autocomplete: 'off',
+                    },
+                }) }}
+
+                    {{ form_rest(formProviderConfig) }}
+
+                    <div class="block w-full text-end mt-10">
+                        <twig:Button
+                                genre="secondary"
+                                href="{{ path('app_project_details', {id: project.id, tab: 'settings'}) }}"
+                        >Cancel</twig:Button>
+
+                        <twig:Button tag="button" class="ml-2">Save</twig:Button>
+                    </div>
+
+                {{ form_end(formProviderConfig) }}
+            </div>
+        </div>
+    </twig:Center>
+{% endblock %}

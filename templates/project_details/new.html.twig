@@ -1,0 +1,35 @@
+{% extends 'modalBase.html.twig' %}
+
+{% block body %}
+    <div class="text-gray-600 space-y-4 block w-1/2 mt-20 mx-auto modal:mx-0 modal:w-full modal:mt-0">
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold text-gray-600">Create new Project</h2>
+
+            <form method="dialog">
+                <button class="text-lg absolute top-5 right-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4" viewBox="0 0 24 24" stroke-width="2"
+                         stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M18 6l-12 12"/>
+                        <path d="M6 6l12 12"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+        {{ form_start(form) }}
+
+        {{ form_rest(form) }}
+
+        <div class="mb-5 mt-1">
+            {{ form_errors(form) }}
+        </div>
+
+        <div class="flex justify-end">
+            <twig:Button tag="button">Create</twig:Button>
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
