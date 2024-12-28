@@ -87,7 +87,7 @@ class JSONHubService
     public function findMy(FilterCriteria $criteria): EntityCollection
     {
         return $this->client
-            ->getMyEntities($criteria, $this->getToken());
+            ->getEntities($criteria, $this->getToken());
     }
 
     private function getToken(): string
