@@ -11,6 +11,7 @@ use App\Type\Link;
 use App\Type\LinkCollection;
 use App\Type\ProjectCollection;
 use JsonHub\SDK\Entity;
+use JsonHub\SDK\Factory\EntityFactory;
 use JsonHub\SDK\FilterCriteria;
 use Symfony\Bundle\SecurityBundle\Security;
 
@@ -64,13 +65,12 @@ class ProjectRepository implements ProjectRepositoryInterface
                 []
             );
 
-            $entity = new Entity(
+            $entity = EntityFactory::create(
                 id: $project->getId(),
-                iri: null,
-                slug: null,
                 data: $data,
                 definition: $this->projectDefinitionUuid,
             );
+
         } else {
             $currentEntity = $this->jsonHubService->findById($project->getId());
 
@@ -86,14 +86,10 @@ class ProjectRepository implements ProjectRepositoryInterface
                 ),
             ];
 
-            $entity = new Entity(
+            $entity = EntityFactory::create(
                 id: $currentEntity->id,
-                iri: null,
-                slug: null,
                 data: $data,
-                definition: null,
             );
-
         }
 
         $result = $this->jsonHubService->save($entity);
@@ -107,7 +103,7 @@ class ProjectRepository implements ProjectRepositoryInterface
     {
         $entity = $this->jsonHubService->findById($id);
 
-        if ($entity === null || str_ends_with($entity->definition, $this->projectDefinitionUuid) === false) {
+        if ($entity === null || $entity->definition?->id !== $this->projectDefinitionUuid) {
             return null;
         }
 
