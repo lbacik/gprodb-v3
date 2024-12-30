@@ -31,8 +31,8 @@ class HttpClient implements ClientInterface
 
         return new Response(
             $response->getStatusCode(),
-            $response->getHeaders(),
-            $response->getContent()
+            $response->getHeaders(throw: false),
+            $response->getContent(throw: false),
         );
     }
 }
