@@ -6,10 +6,12 @@ namespace App\Infrastructure\JsonHub\Service;
 
 use App\Entity\Project;
 use App\Entity\User;
+use App\Infrastructure\JsonHub\Exception\AuthenticationException;
 use JsonHub\SDK\Client;
 use JsonHub\SDK\ClientFactory;
 use JsonHub\SDK\Entity;
 use JsonHub\SDK\EntityCollection;
+use JsonHub\SDK\Exception\UnauthorizedException;
 use JsonHub\SDK\FilterCriteria;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
@@ -41,38 +43,30 @@ class JSONHubService
     public function save(Entity $entity): Entity
     {
         if ($entity->id === null) {
-            return $this->client->createEntity($entity, $this->getToken());
+            $callback = fn(string|null $token): Entity => $this->client->createEntity($entity, $token);
+        } else {
+            $callback = fn(string|null $token): Entity => $this->client->updateEntity($entity, $token);
         }
 
-        return $this->client->updateEntity($entity, $this->getToken());
+        return $this->tokenWrapper($callback, isUserRequired: true);
     }
 
     public function delete(string $entityId): void
     {
-        $this->client->deleteEntity($entityId, $this->getToken());
-    }
-
-    public function getProject(string $id): Project|null
-    {
-        $data = $this->client->getEntity($id);
-
-        if ($data === null) {
-            return null;
-        }
-
-        $projectData = $data['data'];
-
-        return new Project();
+        $this->tokenWrapper(
+            fn (string|null $token) => $this->client->deleteEntity($entityId, $token),
+            isUserRequired: true
+        );
     }
 
     public function findById(string $id): Entity|null
     {
-        /** @var User $user */
-        $user = $this->security->getUser();
-        $token = $user?->getJsonHubAccessToken();
-
         try {
-            return $this->client->getEntity($id, $token);
+            return $this->tokenWrapper(
+                fn(string|null $token): Entity => $this->client->getEntity($id, $token)
+            );
+        } catch (AuthenticationException $exception) {
+            throw $exception;
         } catch (RuntimeException $exception) {
             return null;
         }
@@ -80,14 +74,19 @@ class JSONHubService
 
     public function find(FilterCriteria $criteria): EntityCollection
     {
-        return $this->client
-            ->getEntities($criteria);
+        return $this->tokenWrapper(
+            fn (string|null $token): EntityCollection => $this->client->getEntities($criteria, $token)
+        );
     }
 
     public function findMy(FilterCriteria $criteria): EntityCollection
     {
-        return $this->client
-            ->getEntities($criteria, $this->getToken());
+        return $this->tokenWrapper(
+            fn (string|null $token): EntityCollection => $this->client->getEntities(
+                $criteria,
+                $this->getToken()
+            )
+        );
     }
 
     private function getToken(): string
@@ -100,5 +99,36 @@ class JSONHubService
         }
 
         return $user->getJsonHubAccessToken();
+    }
+
+    private function tokenWrapper($callback, bool $isUserRequired = false): mixed
+    {
+        $retry = 0;
+        while (true) {
+            try {
+                /** @var User $user */
+                $user = $this->security->getUser();
+                if ($isUserRequired && !$user) {
+                    throw new RuntimeException('No user');
+                }
+
+                $token = $user->getJsonHubAccessToken();
+
+                return $callback($token);
+            } catch (UnauthorizedException $exception) {
+                if ($retry++ >= 1) {
+                    break;
+                }
+
+                $this->refreshUserToken($user);
+            }
+        }
+
+        throw new RuntimeException('Something went wrong');
+    }
+
+    private function refreshUserToken($user): void
+    {
+        throw AuthenticationException::tokenExpired();
     }
 }
