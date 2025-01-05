@@ -112,7 +112,7 @@ class JSONHubService
                     throw new RuntimeException('No user');
                 }
 
-                $token = $user->getJsonHubAccessToken();
+                $token = $user?->getJsonHubAccessToken();
 
                 return $callback($token);
             } catch (UnauthorizedException $exception) {
