@@ -23,7 +23,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.1",
         "gprodb/landing-page": "^0.1",
-        "lbacik/jsonhub-sdk": "^0.3",
+        "lbacik/jsonhub-sdk": "*",
         "league/commonmark": "^2.4",
         "pagerfanta/twig": "^4.3",
         "phpdocumentor/reflection-docblock": "^5.3",
