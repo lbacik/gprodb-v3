@@ -7,8 +7,10 @@ namespace App\Controller;
 use App\Form\RegisterType;
 use App\Infrastructure\JsonHub\Service\JsonHubRegister;
 use Exception;
+use JsonHub\SDK\Exception\ApiViolationException;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
@@ -43,13 +45,26 @@ class RegisterController extends AbstractController
 
                 $this->addFlash(
                     'success',
-                    'Registration was successful! Check your email for a verification link.'
+                    'Registration was successful'
+                );
+
+                $this->addFlash(
+                    'message',
+                    'Check email for confirmation link'
                 );
 
                 return $this->redirectToRoute('app_login');
+            } catch (ApiViolationException $exception) {
+                foreach ($exception->getViolations() as $field => $violation) {
+                    $error = new FormError($this->translator->trans($violation));
+                    match($field) {
+                        'password' => $form->get('plainPassword')->get('password')->addError($error),
+                        default => $form->addError($error),
+                    };
+                }
             } catch (Exception $exception) {
                 $this->logger->error($exception->getMessage());
-                $this->addFlash('error', 'Something went wrong!');
+                $form->addError(new FormError($this->translator->trans('Something went wrong')));
             }
         }
 
