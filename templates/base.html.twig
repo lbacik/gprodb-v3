@@ -13,12 +13,9 @@
     {% block javascripts %}
         {% block importmap %}{{ importmap('app') }}{% endblock %}
         <script src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.js"></script>
-        {#            <script src="https://cdn.tailwindcss.com"></script> #}
     {% endblock %}
 </head>
-<body class="flex flex-col min-h-screen" data-turbo="true">
-
-{#    {{ include('test/header.html.twig') }}#}
+<body class="flex flex-col min-h-screen" data-turbo="false">
 
     <twig:Header class="header"/>
 
