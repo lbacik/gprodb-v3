@@ -42,10 +42,7 @@ return [
     'stimulus-popover' => [
         'version' => '6.2.0',
     ],
-//    'flowbite' => [
-//        'version' => '2.3.0',
-//    ],
-//    '@popperjs/core' => [
-//        'version' => '2.11.8',
-//    ],
+    'altcha/dist/altcha.js' => [
+        'version' => '1.2.0',
+    ],
 ];
