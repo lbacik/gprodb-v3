@@ -41,6 +41,9 @@
             "migrations/.gitignore"
         ]
     },
+    "huluti/altcha-bundle": {
+        "version": "1.0.1"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {

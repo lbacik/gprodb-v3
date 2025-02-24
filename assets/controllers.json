@@ -1,5 +1,14 @@
 {
     "controllers": {
+        "@huluti/altcha-bundle": {
+            "altcha": {
+                "enabled": true,
+                "fetch": "eager",
+                "autoimport": {
+                    "altcha/dist/altcha.js": true
+                }
+            }
+        },
         "@symfony/ux-turbo": {
             "turbo-core": {
                 "enabled": true,
