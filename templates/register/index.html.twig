@@ -3,8 +3,24 @@
 {% block body %}
     <twig:Title>Register</twig:Title>
     <twig:Center>
-        <div class="about-md w-1/2 text-start">
-            {{ register|default('')|markdown_to_html }}
+        <div class="w-4/5 md:w-1/3 mt-20">
+            {{ form_start(registerForm, {
+                'attr': {
+                    'class': 'form'
+                }
+            }) }}
+
+                <div class="mb-5">
+                    {{ form_errors(registerForm) }}
+                </div>
+
+                {{ form_rest(registerForm) }}
+
+                <div class="text-center mt-10">
+                    <twig:Button tag="button">{{ "Register"|trans }}</twig:Button>
+                </div>
+
+            {{ form_end(registerForm) }}
         </div>
     </twig:Center>
 {% endblock %}

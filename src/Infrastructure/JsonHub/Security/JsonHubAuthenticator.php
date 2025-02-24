@@ -34,10 +34,10 @@ class JsonHubAuthenticator extends AbstractLoginFormAuthenticator
     ) {
     }
 
-    public function supports(Request $request): bool
-    {
-        return $request->getPathInfo() === '/login' && $request->isMethod('POST');
-    }
+//    public function supports(Request $request): bool
+//    {
+//        return $request->getPathInfo() === '/login' && $request->isMethod('POST');
+//    }
 
     public function authenticate(Request $request): Passport
     {
@@ -84,12 +84,12 @@ class JsonHubAuthenticator extends AbstractLoginFormAuthenticator
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 
-//    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
-//    {
-//        $request->getSession()->set(SecurityRequestAttributes::AUTHENTICATION_ERROR, $exception);
-//
-//        return new RedirectResponse($this->router->generate('app_login'));
-//    }
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
+    {
+        $request->getSession()->set(SecurityRequestAttributes::AUTHENTICATION_ERROR, $exception);
+
+        return new RedirectResponse($this->router->generate('app_login'));
+    }
 
 //    public function start(Request $request, AuthenticationException $authException = null): Response
 //    {
@@ -101,6 +101,7 @@ class JsonHubAuthenticator extends AbstractLoginFormAuthenticator
 //         * For more details, see https://symfony.com/doc/current/security/experimental_authenticators.html#configuring-the-authentication-entry-point
 //         */
 //    }
+
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate('app_login');

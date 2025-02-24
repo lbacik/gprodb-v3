@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <twig:Title>{{ title }}</twig:Title>
+    <twig:Center>
+        <div class="w-4/5 md:w-1/3 mt-20">
+            {{ form_start(form, {
+                'attr': {
+                    'class': 'form'
+                }
+            }) }}
+
+            {{ form_rest(form) }}
+
+            <div class="text-center mt-10">
+                <twig:Button>{{ submit|trans }}</twig:Button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </twig:Center>
+{% endblock %}

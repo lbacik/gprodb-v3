@@ -10,6 +10,7 @@ use GProDB\LandingPage\LandingPage;
 use GProDB\LandingPage\MapperFactory;
 use GProDB\LandingPage\Mappers\LandingPageMapperEnum;
 use JsonHub\SDK\Entity;
+use JsonHub\SDK\Factory\EntityFactory;
 use JsonHub\SDK\FilterCriteria;
 
 class LandingPageService
@@ -66,25 +67,13 @@ class LandingPageService
     {
         $landingPageEntity = $this->getLandingPageEntity($projectId);
 
-        if ($landingPageEntity === null) {
-            $entity = new Entity(
-                id: null,
-                iri: null,
-                slug: null,
-                data: $data,
-                definition: $this->landingPageDefinitionUuid,
-                parent: $projectId,
-            );
-        } else {
-            $entity = new Entity(
-                id: $landingPageEntity->id,
-                iri: $landingPageEntity->iri,
-                slug: $landingPageEntity->slug,
-                data: $data,
-                definition: $this->landingPageDefinitionUuid,
-                parent: $projectId,
-            );
-        }
+        $entity = EntityFactory::create(
+            id: $landingPageEntity?->id,
+            slug: $landingPageEntity?->slug,
+            data: $data,
+            definition: $this->landingPageDefinitionUuid,
+            parent: $projectId,
+        );
 
         $this->jsonHubService->save($entity);
     }

@@ -9,32 +9,42 @@ use App\Form\ContactType;
 use App\Form\LinksType;
 use App\Form\NewProjectType;
 use App\Form\ProjectAboutType;
+use App\Infrastructure\JsonHub\Exception\AuthenticationException;
 use App\Service\ProjectService;
 use App\Service\SendContactRequestService;
 use App\Type\ProjectSettings;
 use LogicException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-class ProjectDetailsController extends AbstractController
+class ProjectDetailsController extends BaseAbstractController
 {
     public function __construct(
         private readonly ProjectService $projectService,
         private readonly string $pagesUrlPrefix,
+        Security $security,
+        RequestStack $requestStack,
+        TokenStorageInterface $tokenStorage,
     ) {
+        parent::__construct(
+            $security,
+            $requestStack,
+            $tokenStorage,
+        );
     }
 
     #[Route('/projects/new', name: 'app_project_new', methods: ['GET', 'POST'])]
+    #[isGranted('ROLE_USER')]
     public function new(Request $request): Response
     {
-//        sleep(3); // FIXME: closing the modal dialog is not working properly
-
         $form = $this->createForm(NewProjectType::class, null, [
             'attr' => [
                 'action' => $this->generateUrl('app_project_new'),
@@ -59,7 +69,8 @@ class ProjectDetailsController extends AbstractController
                     ],
                     Response::HTTP_SEE_OTHER
                 );
-
+            } catch (AuthenticationException $exception) {
+                return $this->reauthenticate();
             } catch (\Exception $e) {
                 $form->addError(new FormError('Project could not be created'));
             }
@@ -76,11 +87,16 @@ class ProjectDetailsController extends AbstractController
         string|null $tab = 'about',
         #[MapQueryParameter('edit')] bool $edit = false,
     ): Response {
-        $project = $this->projectService->getProject($id);
-
-        if ($project === null) {
-            throw $this->createNotFoundException('The project does not exist');
+        try {
+            $project = $this->projectService->getProject($id);
+            if ($project === null) {
+                throw $this->createNotFoundException('The project does not exist');
+            }
+            $additionalData = $this->getAdditionalData($tab, $project);
+        } catch (AuthenticationException $exception) {
+            return $this->reauthenticate();
         }
+
 
         if ($edit) {
             $this->denyAccessUnlessGranted('ROLE_USER');
@@ -100,7 +116,7 @@ class ProjectDetailsController extends AbstractController
                     'form' => $this->getForm($tab, $edit, $project),
                     'template' => $this->getTemplateName($tab, $edit),
                 ],
-                $this->getAdditionalData($tab, $project)
+                $additionalData,
             )
         );
     }
@@ -113,7 +129,12 @@ class ProjectDetailsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->projectService->updateProject($id, $form->getData());
+            try {
+                $this->projectService->updateProject($id, $form->getData());
+            } catch (AuthenticationException $exception) {
+                return $this->reauthenticate();
+            }
+
             $this->addFlash('success', 'Your changes have been saved');
 
             return $this->redirectToRoute(
@@ -138,7 +159,12 @@ class ProjectDetailsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->projectService->updateProject($id, $form->getData(), true);
+            try {
+                $this->projectService->updateProject($id, $form->getData(), true);
+            } catch (AuthenticationException $exception) {
+                return $this->reauthenticate();
+            }
+
             $this->addFlash('success', 'Your changes have been saved');
 
             return $this->redirectToRoute('app_project_details', ['id' => $id, 'tab' => 'links']);

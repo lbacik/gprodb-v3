@@ -8,3 +8,10 @@ landing_page:
   form:
     error: "Please check all form tabs and correct the errors."
     success: "Landing page settings saved!"
+Something went wrong: "An error occurred. Please attempt again. If the error persists, please contact support for assistance."
+Check email for confirmation link: "Check your email for the confirmation email."
+service:
+  tab: GProDB
+maintenance:
+  title: "Maintenance"
+  message: "The site is currently under maintenance. Please check back later."

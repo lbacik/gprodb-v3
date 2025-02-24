@@ -1,0 +1,5 @@
+{% for message in app.flashes('message') %}
+    <div class="mb-5 bg-green-200 py-2 text-center rounded-xl text-sm text-zinc-600">
+        {{ message|raw }}
+    </div>
+{% endfor %}
