@@ -32,6 +32,9 @@ class NewsletterController extends AbstractController
 
         $this->addFlash('success', $translator->trans('newsletter.success'));
 
-        return $this->redirectToRoute($request->get('_route'));
+        $referer = $request->headers->get('referer');
+        return $referer
+            ? $this->redirect($referer)
+            : $this->redirectToRoute('app_home');
     }
 }
