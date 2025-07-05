@@ -3,10 +3,7 @@
         "@huluti/altcha-bundle": {
             "altcha": {
                 "enabled": true,
-                "fetch": "eager",
-                "autoimport": {
-                    "altcha/dist/altcha.js": true
-                }
+                "fetch": "eager"
             }
         },
         "@symfony/ux-turbo": {

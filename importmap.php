@@ -45,4 +45,7 @@ return [
     'altcha/dist/altcha.js' => [
         'version' => '1.2.0',
     ],
+    'altcha/dist/altcha.i18n.js' => [
+        'version' => '2.0.5',
+    ],
 ];
