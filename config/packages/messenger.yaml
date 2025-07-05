@@ -22,7 +22,7 @@ framework:
                     exchange:
                         name: mailing
                         type: direct
-                        default_publish_routing_key: !php/enum App\Type\MailingRoutingKey::GENERAL->value
+                        default_publish_routing_key: 'input'
 
         routing:
 #            Symfony\Component\Mailer\Messenger\SendEmailMessage: async
