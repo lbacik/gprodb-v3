@@ -2,7 +2,7 @@ const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'selector',
+  darkMode: 'class',
   content: [
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
@@ -24,8 +24,8 @@ module.exports = {
   },
   // ...
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
+    // require('@tailwindcss/forms'),
+    // require('@tailwindcss/typography'),
     plugin(function({ addVariant }) {
       addVariant('turbo-frame', 'turbo-frame[src] &')
       addVariant('modal', 'dialog &')

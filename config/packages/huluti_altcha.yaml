@@ -1,0 +1,10 @@
+huluti_altcha:
+  hmacKey: '%env(HULUTI_ALTCHA_HMAC_KEY)%'
+  floating: true
+  use_stimulus: null
+  hide_logo: false
+  hide_footer: false
+
+when@test:
+  huluti_altcha:
+    enable: false

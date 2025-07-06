@@ -21,9 +21,6 @@ class NewsletterService
     {
         $this->messageBus->dispatch(
             new MailingSubscribe($email, $this->gprodbEntityUuid),
-            [
-                new AmqpStamp(routingKey: $this->amqpNewsletterRoutingKey),
-            ],
         );
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Huluti\AltchaBundle\Type\AltchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -54,6 +55,7 @@ class ContactType extends AbstractType
 
             ])
             ->add('entityId', HiddenType::class)
+            ->add('security', AltchaType::class, ['label' => false])
         ;
     }
 

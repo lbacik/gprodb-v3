@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@plugin '@tailwindcss/forms';
+
 /*
 gray-700
 indigo-950

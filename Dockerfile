@@ -1,4 +1,4 @@
-FROM php:8.3.1-apache
+FROM dunglas/frankenphp:latest-builder-php8
 
 ARG REF
 ENV REF=${REF}
@@ -9,18 +9,14 @@ RUN apt-get -y update && apt-get install -y \
     && apt -y clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && pecl install amqp \
-    && docker-php-ext-enable amqp \
-    && a2enmod rewrite
+    && docker-php-ext-enable amqp
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY . /opt/app
-WORKDIR /opt/app
+COPY . /app
+WORKDIR /app
 
 RUN composer install --no-interaction --optimize-autoloader \
     && ./bin/console tailwind:build \
     && ./bin/console asset-map:compile \
     && ./bin/console assets:install \
-    && rm -drf /var/www/html \
-    && ln -s /opt/app/public /var/www/html \
-    && chown -R www-data:www-data /opt/app/var
