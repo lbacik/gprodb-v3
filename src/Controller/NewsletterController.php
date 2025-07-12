@@ -20,7 +20,7 @@ class NewsletterController extends AbstractController
         Request $request,
         NewsletterService $newsletterService,
         TranslatorInterface $translator,
-        LoggerInterface $logger,
+        LoggerInterface $appLogger,
     ): Response {
         $form = $this->createForm(MailingSubscriptionType::class);
         $form->handleRequest($request);
@@ -28,7 +28,7 @@ class NewsletterController extends AbstractController
         if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', $translator->trans('newsletter.error'));
 
-            $logger->debug("Mailing subscription failed", [
+            $appLogger->debug("Mailing subscription failed", [
                 'email' => $form->get('email')->getData(),
                 'errors' => (string) $form->getErrors(true, false),
             ]);
@@ -40,12 +40,12 @@ class NewsletterController extends AbstractController
             try {
                 $newsletterService->subscribe($email);
                 $this->addFlash('success', $translator->trans('newsletter.success'));
-                $logger->info("Mailing subscription successful", [
+                $appLogger->info("Mailing subscription successful", [
                     'email' => $form->get('email')->getData(),
                 ]);
             } catch (\Throwable $throwable) {
                 $this->addFlash('error', $translator->trans('newsletter.error'));
-                $logger->error(
+                $appLogger->error(
                     'Mailing subscription error: ' . $throwable->getMessage(), [
                         'exception' => $throwable
                 ]);
