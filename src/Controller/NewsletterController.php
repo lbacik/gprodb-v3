@@ -28,7 +28,10 @@ class NewsletterController extends AbstractController
         if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', $translator->trans('newsletter.error'));
 
-            return $this->redirectToRoute($request->get('_route'));
+            $logger->debug("Mailing subscription failed", [
+                'email' => $form->get('email')->getData(),
+                'errors' => (string) $form->getErrors(true, false),
+            ]);
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -37,11 +40,15 @@ class NewsletterController extends AbstractController
             try {
                 $newsletterService->subscribe($email);
                 $this->addFlash('success', $translator->trans('newsletter.success'));
+                $logger->info("Mailing subscription successful", [
+                    'email' => $form->get('email')->getData(),
+                ]);
             } catch (\Throwable $throwable) {
                 $this->addFlash('error', $translator->trans('newsletter.error'));
-                $logger->error($throwable->getMessage(), ['exception' => $throwable]);
-
-                return $this->redirectToRoute($request->get('_route'));
+                $logger->error(
+                    'Mailing subscription error: ' . $throwable->getMessage(), [
+                        'exception' => $throwable
+                ]);
             }
         }
 
