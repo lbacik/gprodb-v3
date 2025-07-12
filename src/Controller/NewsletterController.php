@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Form\MailingSubscriptionType;
 use App\Service\NewsletterService;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,21 +20,33 @@ class NewsletterController extends AbstractController
         Request $request,
         NewsletterService $newsletterService,
         TranslatorInterface $translator,
+        LoggerInterface $logger,
     ): Response {
-        $csrfToken = $request->getPayload()->get('csrf_token');
+        $form = $this->createForm(MailingSubscriptionType::class);
+        $form->handleRequest($request);
 
-        if (!$this->isCsrfTokenValid('newsletterSubscribe', $csrfToken)) {
+        if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', $translator->trans('newsletter.error'));
 
             return $this->redirectToRoute($request->get('_route'));
         }
 
-        $email = $request->request->get('email');
-        $newsletterService->subscribe($email);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $email = $form->get('email')->getData();
 
-        $this->addFlash('success', $translator->trans('newsletter.success'));
+            try {
+                $newsletterService->subscribe($email);
+                $this->addFlash('success', $translator->trans('newsletter.success'));
+            } catch (\Throwable $throwable) {
+                $this->addFlash('error', $translator->trans('newsletter.error'));
+                $logger->error($throwable->getMessage(), ['exception' => $throwable]);
+
+                return $this->redirectToRoute($request->get('_route'));
+            }
+        }
 
         $referer = $request->headers->get('referer');
+
         return $referer
             ? $this->redirect($referer)
             : $this->redirectToRoute('app_home');
