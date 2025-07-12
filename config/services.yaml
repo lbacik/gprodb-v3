@@ -24,7 +24,7 @@ services:
             $internalApiToken: '%env(JSON_HUB_INTERNAL_API_TOKEN)%'
             $emailSenderAddress: '%env(EMAIL_SENDER_ADDRESS)%'
             $gprodbEntityUuid: '%env(GPRODB_ENTITY_UUID)%'
-            $amqpNewsletterRoutingKey: '%env(AMQP_NEWSLETTER_ROUTING_KEY)%'
+#            $amqpNewsletterRoutingKey: '%env(AMQP_NEWSLETTER_ROUTING_KEY)%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
