@@ -63,7 +63,7 @@ class RegisterController extends AbstractController
                     };
                 }
             } catch (Exception $exception) {
-                $this->logger->error($exception->getMessage());
+                $this->logger->error('JSON Hub communication: ' . $exception->getMessage(), ['exception' => $exception]);
                 $form->addError(new FormError($this->translator->trans('Something went wrong')));
             }
         }
